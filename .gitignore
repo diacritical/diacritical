@@ -1,3 +1,5 @@
 *.beam
 *.ez
+_build/
+cover/
 erl_crash.dump
