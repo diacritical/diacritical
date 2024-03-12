@@ -45,7 +45,8 @@ defmodule Diacritical.MixProject do
       deps: [
         {:boundary, "~> 0.10", runtime: false},
         {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
-        {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false}
+        {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
+        {:ex_doc, "~> 0.31", only: :dev, runtime: false}
       ],
       deps_path: "dep",
       dialyzer: [ignore_warnings: ".dialyzer.exs"],
