@@ -32,6 +32,8 @@ defmodule Diacritical.MixProject do
   def project() do
     [
       app: :diacritical,
+      deps: [],
+      deps_path: "dep",
       elixir: "~> 1.16",
       elixirc_options: [warnings_as_errors: true],
       start_permanent: Mix.env() == :prod,
