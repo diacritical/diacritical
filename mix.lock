@@ -1,1 +1,12 @@
-%{}
+%{
+  boundary: {
+    :hex,
+    :boundary,
+    "0.10.1",
+    "4228e788754ff81a51bec30358095fc6739114ba0e99241a642fef4db6d52e05",
+    [:mix],
+    [],
+    "hexpm",
+    "4019d56c806766e2c467ae12a1dbe60e183373af69c32cc6d1f87d9e0b4c59e5"
+  }
+}
