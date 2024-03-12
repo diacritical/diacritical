@@ -33,6 +33,7 @@ defmodule Diacritical.MixProject do
     [
       app: :diacritical,
       elixir: "~> 1.16",
+      elixirc_options: [warnings_as_errors: true],
       start_permanent: Mix.env() == :prod,
       version: "0.1.0"
     ]
