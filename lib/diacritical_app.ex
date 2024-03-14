@@ -3,11 +3,13 @@ defmodule DiacriticalApp do
   @moduledoc since: "0.3.0"
 
   use Application
-  use Boundary, deps: [Bandit, Diacritical]
+  use Boundary, deps: [Diacritical, DiacriticalWeb]
 
   alias Diacritical
+  alias DiacriticalWeb
 
   alias Diacritical.Supervisor
+  alias DiacriticalWeb.Endpoint
 
   @typedoc "Represents the application."
   @typedoc since: "0.3.0"
@@ -76,6 +78,7 @@ defmodule DiacriticalApp do
   @spec config_change(config(), config(), config_removed()) :: on_change()
   def config_change(changed, new, removed)
       when is_list(changed) and is_list(new) and is_list(removed) do
+    Endpoint.config_change(changed, removed)
     :ok
   end
 
@@ -97,7 +100,10 @@ defmodule DiacriticalApp do
   def start(start_type, init_arg)
       when is_atom(start_type) and is_list(init_arg) do
     init_arg = [
-      {:children, [{Bandit, plug: :"Elixir.DiacriticalWeb.Endpoint"}]}
+      {
+        :children,
+        [{Phoenix.PubSub, name: :"Elixir.Diacritical.PubSub"}, Endpoint]
+      }
       | init_arg
     ]
 
