@@ -103,7 +103,8 @@ defmodule DiacriticalApp.MixProject do
         {:boundary, "~> 0.10", runtime: false},
         {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
         {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
-        {:ex_doc, "~> 0.31", only: :dev, runtime: false}
+        {:ex_doc, "~> 0.31", only: :dev, runtime: false},
+        {:plug, "~> 1.15"}
       ],
       deps_path: "dep",
       dialyzer: [ignore_warnings: ".dialyzer.exs", plt_add_apps: [:ex_unit]],
