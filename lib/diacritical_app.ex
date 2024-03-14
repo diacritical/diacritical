@@ -3,7 +3,7 @@ defmodule DiacriticalApp do
   @moduledoc since: "0.3.0"
 
   use Application
-  use Boundary, deps: [Diacritical]
+  use Boundary, deps: [Bandit, Diacritical]
 
   alias Diacritical
 
@@ -96,6 +96,11 @@ defmodule DiacriticalApp do
   @spec start(start_type(), init_arg()) :: on_start()
   def start(start_type, init_arg)
       when is_atom(start_type) and is_list(init_arg) do
+    init_arg = [
+      {:children, [{Bandit, plug: :"Elixir.DiacriticalWeb.Endpoint"}]}
+      | init_arg
+    ]
+
     Supervisor.start_link(init_arg)
   end
 
