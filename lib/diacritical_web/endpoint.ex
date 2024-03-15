@@ -4,8 +4,11 @@ defmodule DiacriticalWeb.Endpoint do
 
   use Phoenix.Endpoint, otp_app: :diacritical
 
-  alias Diacritical
   alias DiacriticalWeb
+
+  alias DiacriticalWeb.Controller
+
+  alias Controller.Page
 
   @typedoc "Represents the connection."
   @typedoc since: "0.4.0"
@@ -20,10 +23,10 @@ defmodule DiacriticalWeb.Endpoint do
 
   ## Example
 
-      iex> c = c_request_path_hello(%{})
+      iex> c = c_request_path_hello()
       iex> %{conn: %{valid: conn}} = c_conn(c)
-      iex> %{opt: opt} = c_opt(%{})
-      iex> %{status: status} = c_status_ok(%{})
+      iex> %{opt: opt} = c_opt()
+      iex> %{status: status} = c_status_ok()
       iex> %{resp_body: resp_body} = c_resp_body_greet()
       iex>
       iex> text_response(greet(conn, opt), status)
@@ -33,7 +36,9 @@ defmodule DiacriticalWeb.Endpoint do
   @doc since: "0.4.0"
   @spec greet(conn(), opt()) :: conn()
   def greet(%Plug.Conn{} = conn, _opt) do
-    Phoenix.Controller.text(conn, "#{Diacritical.greet()}\n")
+    conn
+    |> Phoenix.Controller.accepts(["txt", "text"])
+    |> Page.call(:greet)
   end
 
   plug :greet
