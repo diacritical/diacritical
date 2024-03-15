@@ -24,7 +24,7 @@ defmodule DiacriticalWeb.Endpoint do
       iex> %{conn: %{valid: conn}} = c_conn(c)
       iex> %{opt: opt} = c_opt(%{})
       iex> %{status: status} = c_status_ok(%{})
-      iex> %{resp_body: resp_body} = c_resp_body_greet(%{})
+      iex> %{resp_body: resp_body} = c_resp_body_greet()
       iex>
       iex> text_response(greet(conn, opt), status)
       resp_body
