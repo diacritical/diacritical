@@ -10,6 +10,7 @@
   ],
   DiacriticalWeb: [
     DiacriticalWeb,
+    DiacriticalWeb.Controller,
     DiacriticalWeb.Endpoint,
     DiacriticalWeb.TXT,
     DiacriticalWeb.TXT.Page
