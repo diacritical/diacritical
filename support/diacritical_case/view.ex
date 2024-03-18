@@ -35,6 +35,21 @@ defmodule DiacriticalCase.View do
 
   ## Example
 
+      iex> %{resp_body: _resp_body} = c_resp_body_dismiss()
+
+  """
+  @doc since: "0.6.0"
+  @spec c_resp_body_dismiss() :: context_merge()
+  @spec c_resp_body_dismiss(context()) :: context_merge()
+  def c_resp_body_dismiss(c \\ %{}) when is_map(c) do
+    %{resp_body: "Goodbye, world!\n"}
+  end
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
       iex> %{resp_body: _resp_body} = c_resp_body_greet()
 
   """
