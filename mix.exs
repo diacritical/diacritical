@@ -81,7 +81,7 @@ defmodule DiacriticalApp.MixProject do
       :diacritical
 
       iex> project()[:version]
-      "0.5.0"
+      "0.6.0"
 
   """
   @doc since: "0.1.0"
@@ -124,7 +124,7 @@ defmodule DiacriticalApp.MixProject do
       name: "Diacritical",
       source_url: "https://github.com/diacritical/diacritical",
       start_permanent: env == :prod,
-      version: "0.5.0"
+      version: "0.6.0"
     ]
   end
 end
