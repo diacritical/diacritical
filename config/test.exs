@@ -7,6 +7,7 @@ alias DiacriticalWeb.Endpoint
 import_config "prod.exs"
 
 config :diacritical, Endpoint,
+  cache_static_manifest: nil,
   http: [port: 4_002],
   https: [port: 4_003],
   url: [host: "localhost", path: "/", port: 4_003, scheme: "https"]
