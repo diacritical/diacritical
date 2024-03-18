@@ -17,6 +17,11 @@ defmodule DiacriticalWeb.Router do
   @typedoc since: "0.6.0"
   @type opt() :: DiacriticalWeb.opt()
 
+  @config Phoenix.Endpoint.Supervisor.config(
+            :diacritical,
+            :"Elixir.DiacriticalWeb.Endpoint"
+          )
+
   @dialyzer {:no_unused, put_nonce: 2}
   @spec put_nonce(conn(), opt()) :: conn()
   defp put_nonce(%Plug.Conn{} = conn, _opt) do
@@ -29,6 +34,13 @@ defmodule DiacriticalWeb.Router do
   @dialyzer {:no_unused, put_secure_headers: 2}
   @spec put_secure_headers(conn(), opt()) :: conn()
   defp put_secure_headers(%Plug.Conn{assigns: %{nonce: nonce}} = conn, _opt) do
+    cross_origin_embedder_policy =
+      if @config[:code_reloader] do
+        "unsafe-none"
+      else
+        "require-corp"
+      end
+
     put_secure_browser_headers(
       conn,
       %{
@@ -43,7 +55,7 @@ defmodule DiacriticalWeb.Router do
             "script-src 'self' 'nonce-#{nonce}'; " <>
             "style-src 'self' 'nonce-#{nonce}'; " <>
             "upgrade-insecure-requests",
-        "cross-origin-embedder-policy" => "require-corp",
+        "cross-origin-embedder-policy" => cross_origin_embedder_policy,
         "cross-origin-opener-policy" => "same-origin",
         "cross-origin-resource-policy" => "same-origin",
         "permissions-policy" =>
