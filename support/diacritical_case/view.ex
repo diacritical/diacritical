@@ -120,6 +120,7 @@ defmodule DiacriticalCase.View do
   using do
     quote do
       import unquote(__MODULE__)
+      import Phoenix.HTML, only: [safe_to_string: 1]
     end
   end
 end

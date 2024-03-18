@@ -15,6 +15,7 @@
     DiacriticalWeb.Endpoint,
     DiacriticalWeb.HTML,
     DiacriticalWeb.HTML.Error,
+    DiacriticalWeb.HTML.Layout,
     DiacriticalWeb.HTML.Page,
     DiacriticalWeb.Router,
     DiacriticalWeb.TXT,
