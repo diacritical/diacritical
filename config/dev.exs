@@ -24,7 +24,15 @@ config :diacritical, Endpoint,
       Esbuild,
       :install_and_run,
       [:diacritical_web, ["--sourcemap=inline", "--watch"]]
-    }
+    },
+    npx: [
+      "tailwindcss",
+      "--input=css/app.css",
+      "--output=../../priv/diacritical_web/static/asset/css/app.css",
+      "--postcss",
+      "--watch",
+      cd: Path.expand("../asset/diacritical_web", __DIR__)
+    ]
   ]
 
 config :diacritical, env: [dev: true]

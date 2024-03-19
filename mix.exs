@@ -92,8 +92,15 @@ defmodule DiacriticalApp.MixProject do
 
     [
       aliases: [
-        "asset.build": "esbuild diacritical_web",
-        "asset.deploy": ["esbuild diacritical_web --minify", "phx.digest"],
+        "asset.build": [
+          "cmd --cd #{@asset_path} npm run build",
+          "esbuild diacritical_web"
+        ],
+        "asset.deploy": [
+          "cmd --cd #{@asset_path} npm run deploy",
+          "esbuild diacritical_web --minify",
+          "phx.digest"
+        ],
         "asset.setup": ["npm.install", "esbuild.install --if-missing"],
         "boundary.ex_doc_groups": [
           "boundary.ex_doc_groups",

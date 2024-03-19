@@ -41,11 +41,10 @@ config :diacritical, env: [prod: true]
 config :esbuild,
   diacritical_web: [
     args: [
-      "css/app.css",
       "js/app.js",
       "--bundle",
       "--target=es2020,chrome87,edge88,firefox78,safari14",
-      "--outdir=../../priv/diacritical_web/static/asset"
+      "--outdir=../../priv/diacritical_web/static/asset/js"
     ],
     cd: Path.expand("../asset/diacritical_web", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../dep", __DIR__)}
