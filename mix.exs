@@ -123,6 +123,15 @@ defmodule DiacriticalApp.MixProject do
         {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
         {:esbuild, "~> 0.8", runtime: env == :dev},
         {:ex_doc, "~> 0.31", only: :dev, runtime: false},
+        {
+          :heroicons,
+          app: false,
+          compile: false,
+          depth: 1,
+          github: "tailwindlabs/heroicons",
+          sparse: "optimized",
+          tag: "v2.1.1"
+        },
         {:jason, "~> 1.4"},
         {:phoenix, "~> 1.7"},
         {:phoenix_html, "~> 4.1"},

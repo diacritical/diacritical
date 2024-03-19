@@ -151,6 +151,12 @@
     "hexpm",
     "6752092d66aec5a10e662aefeed8ddb9531d79db0bc145bb8c40325ca1d8536d"
   },
+  heroicons: {
+    :git,
+    "https://github.com/tailwindlabs/heroicons.git",
+    "88ab3a0d790e6a47404cba02800a6b25d2afae50",
+    [sparse: "optimized", tag: "v2.1.1"]
+  },
   hpax: {
     :hex,
     :hpax,
