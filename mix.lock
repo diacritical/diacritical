@@ -91,6 +91,19 @@
     "hexpm",
     "06553a88d1f1846da9ef066b87b57c6f605552cfbe40d20bd8d59cc6bde41944"
   },
+  esbuild: {
+    :hex,
+    :esbuild,
+    "0.8.1",
+    "0cbf919f0eccb136d2eeef0df49c4acf55336de864e63594adcea3814f3edf41",
+    [:mix],
+    [
+      {:castore, ">= 0.0.0", hex: :castore, repo: "hexpm", optional: false},
+      {:jason, "~> 1.4", hex: :jason, repo: "hexpm", optional: false}
+    ],
+    "hexpm",
+    "25fc876a67c13cb0a776e7b5d7974851556baeda2085296c14ab48555ea7560f"
+  },
   ex_doc: {
     :hex,
     :ex_doc,
