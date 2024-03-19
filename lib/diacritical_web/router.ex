@@ -50,7 +50,7 @@ defmodule DiacriticalWeb.Router do
             "default-src 'self'; " <>
             "form-action 'self'; " <>
             "frame-ancestors 'self'; " <>
-            "img-src 'self' 'nonce-#{nonce}'; " <>
+            "img-src 'self' 'nonce-#{nonce}' data:; " <>
             "object-src 'none'; " <>
             "script-src 'self' 'nonce-#{nonce}'; " <>
             "style-src 'self' 'nonce-#{nonce}'; " <>
