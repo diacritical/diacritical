@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "phoenix": "file:../../dep/phoenix",
+    "phoenix_html": "file:../../dep/phoenix_html"
+  }
+}
