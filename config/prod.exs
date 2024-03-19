@@ -42,9 +42,11 @@ config :esbuild,
   diacritical_web: [
     args: [
       "js/app.js",
+      "vendor/inter/inter.css",
+      "--loader:.woff2=file",
       "--bundle",
       "--target=es2020,chrome87,edge88,firefox78,safari14",
-      "--outdir=../../priv/diacritical_web/static/asset/js"
+      "--outdir=../../priv/diacritical_web/static/asset"
     ],
     cd: Path.expand("../asset/diacritical_web", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../dep", __DIR__)}

@@ -10,6 +10,7 @@
       content="<%= assigns[:page_description] || "Here be dragons." %>"
     />
     <title><%= assigns[:page_title] || "Diacritical" %></title>
+    <link href="<%= ~p"/asset/vendor/inter/inter.css" %>" rel="stylesheet" />
     <link href="<%= ~p"/asset/css/app.css" %>" rel="stylesheet" />
   </head>
   <body>

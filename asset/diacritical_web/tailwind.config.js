@@ -1,6 +1,7 @@
 const plugin = require("tailwindcss/plugin");
 const path = require("path");
 const fs = require("fs");
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
   content: ["./js/**/*.js", "../../lib/*_web.ex", "../../lib/*_web/**/*.*ex"],
@@ -52,4 +53,16 @@ module.exports = {
       );
     }),
   ],
+  theme: {
+    extend: {
+      fontFamily: {
+        display: [
+          "Inter Variable",
+          "Inter Display",
+          ...defaultTheme.fontFamily.sans,
+        ],
+        sans: ["Inter Variable", "Inter", ...defaultTheme.fontFamily.sans],
+      },
+    },
+  },
 };
