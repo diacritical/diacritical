@@ -135,7 +135,8 @@ defmodule DiacriticalApp.MixProject do
         {:jason, "~> 1.4"},
         {:phoenix, "~> 1.7"},
         {:phoenix_html, "~> 4.1"},
-        {:phoenix_live_reload, "~> 1.5", runtime: env == :dev}
+        {:phoenix_live_reload, "~> 1.5", runtime: env == :dev},
+        {:phoenix_live_view, "~> 0.20"}
       ],
       deps_path: "dep",
       dialyzer: [ignore_warnings: ".dialyzer.exs", plt_add_apps: [:ex_unit]],
