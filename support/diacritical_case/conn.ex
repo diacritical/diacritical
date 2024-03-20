@@ -127,6 +127,7 @@ defmodule DiacriticalCase.Conn do
       import unquote(__MODULE__)
       import DiacriticalCase.View
       import Phoenix.ConnTest
+      import Phoenix.LiveViewTest
 
       @endpoint DiacriticalWeb.Endpoint
     end
