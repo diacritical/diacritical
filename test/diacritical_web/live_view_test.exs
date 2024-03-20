@@ -26,16 +26,6 @@ defmodule DiacriticalWeb.LiveViewTest do
     %{name: %{invalid: "default", valid: :default}}
   end
 
-  @spec c_param(context()) :: context_merge()
-  defp c_param(c) when is_map(c) do
-    %{param: %{invalid: [], valid: %{}}}
-  end
-
-  @spec c_session(context()) :: context_merge()
-  defp c_session(c) when is_map(c) do
-    %{session: %{invalid: [], valid: %{}}}
-  end
-
   @spec c_socket_nonce(context()) :: context_merge()
   defp c_socket_nonce(c) when is_map(c) do
     nonce =

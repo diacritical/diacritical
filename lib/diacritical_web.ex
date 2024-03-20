@@ -22,6 +22,10 @@ defmodule DiacriticalWeb do
   @typedoc since: "0.6.0"
   @type static_path() :: [Path.t()]
 
+  @typedoc "Represents the assigns."
+  @typedoc since: "0.8.0"
+  @type assigns() :: Phoenix.LiveView.Socket.assigns()
+
   @typedoc "Represents the connection."
   @typedoc since: "0.5.0"
   @type conn() :: Plug.Conn.t()
@@ -29,6 +33,10 @@ defmodule DiacriticalWeb do
   @typedoc "Represents the connection option."
   @typedoc since: "0.5.0"
   @type opt() :: Plug.opts()
+
+  @typedoc "Represents the render."
+  @typedoc since: "0.8.0"
+  @type render() :: Phoenix.LiveView.Rendered.t()
 
   @doc """
   Returns the path for static assets.

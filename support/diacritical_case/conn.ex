@@ -99,6 +99,19 @@ defmodule DiacriticalCase.Conn do
 
   ## Example
 
+      iex> %{param: _param} = c_param()
+
+  """
+  @doc since: "0.8.0"
+  @spec c_param() :: context_merge()
+  @spec c_param(context()) :: context_merge()
+  def c_param(c \\ %{}) when is_map(c), do: %{param: %{invalid: [], valid: %{}}}
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
       iex> %{request_path: _request_path} = c_request_path_hello()
 
   """
@@ -107,6 +120,21 @@ defmodule DiacriticalCase.Conn do
   @spec c_request_path_hello(context()) :: context_merge()
   def c_request_path_hello(c \\ %{}) when is_map(c) do
     %{request_path: "/hello"}
+  end
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
+      iex> %{session: _session} = c_session()
+
+  """
+  @doc since: "0.8.0"
+  @spec c_session() :: context_merge()
+  @spec c_session(context()) :: context_merge()
+  def c_session(c \\ %{}) when is_map(c) do
+    %{session: %{invalid: [], valid: %{}}}
   end
 
   @doc """

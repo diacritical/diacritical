@@ -51,7 +51,7 @@ defmodule DiacriticalWeb.RouterTest do
     import Router, only: [__checks__: 0]
 
     test "success" do
-      assert __checks__() == (&Page.init/1)
+      assert __checks__() == (&Phoenix.LiveView.Plug.init/1)
     end
   end
 

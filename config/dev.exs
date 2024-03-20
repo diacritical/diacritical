@@ -16,6 +16,11 @@ config :diacritical, Endpoint,
     patterns: [
       ~r/lib\/diacritical_web\/(?:controller|html|txt)\/.*(?:ex)$/,
       ~r/priv\/diacritical_web\/static\/.*(?:css|ico|js|svg|txt|woff2)$/
+    ],
+    notify: [
+      live_view: [
+        ~r/lib\/diacritical_web\/live_view\/.*(?:ex)$/
+      ]
     ]
   ],
   url: [host: "localhost", path: "/", port: 4_005, scheme: "https"],
