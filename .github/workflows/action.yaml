@@ -53,6 +53,16 @@ jobs:
         node-version: ["21.6.2"]
         os: ["ubuntu-22.04"]
         otp-version: ["26.2.3"]
+  deploy:
+    name: Fly.io Deployment
+    needs: test
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: superfly/flyctl-actions/setup-flyctl@v1
+      - run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
 name: GitHub Actions
 

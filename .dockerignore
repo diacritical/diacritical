@@ -1,0 +1,11 @@
+*.beam
+*.ez
+_build/
+asset/*_web/node_modules/
+boundary/
+cover/
+dep/
+doc/
+erl_crash.dump
+priv/*_web/static/asset/
+priv/*_web/static/cache_manifest.json

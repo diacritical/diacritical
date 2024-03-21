@@ -146,6 +146,7 @@ defmodule DiacriticalApp.MixProject do
       elixirc_paths: elixirc_paths(env),
       homepage_url: "https://diacritical.net",
       name: "Diacritical",
+      releases: [diacritical: [overlays: ["rel/overlay"]]],
       source_url: "https://github.com/diacritical/diacritical",
       start_permanent: env == :prod,
       version: "0.8.0"
