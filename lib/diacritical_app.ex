@@ -3,7 +3,7 @@ defmodule DiacriticalApp do
   @moduledoc since: "0.3.0"
 
   use Application
-  use Boundary, deps: [Diacritical, DiacriticalWeb]
+  use Boundary, deps: [Cluster.Supervisor, Diacritical, DiacriticalWeb]
 
   alias Diacritical
   alias DiacriticalWeb
@@ -99,10 +99,19 @@ defmodule DiacriticalApp do
   @spec start(start_type(), init_arg()) :: on_start()
   def start(start_type, init_arg)
       when is_atom(start_type) and is_list(init_arg) do
+    topology = Application.get_env(:libcluster, :topology) || []
+
     init_arg = [
       {
         :children,
-        [{Phoenix.PubSub, name: :"Elixir.Diacritical.PubSub"}, Endpoint]
+        [
+          {
+            Cluster.Supervisor,
+            [topology, [name: :"Elixir.Diacritical.Cluster"]]
+          },
+          {Phoenix.PubSub, name: :"Elixir.Diacritical.PubSub"},
+          Endpoint
+        ]
       }
       | init_arg
     ]

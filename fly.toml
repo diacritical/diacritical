@@ -4,6 +4,9 @@ primary_region = "iad"
 kill_signal = "SIGTERM"
 kill_timeout = 5
 
+[env]
+  RELEASE_COOKIE = "lyg4GUIS5TeeIGlQaeGtYQ6aMBPhWgP2yXgeGr2peBxeezVRAsTEmU59"
+
 [[services]]
   internal_port = 4000
   processes = ["app"]
