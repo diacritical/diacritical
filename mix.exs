@@ -133,6 +133,7 @@ defmodule DiacriticalApp.MixProject do
           tag: "v2.1.1"
         },
         {:jason, "~> 1.4"},
+        {:libcluster, "~> 3.3"},
         {:phoenix, "~> 1.7"},
         {:phoenix_html, "~> 4.1"},
         {:phoenix_live_reload, "~> 1.5", runtime: env == :dev},
