@@ -71,6 +71,16 @@
     "hexpm",
     "f799e9b5cd1891577d8c773d245668aa74a2fcd15eb277f51a0131690ebfb3fd"
   },
+  decimal: {
+    :hex,
+    :decimal,
+    "2.1.1",
+    "5611dca5d4b2c3dd497dec8f68751f1f1a54755e8ed2a966c2633cf885973ad6",
+    [:mix],
+    [],
+    "hexpm",
+    "53cfe5f497ed0e7771ae1a475575603d77425099ba5faef9394932b35020ffcc"
+  },
   dialyxir: {
     :hex,
     :dialyxir,
@@ -90,6 +100,24 @@
     [],
     "hexpm",
     "06553a88d1f1846da9ef066b87b57c6f605552cfbe40d20bd8d59cc6bde41944"
+  },
+  ecto: {
+    :hex,
+    :ecto,
+    "3.11.2",
+    "e1d26be989db350a633667c5cda9c3d115ae779b66da567c68c80cfb26a8c9ee",
+    [:mix],
+    [
+      {:decimal, "~> 2.0", hex: :decimal, repo: "hexpm", optional: false},
+      {:jason, "~> 1.0", hex: :jason, repo: "hexpm", optional: true},
+      {
+        :telemetry,
+        "~> 0.4 or ~> 1.0",
+        [hex: :telemetry, repo: "hexpm", optional: false]
+      }
+    ],
+    "hexpm",
+    "3c38bca2c6f8d8023f2145326cc8a80100c3ffe4dcbd9842ff867f7fc6156c65"
   },
   esbuild: {
     :hex,
