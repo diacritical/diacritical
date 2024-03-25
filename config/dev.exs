@@ -1,7 +1,9 @@
 import Config, only: [config: 2, config: 3, import_config: 1]
 
+alias Diacritical
 alias DiacriticalWeb
 
+alias Diacritical.Repo
 alias DiacriticalWeb.Endpoint
 
 import_config "test.exs"
@@ -39,6 +41,12 @@ config :diacritical, Endpoint,
       cd: Path.expand("../asset/diacritical_web", __DIR__)
     ]
   ]
+
+config :diacritical, Repo,
+  database: "diacritical_dev",
+  pool: DBConnection.ConnectionPool,
+  show_sensitive_data_on_connection_error: true,
+  stacktrace: true
 
 config :diacritical, env: [dev: true]
 config :logger, level: :debug

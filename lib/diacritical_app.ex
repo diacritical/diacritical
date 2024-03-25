@@ -8,6 +8,7 @@ defmodule DiacriticalApp do
   alias Diacritical
   alias DiacriticalWeb
 
+  alias Diacritical.Repo
   alias Diacritical.Supervisor
   alias DiacriticalWeb.Endpoint
 
@@ -105,6 +106,7 @@ defmodule DiacriticalApp do
       {
         :children,
         [
+          Repo,
           {
             Cluster.Supervisor,
             [topology, [name: :"Elixir.Diacritical.Cluster"]]

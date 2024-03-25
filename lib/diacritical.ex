@@ -2,7 +2,9 @@ defmodule Diacritical do
   @moduledoc "Demonstrates `Kernel` syntax."
   @moduledoc since: "0.1.0"
 
-  use Boundary, exports: [Supervisor]
+  use Boundary,
+    deps: [Ecto, Ecto.Adapters.Postgres, Ecto.Adapters.SQL],
+    exports: [Supervisor]
 
   @typedoc "Represents the greeting."
   @typedoc since: "0.1.0"
