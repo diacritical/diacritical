@@ -48,6 +48,7 @@ ENV MIX_ENV="prod"
 
 COPY --from=build --chown=nobody:root /app/_build/${MIX_ENV}/rel/diacritical ./
 
+RUN chmod +x /app/bin/migrate
 RUN chmod +x /app/bin/server
 
 USER nobody
