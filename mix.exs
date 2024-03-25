@@ -170,6 +170,7 @@ defmodule DiacriticalApp.MixProject do
         {:jason, "~> 1.4"},
         {:libcluster, "~> 3.3"},
         {:phoenix, "~> 1.7"},
+        {:phoenix_ecto, "~> 4.5"},
         {:phoenix_html, "~> 4.1"},
         {:phoenix_live_reload, "~> 1.5", runtime: env == :dev},
         {:phoenix_live_view, "~> 0.20"},
