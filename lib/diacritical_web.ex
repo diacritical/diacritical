@@ -23,6 +23,14 @@ defmodule DiacriticalWeb do
   @typedoc since: "0.6.0"
   @type static_path() :: [Path.t()]
 
+  @typedoc "Represents the host."
+  @typedoc since: "0.12.0"
+  @type host() :: String.t()
+
+  @typedoc "Represents the tenant."
+  @typedoc since: "0.12.0"
+  @type tenant() :: String.t()
+
   @typedoc "Represents the assigns."
   @typedoc since: "0.8.0"
   @type assigns() :: Phoenix.LiveView.Socket.assigns()
@@ -51,4 +59,25 @@ defmodule DiacriticalWeb do
   @doc since: "0.6.0"
   @spec static_path() :: static_path()
   def static_path(), do: ~W[asset bimi.svg favicon.ico robots.txt]
+
+  @doc """
+  Returns the tenant representation for the given `host`.
+
+  ## Example
+
+      iex> to_tenant("example.com")
+      "com_example"
+
+  """
+  @doc since: "0.12.0"
+  @spec to_tenant(host()) :: tenant()
+  def to_tenant(host) when is_binary(host) do
+    delimiter = "."
+
+    host
+    |> String.trim(delimiter)
+    |> String.split(delimiter)
+    |> Enum.reverse()
+    |> Enum.join("_")
+  end
 end
