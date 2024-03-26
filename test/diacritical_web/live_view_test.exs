@@ -33,19 +33,26 @@ defmodule DiacriticalWeb.LiveViewTest do
       |> :crypto.strong_rand_bytes()
       |> Base.url_encode64()
 
+    host = "example.com"
+    tenant = DiacriticalWeb.to_tenant(host)
+
     unsigned = %Phoenix.LiveView.Socket{
-      private: %{connect_params: %{"_csp_token" => nonce}},
+      private: %{connect_params: %{"_csp_token" => nonce, "host" => nil}},
       transport_pid: self()
     }
 
     signed = %Phoenix.LiveView.Socket{
-      private: %{connect_params: %{"_csp_token" => Token.sign(nonce)}},
+      private: %{
+        connect_params: %{"_csp_token" => Token.sign(nonce), "host" => host}
+      },
       transport_pid: self()
     }
 
     %{
       socket: %{
-        assigned: %Phoenix.LiveView.Socket{assigns: %{nonce: nonce}},
+        assigned: %Phoenix.LiveView.Socket{
+          assigns: %{nonce: nonce, tenant: tenant}
+        },
         halted: %Phoenix.LiveView.Socket{
           unsigned
           | redirected: {:redirect, %{to: "/hello"}}
@@ -53,7 +60,11 @@ defmodule DiacriticalWeb.LiveViewTest do
         invalid: %{},
         mounted: %Phoenix.LiveView.Socket{
           signed
-          | assigns: %{__changed__: %{nonce: true}, nonce: nonce}
+          | assigns: %{
+              __changed__: %{nonce: true, tenant: true},
+              nonce: nonce,
+              tenant: tenant
+            }
         },
         signed: signed,
         unsigned: unsigned
