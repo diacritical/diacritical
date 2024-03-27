@@ -174,7 +174,9 @@ defmodule DiacriticalApp.MixProject do
         {:phoenix_html, "~> 4.1"},
         {:phoenix_live_reload, "~> 1.5", runtime: env == :dev},
         {:phoenix_live_view, "~> 0.20"},
-        {:postgrex, "~> 0.17"}
+        {:postgrex, "~> 0.17"},
+        {:telemetry_metrics, "~> 0.6"},
+        {:telemetry_poller, "~> 1.0"}
       ],
       deps_path: "dep",
       dialyzer: [ignore_warnings: ".dialyzer.exs", plt_add_apps: [:ex_unit]],
