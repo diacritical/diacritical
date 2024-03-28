@@ -3,6 +3,7 @@ import Config, only: [config: 2, config: 3, import_config: 1]
 alias Diacritical
 alias DiacriticalWeb
 
+alias Diacritical.Mailer
 alias Diacritical.Repo
 alias DiacriticalWeb.Endpoint
 
@@ -41,6 +42,8 @@ config :diacritical, Endpoint,
       cd: Path.expand("../asset/diacritical_web", __DIR__)
     ]
   ]
+
+config :diacritical, Mailer, adapter: Swoosh.Adapters.Local
 
 config :diacritical, Repo,
   database: "diacritical_dev",
