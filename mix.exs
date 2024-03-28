@@ -175,6 +175,8 @@ defmodule DiacriticalApp.MixProject do
         {:phoenix_live_reload, "~> 1.5", runtime: env == :dev},
         {:phoenix_live_view, "~> 0.20"},
         {:postgrex, "~> 0.17"},
+        {:req, "~> 0.4"},
+        {:swoosh, "~> 1.14"},
         {:telemetry_metrics, "~> 0.6"},
         {:telemetry_poller, "~> 1.0"}
       ],
