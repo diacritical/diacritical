@@ -16,7 +16,11 @@
     DiacriticalCase.Template,
     DiacriticalCase.View
   ],
-  DiacriticalSchema: [DiacriticalSchema, DiacriticalSchema.TestSchema],
+  DiacriticalSchema: [
+    DiacriticalSchema,
+    DiacriticalSchema.Account,
+    DiacriticalSchema.TestSchema
+  ],
   DiacriticalWeb: [
     DiacriticalWeb,
     DiacriticalWeb.Controller,
