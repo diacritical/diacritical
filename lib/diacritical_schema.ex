@@ -2,7 +2,7 @@ defmodule DiacriticalSchema do
   @moduledoc "Defines commonalities for `Ecto.Schema` schemata."
   @moduledoc since: "0.10.0"
 
-  use Boundary, deps: [Ecto]
+  use Boundary, deps: [Argon2, Ecto]
 
   @doc """
   In `use`, calls `use Ecto.Schema`, then redefines select module attributes.
