@@ -9,6 +9,8 @@ alias DiacriticalWeb.Endpoint
 
 import_config "prod.exs"
 
+config :argon2_elixir, t_cost: 1, m_cost: 8
+
 config :diacritical, Endpoint,
   cache_static_manifest: nil,
   http: [port: 4_002],

@@ -8,6 +8,8 @@ alias Diacritical.Repo
 alias DiacriticalWeb.Endpoint
 
 if config_env() == :prod do
+  config :argon2_elixir, t_cost: 32, m_cost: 14, parallelism: 2
+
   secret_key_base =
     System.get_env("SECRET_KEY_BASE") ||
       raise """
