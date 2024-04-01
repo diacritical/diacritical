@@ -8,6 +8,7 @@ defmodule DiacriticalSchema.AccountTest do
   alias DiacriticalSchema
 
   alias DiacriticalSchema.Account
+  alias DiacriticalSchema.TestSchema
 
   alias Account.Token
 
@@ -79,6 +80,27 @@ defmodule DiacriticalSchema.AccountTest do
         err: %{email: "jdoeexample.com", password: "hunter2"},
         invalid: [],
         string: %{"email" => email, "password" => password}
+      }
+    }
+  end
+
+  @spec c_arg(context()) :: context_merge()
+  defp c_arg(c) when is_map(c) do
+    search = "%jdoe%"
+
+    %{
+      arg: %{
+        empty: %{},
+        filter: %{
+          empty: %{filter: %{}},
+          matching: %{
+            invalid: %{filter: %{matching: ~c"#{search}"}},
+            valid: %{filter: %{matching: search}}
+          },
+          unknown: %{filter: [:unknown]}
+        },
+        invalid: {},
+        unknown: [:unknown]
       }
     }
   end
@@ -375,6 +397,124 @@ defmodule DiacriticalSchema.AccountTest do
 
     test "string", %{changeset: %{valid: changeset}, param: %{string: param}} do
       assert changeset(changeset, param).valid?
+    end
+  end
+
+  describe "query/2 when Account = queryable" do
+    import Account, only: [query: 2]
+
+    setup :c_arg
+    setup do: %{module: %{invalid: TestSchema, valid: Account}}
+
+    test "FunctionClauseError (&1)", %{
+      arg: %{empty: arg},
+      module: %{invalid: module}
+    } do
+      assert_raise FunctionClauseError, fn -> query(module, arg) end
+    end
+
+    test "FunctionClauseError (&2)", %{
+      arg: %{invalid: arg},
+      module: %{valid: module}
+    } do
+      assert_raise FunctionClauseError, fn -> query(module, arg) end
+    end
+
+    test "empty", %{arg: %{empty: arg}, module: %{valid: module}} do
+      assert query(module, arg) == module
+    end
+
+    test "unknown", %{arg: %{unknown: arg}, module: %{valid: module}} do
+      assert query(module, arg) == module
+    end
+
+    test "filter (empty)", %{
+      arg: %{filter: %{empty: arg}},
+      module: %{valid: module}
+    } do
+      assert query(module, arg) == module
+    end
+
+    test "filter (unknown)", %{
+      arg: %{filter: %{unknown: arg}},
+      module: %{valid: module}
+    } do
+      assert query(module, arg) == module
+    end
+
+    test "filter = {:matching, maybe_expr}", %{
+      arg: %{filter: %{matching: %{invalid: arg, valid: arg!}}},
+      module: %{valid: module}
+    } do
+      assert query(module, arg) == module
+      assert %Ecto.Query{wheres: [%{}]} = query(module, arg!)
+    end
+  end
+
+  describe "query/2 when %Ecto.Query{from: %{...}} = queryable" do
+    import Account, only: [query: 2]
+
+    setup :c_arg
+
+    setup do
+      %{
+        query: %{
+          invalid: %Ecto.Query{
+            from: %Ecto.Query.FromExpr{
+              source: {TestSchema.__schema__(:source), TestSchema}
+            }
+          },
+          valid: %Ecto.Query{
+            from: %Ecto.Query.FromExpr{
+              source: {Account.__schema__(:source), Account}
+            }
+          }
+        }
+      }
+    end
+
+    test "FunctionClauseError (&1)", %{
+      arg: %{empty: arg},
+      query: %{invalid: query}
+    } do
+      assert_raise FunctionClauseError, fn -> query(query, arg) end
+    end
+
+    test "FunctionClauseError (&2)", %{
+      arg: %{invalid: arg},
+      query: %{valid: query}
+    } do
+      assert_raise FunctionClauseError, fn -> query(query, arg) end
+    end
+
+    test "empty", %{arg: %{empty: arg}, query: %{valid: query}} do
+      assert query(query, arg) == query
+    end
+
+    test "unknown", %{arg: %{unknown: arg}, query: %{valid: query}} do
+      assert query(query, arg) == query
+    end
+
+    test "filter (empty)", %{
+      arg: %{filter: %{empty: arg}},
+      query: %{valid: query}
+    } do
+      assert query(query, arg) == query
+    end
+
+    test "filter (unknown)", %{
+      arg: %{filter: %{unknown: arg}},
+      query: %{valid: query}
+    } do
+      assert query(query, arg) == query
+    end
+
+    test "filter = {:matching, maybe_expr}", %{
+      arg: %{filter: %{matching: %{invalid: arg, valid: arg!}}},
+      query: %{valid: query}
+    } do
+      assert query(query, arg) == query
+      assert %Ecto.Query{wheres: [%{}]} = query(query, arg!)
     end
   end
 end
