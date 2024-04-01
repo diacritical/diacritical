@@ -10,6 +10,8 @@ defmodule DiacriticalSchema.Account do
   alias Diacritical.Repo
   alias DiacriticalSchema.Changeset
 
+  alias DiacriticalSchema.Account.Token
+
   @typedoc "Represents the schema."
   @typedoc since: "0.15.0"
   @type t() :: %__MODULE__{
@@ -21,6 +23,7 @@ defmodule DiacriticalSchema.Account do
           inserted_at: nil | DateTime.t(),
           password: nil | String.t(),
           password_digest: nil | String.t(),
+          token: nil | Ecto.Association.NotLoaded.t() | Token.t(),
           updated_at: nil | DateTime.t()
         }
 
@@ -44,6 +47,7 @@ defmodule DiacriticalSchema.Account do
     field :email, :string
     field :password, :string, redact: true, virtual: true
     field :password_digest, :string, redact: true
+    has_many :token, Token
     field :confirmed_at, :utc_datetime_usec
     field :inserted_at, :utc_datetime_usec, read_after_writes: true
     field :updated_at, :utc_datetime_usec, read_after_writes: true
