@@ -4,6 +4,7 @@ defmodule Diacritical do
 
   use Boundary,
     deps: [
+      DiacriticalSchema,
       Ecto,
       Ecto.Adapters.Postgres,
       Ecto.Adapters.SQL,

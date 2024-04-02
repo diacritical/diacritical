@@ -13,16 +13,24 @@ defmodule DiacriticalSchema.Account.Token do
   alias DiacriticalSchema.Account
   alias DiacriticalSchema.Changeset
 
+  @typedoc "Represents the token data."
+  @typedoc since: "0.17.0"
+  @type token_data() :: DiacriticalSchema.token_data()
+
+  @typedoc "Represents the token type."
+  @typedoc since: "0.17.0"
+  @type token_type() :: DiacriticalSchema.token_type()
+
   @typedoc "Represents the schema."
   @typedoc since: "0.16.0"
   @type t() :: %__MODULE__{
           __meta__: Ecto.Schema.Metadata.t(),
           account: nil | Ecto.Association.NotLoaded.t() | Account.t(),
           account_id: nil | Ecto.UUID.t(),
-          data: nil | binary(),
+          data: nil | token_data(),
           id: nil | Ecto.UUID.t(),
           inserted_at: nil | DateTime.t(),
-          type: nil | String.t(),
+          type: nil | token_type(),
           sent_to: nil | String.t()
         }
 
