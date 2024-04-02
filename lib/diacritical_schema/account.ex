@@ -57,6 +57,15 @@ defmodule DiacriticalSchema.Account do
   @typedoc since: "0.15.0"
   @type key() :: Changeset.key()
 
+  @typedoc "Represents the option keyword."
+  @typedoc since: "0.17.0"
+  @type opt_keyword() ::
+          {:virtual?, boolean()} | {Keyword.key(), Keyword.value()}
+
+  @typedoc "Represents the option used by the changeset."
+  @typedoc since: "0.17.0"
+  @type opt() :: [opt_keyword()]
+
   @typedoc "Represents the potential schema."
   @typedoc since: "0.17.0"
   @type maybe_schema() :: nil | t()
@@ -98,7 +107,22 @@ defmodule DiacriticalSchema.Account do
     |> changeset(Map.delete(param, key))
   end
 
+  @spec do_changeset_virtual(data(), param()) :: changeset()
+  defp do_changeset_virtual(data, param)
+       when (is_struct(data, __MODULE__) or is_struct(data, Ecto.Changeset)) and
+              is_map(param) do
+    required = [:email, :password]
+    permitted = required
+
+    data
+    |> Ecto.Changeset.cast(param, permitted)
+    |> Ecto.Changeset.validate_required(required)
+    |> Changeset.validate_email()
+    |> Changeset.validate_password()
+  end
+
   @spec do_changeset(data(), param()) :: changeset()
+  @spec do_changeset(data(), param(), opt()) :: changeset()
   defp do_changeset(data, param)
        when (is_struct(data, __MODULE__) or is_struct(data, Ecto.Changeset)) and
               is_map_key(param, :password) do
@@ -126,6 +150,16 @@ defmodule DiacriticalSchema.Account do
     |> Ecto.Changeset.unique_constraint(:email)
   end
 
+  defp do_changeset(data, param, opt)
+       when (is_struct(data, __MODULE__) or is_struct(data, Ecto.Changeset)) and
+              is_map(param) and is_list(opt) do
+    if Keyword.get(opt, :virtual?) == true do
+      do_changeset_virtual(data, param)
+    else
+      do_changeset(data, param)
+    end
+  end
+
   @doc """
   Applies the given `param` as a validated changeset for the given `data`.
 
@@ -146,16 +180,17 @@ defmodule DiacriticalSchema.Account do
   """
   @doc since: "0.15.0"
   @spec changeset(param()) :: changeset()
-  @spec changeset(data(), param()) :: changeset()
-  def changeset(data \\ %__MODULE__{}, param)
+  @spec changeset(data(), param(), opt()) :: changeset()
+  def changeset(data \\ %__MODULE__{}, param, opt \\ [])
 
-  def changeset(%__MODULE__{} = data, param) when is_map(param) do
-    do_changeset(data, param)
+  def changeset(%__MODULE__{} = data, param, opt)
+      when is_map(param) and is_list(opt) do
+    do_changeset(data, param, opt)
   end
 
-  def changeset(%Ecto.Changeset{data: %__MODULE__{}} = data, param)
-      when is_map(param) do
-    do_changeset(data, param)
+  def changeset(%Ecto.Changeset{data: %__MODULE__{}} = data, param, opt)
+      when is_map(param) and is_list(opt) do
+    do_changeset(data, param, opt)
   end
 
   @doc """
