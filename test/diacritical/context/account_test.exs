@@ -193,6 +193,28 @@ defmodule Diacritical.Context.AccountTest do
     end
   end
 
+  describe "insert/1" do
+    import Account, only: [insert: 1]
+
+    setup ~W[checkout_repo c_password c_param_account]a
+
+    test "FunctionClauseError", %{param: %{invalid: param}} do
+      assert_raise FunctionClauseError, fn -> insert(param) end
+    end
+
+    test "failure", %{param: %{err: param}} do
+      assert {:error, %Ecto.Changeset{}} = insert(param)
+    end
+
+    test "atom", %{param: %{atom: param}} do
+      assert {:ok, %DiacriticalSchema.Account{}} = insert(param)
+    end
+
+    test "string", %{param: %{string: param}} do
+      assert {:ok, %DiacriticalSchema.Account{}} = insert(param)
+    end
+  end
+
   describe "insert_token/2" do
     import Account, only: [insert_token: 2]
 

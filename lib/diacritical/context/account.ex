@@ -5,6 +5,7 @@ defmodule Diacritical.Context.Account do
   alias Diacritical
   alias DiacriticalSchema
 
+  alias Diacritical.Context
   alias Diacritical.Repo
   alias DiacriticalSchema.Account
 
@@ -38,9 +39,17 @@ defmodule Diacritical.Context.Account do
   @typedoc since: "0.17.0"
   @type account() :: Account.t()
 
+  @typedoc "Represents the account parameter."
+  @typedoc since: "0.17.0"
+  @type param() :: Account.param()
+
+  @typedoc "Represents the account confirmation."
+  @typedoc since: "0.17.0"
+  @type conf() :: Context.conf(Account.changeset(), account())
+
   @typedoc "Represents the token confirmation."
   @typedoc since: "0.17.0"
-  @type conf_token() :: {:error, Token.changeset()} | {:ok, Token.t()}
+  @type conf_token() :: Context.conf(Token.changeset(), Token.t())
 
   @doc """
   Deletes a token with the given `data` and `type` from the data store.
@@ -152,6 +161,32 @@ defmodule Diacritical.Context.Account do
     Token
     |> Token.query(arg)
     |> Repo.one()
+  end
+
+  @doc """
+  Inserts an account with the given `param` into the data store.
+
+  ## Examples
+
+      iex> checkout_repo()
+      iex> c = c_password()
+      iex> %{param: %{err: param}} = c_param_account(c)
+      iex>
+      iex> {:error, %Ecto.Changeset{}} = insert(param)
+
+      iex> checkout_repo()
+      iex> c = c_password()
+      iex> %{param: %{atom: param}} = c_param_account(c)
+      iex>
+      iex> {:ok, %DiacriticalSchema.Account{}} = insert(param)
+
+  """
+  @doc since: "0.17.0"
+  @spec insert(param()) :: conf()
+  def insert(param) when is_map(param) do
+    param
+    |> Account.changeset()
+    |> Repo.insert()
   end
 
   @doc """
