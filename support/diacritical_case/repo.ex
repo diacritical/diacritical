@@ -49,6 +49,48 @@ defmodule DiacriticalCase.Repo do
 
   ## Example
 
+      iex> %{param: _param} = c_param_token()
+
+  """
+  @doc since: "0.17.0"
+  @spec c_param_token() :: context_merge()
+  @spec c_param_token(context()) :: context_merge()
+  def c_param_token(c \\ %{}) when is_map(c) do
+    account_id = Ecto.UUID.generate()
+    data = :crypto.strong_rand_bytes(32)
+    sent_to = "jdoe@example.com"
+    type = "unknown"
+
+    %{
+      param: %{
+        atom: %{
+          account_id: account_id,
+          data: data,
+          sent_to: sent_to,
+          type: type
+        },
+        err: %{
+          account_id: ~c"#{account_id}",
+          data: ~C"",
+          sent_to: "jdoeexample.com",
+          type: ~c"#{type}"
+        },
+        invalid: [],
+        string: %{
+          "account_id" => account_id,
+          "data" => data,
+          "sent_to" => sent_to,
+          "type" => type
+        }
+      }
+    }
+  end
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
       iex> %{password: _password} = c_password()
 
   """

@@ -149,4 +149,38 @@ defmodule Diacritical.Context.AccountTest do
                get_by_token_data_and_type(data, type)
     end
   end
+
+  describe "insert_token/2" do
+    import Account, only: [insert_token: 2]
+
+    setup ~W[checkout_repo c_account c_account_loaded c_param_token]a
+
+    test "FunctionClauseError (&1)", %{
+      account: %{invalid: account},
+      param: %{atom: %{type: type}}
+    } do
+      assert_raise FunctionClauseError, fn -> insert_token(account, type) end
+    end
+
+    test "FunctionClauseError (&2)", %{
+      account: %{loaded: account},
+      param: %{err: %{type: type}}
+    } do
+      assert_raise FunctionClauseError, fn -> insert_token(account, type) end
+    end
+
+    test "failure", %{
+      account: %{built: account},
+      param: %{atom: %{type: type}}
+    } do
+      assert {:error, %Ecto.Changeset{}} = insert_token(account, type)
+    end
+
+    test "success", %{
+      account: %{loaded: account},
+      param: %{atom: %{type: type}}
+    } do
+      assert {:ok, %Token{}} = insert_token(account, type)
+    end
+  end
 end

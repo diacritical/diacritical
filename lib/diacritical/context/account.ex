@@ -30,6 +30,14 @@ defmodule Diacritical.Context.Account do
   @typedoc since: "0.17.0"
   @type token_type() :: Token.token_type()
 
+  @typedoc "Represents the account."
+  @typedoc since: "0.17.0"
+  @type account() :: Account.t()
+
+  @typedoc "Represents the token confirmation."
+  @typedoc since: "0.17.0"
+  @type conf_token() :: {:error, Token.changeset()} | {:ok, Token.t()}
+
   @doc """
   Fetches an account from the data store by the given `email`.
 
@@ -116,5 +124,32 @@ defmodule Diacritical.Context.Account do
     Token
     |> Token.query(arg)
     |> Repo.one()
+  end
+
+  @doc """
+  Inserts a token with the given `account` and `type` into the data store.
+
+  ## Examples
+
+      iex> checkout_repo()
+      iex> %{account: %{built: account}} = c_account()
+      iex> %{param: %{atom: %{type: type}}} = c_param_token()
+      iex>
+      iex> {:error, %Ecto.Changeset{}} = insert_token(account, type)
+
+      iex> checkout_repo()
+      iex> %{account: %{loaded: account}} = c_account_loaded(%{})
+      iex> %{param: %{atom: %{type: type}}} = c_param_token()
+      iex>
+      iex> {:ok, %Token{}} = insert_token(account, type)
+
+  """
+  @doc since: "0.17.0"
+  @spec insert_token(account(), token_type()) :: conf_token()
+  def insert_token(%Account{id: id}, type)
+      when (is_binary(id) or is_nil(id)) and is_binary(type) do
+    %{account_id: id, data: :crypto.strong_rand_bytes(32), type: type}
+    |> Token.changeset()
+    |> Repo.insert()
   end
 end

@@ -51,6 +51,28 @@ defmodule DiacriticalCase.RepoTest do
     end
   end
 
+  describe "c_param_token/0" do
+    import Repo, only: [c_param_token: 0]
+
+    test "success" do
+      assert %{param: _param} = c_param_token()
+    end
+  end
+
+  describe "c_param_token/1" do
+    import Repo, only: [c_param_token: 1]
+
+    setup :c_context
+
+    test "FunctionClauseError", %{context: %{invalid: context}} do
+      assert_raise FunctionClauseError, fn -> c_param_token(context) end
+    end
+
+    test "success", %{context: %{valid: context}} do
+      assert %{param: _param} = c_param_token(context)
+    end
+  end
+
   describe "c_password/0" do
     import Repo, only: [c_password: 0]
 
