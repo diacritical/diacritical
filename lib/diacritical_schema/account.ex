@@ -14,6 +14,14 @@ defmodule DiacriticalSchema.Account do
 
   alias DiacriticalSchema.Account.Token
 
+  @typedoc "Represents the password."
+  @typedoc since: "0.17.0"
+  @type password() :: DiacriticalSchema.password()
+
+  @typedoc "Represents the potential password."
+  @typedoc since: "0.17.0"
+  @type maybe_password() :: nil | password()
+
   @typedoc "Represents the schema."
   @typedoc since: "0.15.0"
   @type t() :: %__MODULE__{
@@ -23,7 +31,7 @@ defmodule DiacriticalSchema.Account do
           email: nil | String.t(),
           id: nil | Ecto.UUID.t(),
           inserted_at: nil | DateTime.t(),
-          password: nil | String.t(),
+          password: maybe_password(),
           password_digest: nil | String.t(),
           token: nil | Ecto.Association.NotLoaded.t() | Token.t(),
           updated_at: nil | DateTime.t()
@@ -44,6 +52,10 @@ defmodule DiacriticalSchema.Account do
   @typedoc "Represents the parameter key."
   @typedoc since: "0.15.0"
   @type key() :: Changeset.key()
+
+  @typedoc "Represents the potential schema."
+  @typedoc since: "0.17.0"
+  @type maybe_schema() :: nil | t()
 
   @typedoc "Represents the potential query expression."
   @typedoc since: "0.16.0"
@@ -116,12 +128,14 @@ defmodule DiacriticalSchema.Account do
   ## Examples
 
       iex> checkout_repo()
-      iex> %{param: %{err: param}} = c_param_account(%{})
+      iex> c = c_password()
+      iex> %{param: %{err: param}} = c_param_account(c)
       iex>
       iex> %Ecto.Changeset{valid?: false} = changeset(param)
 
       iex> checkout_repo()
-      iex> %{param: %{atom: param}} = c_param_account(%{})
+      iex> c = c_password()
+      iex> %{param: %{atom: param}} = c_param_account(c)
       iex>
       iex> %Ecto.Changeset{valid?: true} = changeset(param)
 
@@ -138,6 +152,41 @@ defmodule DiacriticalSchema.Account do
   def changeset(%Ecto.Changeset{data: %__MODULE__{}} = data, param)
       when is_map(param) do
     do_changeset(data, param)
+  end
+
+  @doc """
+  Verifies the given `password` for the given `schema`.
+
+  If a `schema` or a `password` is not given, a call will be made to
+  `Argon2.no_user_verify()` to help circumvent timing attacks.
+
+  ## Example
+
+      iex> %{password: %{correct: password, incorrect: password!}} =
+      ...>   c_password()
+      iex> schema = %Account{password_digest: Argon2.hash_pwd_salt(password)}
+      iex>
+      iex> valid_password?(schema, password!)
+      false
+
+      iex> %{password: %{correct: password}} = c_password()
+      iex> schema = %Account{password_digest: Argon2.hash_pwd_salt(password)}
+      iex>
+      iex> valid_password?(schema, password)
+      true
+
+  """
+  @doc since: "0.17.0"
+  @spec valid_password?(maybe_schema(), maybe_password()) :: boolean()
+  def valid_password?(%__MODULE__{password_digest: password_digest}, password)
+      when is_binary(password_digest) and is_binary(password) do
+    Argon2.verify_pass(password, password_digest)
+  end
+
+  def valid_password?(maybe_schema, maybe_password)
+      when is_nil(maybe_schema) or
+             (is_struct(maybe_schema, __MODULE__) and is_nil(maybe_password)) do
+    Argon2.no_user_verify()
   end
 
   @spec build_filter(maybe_expr(), queryable()) :: queryable()

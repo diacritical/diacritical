@@ -18,6 +18,10 @@ defmodule DiacriticalSchema do
   @typedoc since: "0.16.0"
   @type arg() :: Enum.t()
 
+  @typedoc "Represents the password."
+  @typedoc since: "0.17.0"
+  @type password() :: String.t()
+
   @typedoc "Represents the schema."
   @typedoc since: "0.15.0"
   @type t() :: Ecto.Schema.t()
