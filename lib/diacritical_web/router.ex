@@ -6,11 +6,15 @@ defmodule DiacriticalWeb.Router do
 
   import Phoenix.LiveView.Router
 
+  alias Diacritical
   alias DiacriticalWeb
 
+  alias Diacritical.Context
   alias DiacriticalWeb.Controller
   alias DiacriticalWeb.HTML
   alias DiacriticalWeb.LiveView
+
+  alias Context.Account
 
   @typedoc "Represents the connection."
   @typedoc since: "0.6.0"
@@ -19,6 +23,14 @@ defmodule DiacriticalWeb.Router do
   @typedoc "Represents the connection option."
   @typedoc since: "0.6.0"
   @type opt() :: DiacriticalWeb.opt()
+
+  @typedoc "Represents the cookie or session key."
+  @typedoc since: "0.18.0"
+  @type key() :: String.t()
+
+  @typedoc "Represents the cookie or session value."
+  @typedoc since: "0.18.0"
+  @type value() :: term()
 
   @config Phoenix.Endpoint.Supervisor.config(
             :diacritical,
@@ -89,6 +101,33 @@ defmodule DiacriticalWeb.Router do
     |> then(&assign(conn, :tenant, &1))
   end
 
+  @dialyzer {:no_unused, get_signed_cookie: 2}
+  @spec get_signed_cookie(conn(), key()) :: value()
+  defp get_signed_cookie(%Plug.Conn{} = conn, key) when is_binary(key) do
+    conn
+    |> fetch_cookies(signed: key)
+    |> get_in([Access.key(:cookies), key])
+  end
+
+  @dialyzer {:no_unused, put_account: 2}
+  @spec put_account(conn(), opt()) :: conn()
+  defp put_account(%Plug.Conn{} = conn, _opt) do
+    {token, conn} =
+      cond do
+        token = get_session(conn, "token") ->
+          {token, conn}
+
+        cookie = get_signed_cookie(conn, "__Host-token") ->
+          {cookie, put_session(conn, "token", cookie)}
+
+        true ->
+          {nil, conn}
+      end
+
+    account = token && Account.get_by_token_data_and_type(token, "session")
+    assign(conn, :account, account)
+  end
+
   pipeline :plaintext do
     plug :accepts, ["txt", "text"]
   end
@@ -101,6 +140,7 @@ defmodule DiacriticalWeb.Router do
     plug :put_nonce
     plug :put_secure_headers
     plug :put_tenant
+    plug :put_account
   end
 
   scope "/" do

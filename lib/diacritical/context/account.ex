@@ -63,7 +63,7 @@ defmodule Diacritical.Context.Account do
       {0, nil}
 
       iex> checkout_repo()
-      iex> %{token: %{loaded: %{data: data, type: type}}} = c_token(%{})
+      iex> %{token: %{loaded: %{data: data, type: type}}} = c_token_loaded()
       iex>
       iex> delete_token_by_data_and_type(data, type)
       {1, nil}
@@ -146,7 +146,7 @@ defmodule Diacritical.Context.Account do
       nil
 
       iex> checkout_repo()
-      iex> %{token: %{loaded: %{data: data, type: type}}} = c_token(%{})
+      iex> %{token: %{loaded: %{data: data, type: type}}} = c_token_loaded()
       iex>
       iex> %DiacriticalSchema.Account{} = get_by_token_data_and_type(data, type)
 

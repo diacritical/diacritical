@@ -153,8 +153,10 @@ defmodule DiacriticalCase.Conn do
   using do
     quote do
       import unquote(__MODULE__)
+      import DiacriticalCase.Repo
       import DiacriticalCase.View
       import Phoenix.ConnTest
+      import Plug.Conn
       import Phoenix.LiveViewTest
 
       @endpoint DiacriticalWeb.Endpoint

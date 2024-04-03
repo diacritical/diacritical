@@ -5,9 +5,12 @@ defmodule DiacriticalWeb.RouterTest do
   use DiacriticalCase.Conn, async: true
 
   alias DiacriticalCase
+  alias DiacriticalSchema
   alias DiacriticalWeb
 
+  alias DiacriticalSchema.Account
   alias DiacriticalWeb.Controller
+  alias DiacriticalWeb.Endpoint
   alias DiacriticalWeb.Router
 
   alias Controller.Page
@@ -27,14 +30,15 @@ defmodule DiacriticalWeb.RouterTest do
 
   @spec c_conn_session(context()) :: context_merge()
   defp c_conn_session(%{conn: %{valid: %Plug.Conn{} = conn} = c}) do
+    secret_key_base = Endpoint.config(:secret_key_base)
+
     %{
       conn: %{
         c
         | valid:
-            [key: "_key", signing_salt: "", store: :cookie]
-            |> Plug.Session.init()
-            |> then(&Plug.Session.call(conn, &1))
-            |> Plug.Conn.fetch_session()
+            conn
+            |> Map.replace!(:secret_key_base, secret_key_base)
+            |> init_test_session(%{})
       }
     }
   end
@@ -106,6 +110,8 @@ defmodule DiacriticalWeb.RouterTest do
     import Router, only: [browser: 2]
 
     setup [
+      :checkout_repo,
+      :c_token_loaded,
       :c_request_path_hello,
       :c_conn,
       :c_conn_format_html,
@@ -113,12 +119,55 @@ defmodule DiacriticalWeb.RouterTest do
       :c_opt
     ]
 
+    setup %{conn: conn = %{valid: valid}, token: %{loaded: %{data: data}}} do
+      key = "__Host-token"
+
+      %{
+        conn:
+          Map.merge(
+            conn,
+            %{
+              cookie:
+                valid
+                |> put_resp_cookie(key, data, sign: true)
+                |> then(&put_req_cookie(&1, key, &1.resp_cookies[key].value)),
+              token: put_session(valid, "token", data)
+            }
+          )
+      }
+    end
+
     test "Plug.Conn.WrapperError", %{conn: %{invalid: conn}, opt: opt} do
       assert_raise Plug.Conn.WrapperError, fn -> browser(conn, opt) end
     end
 
-    test "success", %{conn: %{valid: conn}, opt: opt} do
-      assert %Plug.Conn{private: %{phoenix_format: "html"}} = browser(conn, opt)
+    test "token", %{
+      conn: %{token: conn},
+      opt: opt,
+      token: %{loaded: %{data: data}}
+    } do
+      conn! = browser(conn, opt)
+      assert conn!.private.phoenix_format == "html"
+      assert get_session(conn!, "token") == data
+      assert %Account{} = conn!.assigns.account
+    end
+
+    test "cookie", %{
+      conn: %{cookie: conn},
+      opt: opt,
+      token: %{loaded: %{data: data}}
+    } do
+      conn! = browser(conn, opt)
+      assert conn!.private.phoenix_format == "html"
+      assert get_session(conn!, "token") == data
+      assert %Account{} = conn!.assigns.account
+    end
+
+    test "empty", %{conn: %{valid: conn}, opt: opt} do
+      conn! = browser(conn, opt)
+      assert conn!.private.phoenix_format == "html"
+      refute get_session(conn!, "token")
+      refute conn!.assigns.account
     end
   end
 
