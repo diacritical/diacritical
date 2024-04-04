@@ -426,12 +426,12 @@
   nimble_ownership: {
     :hex,
     :nimble_ownership,
-    "0.2.1",
-    "3e44c72ebe8dd213db4e13aff4090aaa331d158e72ce1891d02e0ffb05a1eb2d",
+    "0.3.1",
+    "99d5244672fafdfac89bfad3d3ab8f0d367603ce1dc4855f86a1c75008bce56f",
     [:mix],
     [],
     "hexpm",
-    "bf38d2ef4fb990521a4ecf112843063c1f58a5c602484af4c7977324042badee"
+    "4bf510adedff0449a1d6e200e43e57a814794c8b5b6439071274d248d272a549"
   },
   nimble_parsec: {
     :hex,
@@ -670,8 +670,8 @@
   req: {
     :hex,
     :req,
-    "0.4.13",
-    "6fde45b78e606e2a46fc3a7e4a74828c220cd0b16951f4321c1214f955402d72",
+    "0.4.14",
+    "103de133a076a31044e5458e0f850d5681eef23dfabf3ea34af63212e3b902e2",
     [:mix],
     [
       {
@@ -687,13 +687,13 @@
       {:nimble_csv, "~> 1.0", hex: :nimble_csv, repo: "hexpm", optional: true},
       {
         :nimble_ownership,
-        "~> 0.2.0",
+        "~> 0.2.0 or ~> 0.3.0",
         [hex: :nimble_ownership, repo: "hexpm", optional: false]
       },
       {:plug, "~> 1.0", hex: :plug, repo: "hexpm", optional: true}
     ],
     "hexpm",
-    "e01a596b74272de799bc57191883e5d4d3875be63f0480223edc5a0086bfe31b"
+    "2ddd3d33f9ab714ced8d3c15fd03db40c14dbf129003c4a3eb80fac2cc0b1b08"
   },
   swoosh: {
     :hex,
