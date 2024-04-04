@@ -142,6 +142,7 @@ defmodule DiacriticalApp.MixProject do
           "ecto.migrate",
           "ecto.seed"
         ],
+        "gettext.merge": "gettext.merge priv/diacritical/gettext",
         "npm.install": "cmd --cd #{@asset_path} npm install",
         "npm.update": "cmd --cd #{@asset_path} npm update",
         "phx.digest": "phx.digest #{@static_path}",

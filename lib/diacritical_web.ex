@@ -6,6 +6,7 @@ defmodule DiacriticalWeb do
     deps: [
       Diacritical,
       EEx.Engine,
+      Gettext,
       Logger,
       Phoenix,
       Phoenix.Component,

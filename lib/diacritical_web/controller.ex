@@ -2,8 +2,10 @@ defmodule DiacriticalWeb.Controller do
   @moduledoc "Defines commonalities for `Phoenix.Controller` controllers."
   @moduledoc since: "0.5.0"
 
+  alias Diacritical
   alias DiacriticalWeb
 
+  alias Diacritical.I18n
   alias DiacriticalWeb.HTML
 
   alias HTML.Layout
@@ -51,6 +53,8 @@ defmodule DiacriticalWeb.Controller do
         endpoint: :"Elixir.DiacriticalWeb.Endpoint",
         router: :"Elixir.DiacriticalWeb.Router",
         statics: DiacriticalWeb.static_path()
+
+      import I18n
 
       plug :put_layout, html: {Layout, :app}
       plug :put_new_view, opt[:view]

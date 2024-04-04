@@ -2,8 +2,10 @@ defmodule DiacriticalWeb.HTML do
   @moduledoc "Defines commonalities for `Phoenix.Template` templates."
   @moduledoc since: "0.6.0"
 
+  alias Diacritical
   alias DiacriticalWeb
 
+  alias Diacritical.I18n
   alias DiacriticalWeb.Token
 
   @doc """
@@ -66,6 +68,7 @@ defmodule DiacriticalWeb.HTML do
         statics: DiacriticalWeb.static_path()
 
       import unquote(__MODULE__)
+      import I18n
       import Phoenix.Component, except: [embed_templates: 1, embed_templates: 2]
       import Phoenix.Controller, only: [get_csrf_token: 0]
       import Phoenix.HTML

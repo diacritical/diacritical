@@ -9,9 +9,13 @@ defmodule Diacritical do
       Ecto.Adapters.Postgres,
       Ecto.Adapters.SQL,
       Ecto.Migrator,
+      Gettext,
+      Logger,
       Swoosh
     ],
-    exports: [{Context, []}, Repo, Supervisor]
+    exports: [{Context, []}, I18n, Repo, Supervisor]
+
+  import Diacritical.I18n
 
   @typedoc "Represents the greeting."
   @typedoc since: "0.1.0"
@@ -28,5 +32,5 @@ defmodule Diacritical do
   """
   @doc since: "0.1.0"
   @spec greet() :: greeting()
-  def greet(), do: "Hello, world!"
+  def greet(), do: gettext("Hello, world!")
 end

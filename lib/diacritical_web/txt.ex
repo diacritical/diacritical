@@ -2,7 +2,10 @@ defmodule DiacriticalWeb.TXT do
   @moduledoc "Defines commonalities for `Phoenix.Template` templates."
   @moduledoc since: "0.5.0"
 
+  alias Diacritical
   alias DiacriticalWeb
+
+  alias Diacritical.I18n
 
   @doc """
   Compiles a function for each template in the given `pattern`.
@@ -63,6 +66,7 @@ defmodule DiacriticalWeb.TXT do
         statics: DiacriticalWeb.static_path()
 
       import unquote(__MODULE__)
+      import I18n
     end
   end
 end
