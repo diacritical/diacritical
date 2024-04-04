@@ -159,6 +159,7 @@ defmodule DiacriticalApp.MixProject do
         {:ecto_sql, "~> 3.11"},
         {:esbuild, "~> 0.8", runtime: env == :dev},
         {:ex_doc, "~> 0.31", only: :dev, runtime: false},
+        {:gettext, "~> 0.24"},
         {
           :heroicons,
           app: false,
