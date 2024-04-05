@@ -175,6 +175,7 @@ defmodule DiacriticalApp.MixProject do
         {:phoenix, "~> 1.7"},
         {:phoenix_ecto, "~> 4.5"},
         {:phoenix_html, "~> 4.1"},
+        {:phoenix_live_dashboard, "~> 0.8"},
         {:phoenix_live_reload, "~> 1.5", runtime: env == :dev},
         {:phoenix_live_view, "~> 0.20"},
         {:postgrex, "~> 0.17"},
