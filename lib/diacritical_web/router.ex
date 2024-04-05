@@ -10,6 +10,7 @@ defmodule DiacriticalWeb.Router do
   alias DiacriticalWeb
 
   alias Diacritical.Context
+  alias Diacritical.Telemetry
   alias DiacriticalWeb.Controller
   alias DiacriticalWeb.HTML
   alias DiacriticalWeb.LiveView
@@ -147,6 +148,16 @@ defmodule DiacriticalWeb.Router do
     pipe_through :plaintext
 
     get "/hello", Controller.Page, :greet
+  end
+
+  if Application.compile_env(:diacritical, :env)[:dev] do
+    import Phoenix.LiveDashboard.Router
+
+    scope "/dev" do
+      pipe_through :browser
+
+      live_dashboard "/dashboard", metrics: Telemetry
+    end
   end
 
   scope "/" do

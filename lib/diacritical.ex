@@ -11,7 +11,8 @@ defmodule Diacritical do
       Ecto.Migrator,
       Gettext,
       Logger,
-      Swoosh
+      Swoosh,
+      Telemetry.Metrics
     ],
     exports: [{Context, []}, I18n, Repo, Supervisor]
 

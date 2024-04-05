@@ -7,7 +7,7 @@ msgstr ""
 msgid "Diacritical"
 msgstr ""
 
-#: lib/diacritical.ex:35
+#: lib/diacritical.ex:36
 #, elixir-autogen, elixir-format
 msgid "Hello, world!"
 msgstr ""

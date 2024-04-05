@@ -12,6 +12,7 @@ defmodule DiacriticalWeb do
       Phoenix.Component,
       Phoenix.Ecto,
       Phoenix.HTML,
+      Phoenix.LiveDashboard,
       Phoenix.LiveReloader,
       Phoenix.LiveView,
       Phoenix.PubSub,
