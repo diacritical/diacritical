@@ -28,6 +28,7 @@
   ],
   DiacriticalWeb: [
     DiacriticalWeb,
+    DiacriticalWeb.Component,
     DiacriticalWeb.Controller,
     DiacriticalWeb.Controller.Page,
     DiacriticalWeb.Endpoint,

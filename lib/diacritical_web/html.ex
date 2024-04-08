@@ -6,6 +6,7 @@ defmodule DiacriticalWeb.HTML do
   alias DiacriticalWeb
 
   alias Diacritical.I18n
+  alias DiacriticalWeb.Component
   alias DiacriticalWeb.Token
 
   @doc """
@@ -68,6 +69,7 @@ defmodule DiacriticalWeb.HTML do
         statics: DiacriticalWeb.static_path()
 
       import unquote(__MODULE__)
+      import Component
       import I18n
       import Phoenix.Component, except: [embed_templates: 1, embed_templates: 2]
       import Phoenix.Controller, only: [get_csrf_token: 0]

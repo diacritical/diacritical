@@ -16,6 +16,7 @@ defmodule DiacriticalWeb.LiveView do
 
   alias Diacritical.Context
   alias Diacritical.I18n
+  alias DiacriticalWeb.Component
   alias DiacriticalWeb.HTML
 
   alias Context.Account
@@ -217,6 +218,7 @@ defmodule DiacriticalWeb.LiveView do
         router: :"Elixir.DiacriticalWeb.Router",
         statics: DiacriticalWeb.static_path()
 
+      import Component
       import I18n
 
       on_mount(unquote(__MODULE__))
