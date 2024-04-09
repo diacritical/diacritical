@@ -3,6 +3,7 @@ alias DiacriticalSchema
 
 alias Diacritical.Repo
 alias DiacriticalSchema.Account
+alias DiacriticalSchema.Option
 alias DiacriticalSchema.TestSchema
 
 alias Account.Token
@@ -39,6 +40,22 @@ if Mix.env() in [:dev, :test] and not Repo.exists?(Token) do
           account_id: entry.id,
           data: :crypto.strong_rand_bytes(32),
           type: "session"
+        }
+      end
+    )
+  )
+end
+
+if Mix.env() in [:dev, :test] and not Repo.exists?(Option) do
+  Repo.insert_all(
+    Option,
+    Enum.map(
+      1..1_000,
+      fn _entry ->
+        %{
+          key: "#{System.unique_integer([:positive])}",
+          description: "Default",
+          value: "default"
         }
       end
     )
