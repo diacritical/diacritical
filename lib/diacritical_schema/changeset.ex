@@ -186,4 +186,33 @@ defmodule DiacriticalSchema.Changeset do
       when is_atom(key) do
     Ecto.Changeset.validate_length(changeset, key, max: 128, min: 8)
   end
+
+  @spec regex_slug() :: format()
+  defp regex_slug(), do: ~r/^(?!^-|.*-$|.*-{2})(?:[-0-9_a-z])+$/i
+
+  @doc """
+  Validates the value of a `changeset` change, `key`, as a slug.
+
+  If a `key` is not given, the function defaults to the change key `:slug`.
+
+  ## Examples
+
+      iex> %{changeset: %{unslugified: changeset}} = c_changeset_slug(%{})
+      iex>
+      iex> %Ecto.Changeset{valid?: false} = validate_slug(changeset)
+
+      iex> %{changeset: %{slugified: changeset}} = c_changeset_slug(%{})
+      iex>
+      iex> %Ecto.Changeset{valid?: true} = validate_slug(changeset)
+
+  """
+  @doc since: "0.22.0"
+  @spec validate_slug(t()) :: t()
+  @spec validate_slug(t(), change_key()) :: t()
+  def validate_slug(%Ecto.Changeset{} = changeset, key \\ :slug)
+      when is_atom(key) do
+    changeset
+    |> Ecto.Changeset.validate_format(key, regex_slug())
+    |> Ecto.Changeset.validate_length(key, max: 32)
+  end
 end
