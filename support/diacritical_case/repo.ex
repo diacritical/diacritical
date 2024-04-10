@@ -51,6 +51,28 @@ defmodule DiacriticalCase.Repo do
 
   ## Example
 
+      iex> checkout_core(%{})
+      iex>
+      iex> %{account: %{loaded: _account}} = c_account_loaded()
+
+  """
+  @doc since: "0.23.0"
+  @spec c_account_loaded() :: context_merge()
+  @spec c_account_loaded(context()) :: context_merge()
+  def c_account_loaded(c \\ %{}) when is_map(c) do
+    account =
+      Account
+      |> Account.query(%{limit: 1, order_by: :random})
+      |> Repo.one()
+
+    %{account: Map.merge(c[:account] || %{}, %{loaded: account})}
+  end
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
       iex> c = %{password: %{correct: "", incorrect: ""}}
       iex>
       iex> %{param: _param} = c_param_account(c)

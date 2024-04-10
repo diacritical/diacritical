@@ -65,6 +65,30 @@ defmodule DiacriticalCase.RepoTest do
     end
   end
 
+  describe "c_account_loaded/0" do
+    import Repo, only: [c_account_loaded: 0]
+
+    setup :checkout_core
+
+    test "success" do
+      assert %{account: %{loaded: _account}} = c_account_loaded()
+    end
+  end
+
+  describe "c_account_loaded/1" do
+    import Repo, only: [c_account_loaded: 1]
+
+    setup [:checkout_core, :c_context]
+
+    test "FunctionClauseError", %{context: %{invalid: context}} do
+      assert_raise FunctionClauseError, fn -> c_account_loaded(context) end
+    end
+
+    test "success", %{context: %{valid: context}} do
+      assert %{account: %{loaded: _account}} = c_account_loaded(context)
+    end
+  end
+
   describe "c_param_account/1" do
     import Repo, only: [c_param_account: 1]
 

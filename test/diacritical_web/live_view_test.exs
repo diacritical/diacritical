@@ -93,7 +93,89 @@ defmodule DiacriticalWeb.LiveViewTest do
     end
   end
 
-  describe "on_mount/4" do
+  describe "on_mount/4 when :require_account = name" do
+    import LiveView, only: [on_mount: 4]
+
+    setup ~W[checkout_repo c_account_loaded c_param c_session]a
+
+    setup %{account: %{loaded: account}} do
+      %{
+        name: %{invalid: "require_account", valid: :require_account},
+        socket: %{
+          assigned: %Phoenix.LiveView.Socket{
+            assigns: %{__changed__: %{account: true}, account: account}
+          },
+          halted: %Phoenix.LiveView.Socket{redirected: {:redirect, %{to: "/"}}},
+          invalid: %{},
+          unassigned: %Phoenix.LiveView.Socket{}
+        }
+      }
+    end
+
+    test "FunctionClauseError (&1)", %{
+      name: %{invalid: name},
+      param: %{valid: param},
+      session: %{valid: session},
+      socket: %{assigned: socket}
+    } do
+      assert_raise FunctionClauseError, fn ->
+        on_mount(name, param, session, socket)
+      end
+    end
+
+    test "FunctionClauseError (&2)", %{
+      name: %{valid: name},
+      param: %{invalid: param},
+      session: %{valid: session},
+      socket: %{assigned: socket}
+    } do
+      assert_raise FunctionClauseError, fn ->
+        on_mount(name, param, session, socket)
+      end
+    end
+
+    test "FunctionClauseError (&3)", %{
+      name: %{valid: name},
+      param: %{valid: param},
+      session: %{invalid: session},
+      socket: %{assigned: socket}
+    } do
+      assert_raise FunctionClauseError, fn ->
+        on_mount(name, param, session, socket)
+      end
+    end
+
+    test "FunctionClauseError (&4)", %{
+      name: %{valid: name},
+      param: %{valid: param},
+      session: %{valid: session},
+      socket: %{invalid: socket}
+    } do
+      assert_raise FunctionClauseError, fn ->
+        on_mount(name, param, session, socket)
+      end
+    end
+
+    test "unassigned", %{
+      name: %{valid: name},
+      param: %{valid: param},
+      session: %{valid: session},
+      socket: %{halted: socket!, unassigned: socket}
+    } do
+      assert on_mount(name, param, session, socket) == {:halt, socket!}
+    end
+
+    test "assigned", %{
+      name: %{valid: name},
+      param: %{valid: param},
+      session: %{valid: session},
+      socket: %{assigned: socket}
+    } do
+      assert on_mount(name, param, session, socket) == {:cont, socket}
+    end
+  end
+
+  describe "on_mount/4 when is_atom(name)" do
     import LiveView, only: [on_mount: 4]
 
     setup [

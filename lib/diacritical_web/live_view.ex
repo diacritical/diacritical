@@ -143,6 +143,20 @@ defmodule DiacriticalWeb.LiveView do
   """
   @doc since: "0.8.0"
   @spec on_mount(name(), param(), session(), socket()) :: hook()
+  def on_mount(
+        :require_account,
+        param,
+        session,
+        %Phoenix.LiveView.Socket{} = socket
+      )
+      when is_map(param) and is_map(session) do
+    if socket.assigns[:account] do
+      {:cont, socket}
+    else
+      {:halt, redirect(socket, to: ~p"/")}
+    end
+  end
+
   def on_mount(name, param, session, %Phoenix.LiveView.Socket{} = socket)
       when is_atom(name) and is_map(param) and is_map(session) do
     maybe_nonce = maybe_get_nonce(socket)

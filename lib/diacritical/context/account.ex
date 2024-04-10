@@ -91,7 +91,7 @@ defmodule Diacritical.Context.Account do
       nil
 
       iex> checkout_repo()
-      iex> %{account: %{loaded: account}} = c_account_loaded(%{})
+      iex> %{account: %{loaded: account}} = c_account_loaded()
       iex>
       iex> get_by_email(account.email)
       account
@@ -110,14 +110,14 @@ defmodule Diacritical.Context.Account do
 
       iex> checkout_repo()
       iex> %{password: %{incorrect: password}} = c_password()
-      iex> %{account: %{loaded: account}} = c_account_loaded(%{})
+      iex> %{account: %{loaded: account}} = c_account_loaded()
       iex>
       iex> get_by_email_and_password(account.email, password)
       nil
 
       iex> checkout_repo()
       iex> %{password: %{correct: password}} = c_password()
-      iex> %{account: %{loaded: account}} = c_account_loaded(%{})
+      iex> %{account: %{loaded: account}} = c_account_loaded()
       iex>
       iex> get_by_email_and_password(account.email, password)
       account
@@ -201,7 +201,7 @@ defmodule Diacritical.Context.Account do
       iex> {:error, %Ecto.Changeset{}} = insert_token(account, type)
 
       iex> checkout_repo()
-      iex> %{account: %{loaded: account}} = c_account_loaded(%{})
+      iex> %{account: %{loaded: account}} = c_account_loaded()
       iex> %{param: %{atom: %{type: type}}} = c_param_token()
       iex>
       iex> {:ok, %Token{}} = insert_token(account, type)

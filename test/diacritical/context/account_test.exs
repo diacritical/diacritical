@@ -9,7 +9,6 @@ defmodule Diacritical.Context.AccountTest do
   alias DiacriticalSchema
 
   alias Diacritical.Context
-  alias Diacritical.Repo
 
   alias Context.Account
   alias DiacriticalSchema.Account.Token
@@ -32,16 +31,6 @@ defmodule Diacritical.Context.AccountTest do
         invalid: %{data: ~C"", type: ~c"#{type}"}
       }
     }
-  end
-
-  @spec c_account_loaded(context()) :: context_merge()
-  defp c_account_loaded(c) when is_map(c) do
-    loaded =
-      DiacriticalSchema.Account
-      |> DiacriticalSchema.Account.query(%{limit: 1, order_by: :random})
-      |> Repo.one()
-
-    %{account: Map.merge(c[:account] || %{}, %{loaded: loaded})}
   end
 
   doctest Account, import: true
