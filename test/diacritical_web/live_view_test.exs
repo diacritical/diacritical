@@ -14,6 +14,7 @@ defmodule DiacriticalWeb.LiveViewTest do
   alias DiacriticalWeb.Token
 
   alias Context.Account
+  alias Context.Option
   alias HTML.Layout
 
   @typedoc "Represents the context."
@@ -43,6 +44,7 @@ defmodule DiacriticalWeb.LiveViewTest do
       |> :crypto.strong_rand_bytes()
       |> Base.url_encode64()
 
+    option = Map.new(Option.all(), &{&1.key, &1.value})
     host = "example.com"
     tenant = DiacriticalWeb.to_tenant(host)
 
@@ -61,7 +63,12 @@ defmodule DiacriticalWeb.LiveViewTest do
     %{
       socket: %{
         assigned: %Phoenix.LiveView.Socket{
-          assigns: %{account: account, nonce: nonce, tenant: tenant}
+          assigns: %{
+            account: account,
+            nonce: nonce,
+            option: option,
+            tenant: tenant
+          }
         },
         halted: %Phoenix.LiveView.Socket{
           unsigned
@@ -71,9 +78,15 @@ defmodule DiacriticalWeb.LiveViewTest do
         mounted: %Phoenix.LiveView.Socket{
           signed
           | assigns: %{
-              __changed__: %{account: true, nonce: true, tenant: true},
+              __changed__: %{
+                account: true,
+                nonce: true,
+                option: true,
+                tenant: true
+              },
               account: account,
               nonce: nonce,
+              option: option,
               tenant: tenant
             }
         },

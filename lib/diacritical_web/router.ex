@@ -16,6 +16,7 @@ defmodule DiacriticalWeb.Router do
   alias DiacriticalWeb.LiveView
 
   alias Context.Account
+  alias Context.Option
 
   @typedoc "Represents the connection."
   @typedoc since: "0.6.0"
@@ -129,6 +130,14 @@ defmodule DiacriticalWeb.Router do
     assign(conn, :account, account)
   end
 
+  @dialyzer {:no_unused, put_option: 2}
+  @spec put_option(conn(), opt()) :: conn()
+  defp put_option(%Plug.Conn{} = conn, _opt) do
+    Option.all()
+    |> Map.new(&{&1.key, &1.value})
+    |> then(&assign(conn, :option, &1))
+  end
+
   pipeline :plaintext do
     plug :accepts, ["txt", "text"]
   end
@@ -142,6 +151,7 @@ defmodule DiacriticalWeb.Router do
     plug :put_secure_headers
     plug :put_tenant
     plug :put_account
+    plug :put_option
   end
 
   scope "/" do

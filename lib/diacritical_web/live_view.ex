@@ -20,6 +20,7 @@ defmodule DiacriticalWeb.LiveView do
   alias DiacriticalWeb.HTML
 
   alias Context.Account
+  alias Context.Option
   alias HTML.Layout
 
   @typedoc "Represents the socket."
@@ -37,6 +38,10 @@ defmodule DiacriticalWeb.LiveView do
   @typedoc "Represents the potential account."
   @typedoc since: "0.18.0"
   @type maybe_account() :: Account.maybe_account()
+
+  @typedoc "Represents the potential option."
+  @typedoc since: "0.23.0"
+  @type maybe_option() :: %{String.t() => String.t()}
 
   @typedoc "Represents the session name."
   @typedoc since: "0.8.0"
@@ -106,6 +111,11 @@ defmodule DiacriticalWeb.LiveView do
     end
   end
 
+  @spec maybe_get_option() :: maybe_option()
+  defp maybe_get_option() do
+    Map.new(Option.all(), &{&1.key, &1.value})
+  end
+
   @doc """
   Attaches a hook to apply common assignments onto the given `socket`.
 
@@ -171,6 +181,7 @@ defmodule DiacriticalWeb.LiveView do
         |> assign_new(:nonce, fn -> maybe_nonce end)
         |> assign_new(:tenant, fn -> DiacriticalWeb.to_tenant(maybe_host) end)
         |> assign_new(:account, fn -> maybe_get_account(session) end)
+        |> assign_new(:option, fn -> maybe_get_option() end)
       }
     end
   end
