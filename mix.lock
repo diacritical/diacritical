@@ -756,8 +756,8 @@
   swoosh: {
     :hex,
     :swoosh,
-    "1.16.0",
-    "f307872901ca610e79bc664378f998f79f27eae90b101e2a47b9057b0bae5418",
+    "1.16.1",
+    "880c70d05fd2815c083c821d1a8c39b4cba234c1f9d91b11ef5b672ba05ccd79",
     [:mix],
     [
       {:bandit, ">= 1.0.0", hex: :bandit, repo: "hexpm", optional: true},
@@ -778,6 +778,7 @@
       {:mail, "~> 0.2", hex: :mail, repo: "hexpm", optional: true},
       {:mime, "~> 1.1 or ~> 2.0", hex: :mime, repo: "hexpm", optional: false},
       {:mua, "~> 0.1.0", hex: :mua, repo: "hexpm", optional: true},
+      {:multipart, "~> 0.4", hex: :multipart, repo: "hexpm", optional: true},
       {:plug, "~> 1.9", hex: :plug, repo: "hexpm", optional: true},
       {
         :plug_cowboy,
@@ -792,7 +793,7 @@
       }
     ],
     "hexpm",
-    "39e3b93d8741e05607ffb9786859ee8217e475cf4b1f10dab27262a40439ae7f"
+    "e75961f08dc17485845171329abe92b9ba8c58c3f8f0276ef6a135df546bbc3d"
   },
   telemetry: {
     :hex,
