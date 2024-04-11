@@ -66,3 +66,24 @@ module.exports = {
     },
   },
 };
+
+const resolveConfig = require("tailwindcss/resolveConfig");
+const setupContextUtils = require("tailwindcss/lib/lib/setupContextUtils");
+
+async function extract(tailwindConfig, buildPath) {
+  const fullConfig = await resolveConfig(tailwindConfig);
+  const context = await setupContextUtils.createContext(fullConfig);
+  let allClasses = context
+    .getClassList({ includeMetadata: true })
+    .flatMap((maybeClass) => {
+      if (typeof maybeClass === "string") return maybeClass;
+      const [className, { modifiers }] = maybeClass;
+      return [className, ...modifiers.map((m) => `${className}/${m}`)];
+    })
+    .join("\n");
+  let allVariants = [...context.variantMap.keys()].join("\n");
+  fs.writeFileSync(path.resolve(buildPath, "classes.txt"), allClasses);
+  fs.writeFileSync(path.resolve(buildPath, "variants.txt"), allVariants);
+}
+
+extract(module.exports, "../../_build");

@@ -7,6 +7,6 @@
     "priv/**/seed.exs"
   ],
   line_length: 80,
-  plugins: [Phoenix.LiveView.HTMLFormatter],
+  plugins: [TailwindFormatter, Phoenix.LiveView.HTMLFormatter],
   subdirectories: ["priv/**/migration"]
 ]
