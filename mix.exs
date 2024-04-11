@@ -181,6 +181,7 @@ defmodule DiacriticalApp.MixProject do
         {:postgrex, "~> 0.17"},
         {:req, "~> 0.4"},
         {:swoosh, "~> 1.14"},
+        {:tailwind_formatter, "~> 0.4", only: [:dev, :test], runtime: false},
         {:telemetry_metrics, "~> 0.6"},
         {:telemetry_poller, "~> 1.0"}
       ],

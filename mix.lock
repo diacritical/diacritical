@@ -795,6 +795,16 @@
     "hexpm",
     "e75961f08dc17485845171329abe92b9ba8c58c3f8f0276ef6a135df546bbc3d"
   },
+  tailwind_formatter: {
+    :hex,
+    :tailwind_formatter,
+    "0.4.0",
+    "2aa6f391b3b6fe52a18fe75b75c76d541c3478a31bcfc1ebe987819fa32653bf",
+    [:mix],
+    [],
+    "hexpm",
+    "6465afc3e864937fcb477524be45a2d9d73a1b1ee904d85f1592b80dbcb0b741"
+  },
   telemetry: {
     :hex,
     :telemetry,
