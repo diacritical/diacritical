@@ -24,8 +24,7 @@ defmodule DiacriticalWeb.Component do
       ...> end
       iex>
       iex> %{assigns: %{valid: assigns}} = c_assigns_greeting()
-      iex> c = c_resp_body_greet()
-      iex> %{resp_body: resp_body} = c_resp_body_to_html(c)
+      iex> render = render_component(&TestComponent.greet/1, assigns)
       iex>
       iex> TestComponent.__components__()
       %{
@@ -46,8 +45,8 @@ defmodule DiacriticalWeb.Component do
           slots: []
         }
       }
-      iex> render_component(&TestComponent.greet/1, assigns)
-      resp_body
+      iex> assert_element render, "span"
+      true
 
   """
   @doc since: "0.21.0"

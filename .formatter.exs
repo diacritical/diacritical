@@ -7,6 +7,7 @@
     "priv/**/seed.exs"
   ],
   line_length: 80,
+  locals_without_parens: [assert_element: 2],
   plugins: [TailwindFormatter, Phoenix.LiveView.HTMLFormatter],
   subdirectories: ["priv/**/migration"]
 ]

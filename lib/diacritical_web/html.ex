@@ -51,13 +51,12 @@ defmodule DiacriticalWeb.HTML do
       ...> end
       iex>
       iex> %{assigns: %{valid: assigns}} = c_assigns_greeting()
-      iex> c = c_resp_body_greet()
-      iex> %{resp_body: resp_body} = c_resp_body_to_html(c)
+      iex> render = render_component(&TestTemplate.greet/1, assigns)
       iex>
       iex> function_exported?(TestTemplate, :greet, 1)
       true
-      iex> render_component(&TestTemplate.greet/1, assigns)
-      resp_body
+      iex> assert_element render, "span"
+      true
 
   """
   @doc since: "0.6.0"

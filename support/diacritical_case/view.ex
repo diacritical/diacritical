@@ -16,6 +16,25 @@ defmodule DiacriticalCase.View do
   @type context_merge() :: DiacriticalCase.context_merge()
 
   @doc """
+  Asserts that the given `element` is inside of the given `html` tree or string.
+
+  ## Example
+
+      iex> html = "<span>Hello, world!</span>"
+      iex> element = "span"
+      iex>
+      iex> assert_element html, element
+      true
+
+  """
+  @doc since: "0.24.0"
+  defmacro assert_element(html, element) do
+    quote bind_quoted: [element: element, html: html] do
+      assert Floki.find(html, element) != []
+    end
+  end
+
+  @doc """
   Returns a map of fixtures to be merged into the given `context`.
 
   ## Example
@@ -101,20 +120,6 @@ defmodule DiacriticalCase.View do
   @spec c_resp_body_greet(context()) :: context_merge()
   def c_resp_body_greet(c \\ %{}) when is_map(c) do
     %{resp_body: "#{Diacritical.greet()}\n"}
-  end
-
-  @doc """
-  Returns a map of fixtures to be merged into the given `context`.
-
-  ## Example
-
-      iex> %{resp_body: _resp_body} = c_resp_body_to_html(%{resp_body: ""})
-
-  """
-  @doc since: "0.6.0"
-  @spec c_resp_body_to_html(context()) :: context_merge()
-  def c_resp_body_to_html(%{resp_body: resp_body}) when is_binary(resp_body) do
-    %{resp_body: "<span>" <> String.trim(resp_body) <> "</span>"}
   end
 
   using do

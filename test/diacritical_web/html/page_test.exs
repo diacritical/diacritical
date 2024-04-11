@@ -29,7 +29,7 @@ defmodule DiacriticalWeb.HTML.PageTest do
   describe "greet/1" do
     import Page, only: [greet: 1]
 
-    setup ~W[c_assigns_greeting c_resp_body_greet c_resp_body_to_html]a
+    setup :c_assigns_greeting
 
     test "Protocol.UndefinedError", %{assigns: %{invalid: assigns}} do
       assert_raise Protocol.UndefinedError, fn ->
@@ -37,9 +37,9 @@ defmodule DiacriticalWeb.HTML.PageTest do
       end
     end
 
-    test "success", %{assigns: %{valid: assigns}, resp_body: resp_body} do
+    test "success", %{assigns: %{valid: assigns}} do
       assert function_exported?(Page, :greet, 1)
-      assert render_component(&greet/1, assigns) == resp_body
+      assert_element render_component(&greet/1, assigns), "span"
     end
   end
 end

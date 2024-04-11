@@ -22,6 +22,18 @@ defmodule DiacriticalCase.ViewTest do
     end
   end
 
+  describe "assert_element/2" do
+    import View, only: [assert_element: 2]
+
+    setup do
+      %{element: "span", html: "<span>Hello, world!</span>"}
+    end
+
+    test "success", %{element: element, html: html} do
+      assert assert_element html, element
+    end
+  end
+
   describe "c_assigns_empty/0" do
     import View, only: [c_assigns_empty: 0]
 
@@ -151,22 +163,6 @@ defmodule DiacriticalCase.ViewTest do
 
     test "success", %{context: %{valid: context}} do
       assert %{resp_body: _resp_body} = c_resp_body_greet(context)
-    end
-  end
-
-  describe "c_resp_body_to_html/1" do
-    import View, only: [c_resp_body_to_html: 1]
-
-    setup do
-      %{context: %{invalid: %{resp_body: ~C""}, valid: %{resp_body: ""}}}
-    end
-
-    test "FunctionClauseError", %{context: %{invalid: context}} do
-      assert_raise FunctionClauseError, fn -> c_resp_body_to_html(context) end
-    end
-
-    test "success", %{context: %{valid: context}} do
-      assert %{resp_body: _resp_body} = c_resp_body_to_html(context)
     end
   end
 end

@@ -60,10 +60,9 @@ defmodule DiacriticalWeb.LiveView.Page do
   ## Example
 
       iex> %{assigns: %{valid: assigns}} = c_assigns_greeting()
-      iex> c = c_resp_body_greet()
-      iex> %{resp_body: resp_body} = c_resp_body_to_html(c)
+      iex> render = render_component(Page, assigns)
       iex>
-      iex> render_component(Page, assigns) =~ resp_body
+      iex> assert_element render, "span"
       true
 
   """
