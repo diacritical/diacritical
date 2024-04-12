@@ -43,12 +43,12 @@
   boundary: {
     :hex,
     :boundary,
-    "0.10.1",
-    "4228e788754ff81a51bec30358095fc6739114ba0e99241a642fef4db6d52e05",
+    "0.10.2",
+    "d68f23551cd7926e7a80b9a47c9f8ac37c1cc15e454f170a312147756eb1fff2",
     [:mix],
     [],
     "hexpm",
-    "4019d56c806766e2c467ae12a1dbe60e183373af69c32cc6d1f87d9e0b4c59e5"
+    "7f0ca83ed695b6ab7f9bb342abde5ff0202b1021ee26a26c832f7948444d8590"
   },
   bunt: {
     :hex,
@@ -314,12 +314,12 @@
   floki: {
     :hex,
     :floki,
-    "0.36.0",
-    "544d5dd8a3107f660633226b5805e47c2ac1fabd782fae86e3b22b02849b20f9",
+    "0.36.1",
+    "712b7f2ba19a4d5a47dfe3e74d81876c95bbcbee44fe551f0af3d2a388abb3da",
     [:mix],
     [],
     "hexpm",
-    "ab1ca4b1efb0db00df9a8e726524e2c85be88cf65ac092669186e1674d34d74c"
+    "21ba57abb8204bcc70c439b423fc0dd9f0286de67dc82773a14b0200ada0995f"
   },
   gettext: {
     :hex,
@@ -766,8 +766,8 @@
   swoosh: {
     :hex,
     :swoosh,
-    "1.16.1",
-    "880c70d05fd2815c083c821d1a8c39b4cba234c1f9d91b11ef5b672ba05ccd79",
+    "1.16.3",
+    "4ab7dc429e84afaf8ffe1c7c06ce1acbc7ddde758d2cb9152dd2ac32289d5498",
     [:mix],
     [
       {:bandit, ">= 1.0.0", hex: :bandit, repo: "hexpm", optional: true},
@@ -803,7 +803,7 @@
       }
     ],
     "hexpm",
-    "e75961f08dc17485845171329abe92b9ba8c58c3f8f0276ef6a135df546bbc3d"
+    "ff70980087650a72951ebd109a286d83c270e2b6610aba447140562adff8cf0a"
   },
   tailwind_formatter: {
     :hex,
@@ -828,8 +828,8 @@
   telemetry_metrics: {
     :hex,
     :telemetry_metrics,
-    "0.6.2",
-    "2caabe9344ec17eafe5403304771c3539f3b6e2f7fb6a6f602558c825d0d0bfb",
+    "1.0.0",
+    "29f5f84991ca98b8eb02fc208b2e6de7c95f8bb2294ef244a176675adc7775df",
     [:mix],
     [
       {
@@ -839,7 +839,7 @@
       }
     ],
     "hexpm",
-    "9b43db0dc33863930b9ef9d27137e78974756f5f198cae18409970ed6fa5b561"
+    "f23713b3847286a534e005126d4c959ebcca68ae9582118ce436b521d1d47d5d"
   },
   telemetry_poller: {
     :hex,
