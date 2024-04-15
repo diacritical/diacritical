@@ -3,6 +3,7 @@ import heroicons from "./src/tailwindcss/plugin/heroicons";
 import inset from "./src/tailwindcss/plugin/inset";
 import margin from "./src/tailwindcss/plugin/margin";
 import blockSize from "./src/tailwindcss/plugin/blockSize";
+import inlineSize from "./src/tailwindcss/plugin/inlineSize";
 import containerQueries from "@tailwindcss/container-queries";
 import forms from "@tailwindcss/forms";
 import typography from "@tailwindcss/typography";
@@ -18,6 +19,7 @@ const tailwindConfig = {
     inset,
     margin,
     blockSize,
+    inlineSize,
     containerQueries,
     forms,
     typography,
@@ -34,8 +36,11 @@ const tailwindConfig = {
         sans: ["Inter Variable", "Inter", ...defaultTheme.fontFamily.sans],
       },
     },
+    inlineSize: ({ theme }) => ({ ...theme("width") }),
     maxBlockSize: ({ theme }) => ({ ...theme("maxHeight") }),
+    maxInlineSize: ({ theme }) => ({ ...theme("maxWidth") }),
     minBlockSize: ({ theme }) => ({ ...theme("minHeight") }),
+    minInlineSize: ({ theme }) => ({ ...theme("minWidth") }),
   },
 };
 
