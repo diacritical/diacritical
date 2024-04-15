@@ -7,6 +7,7 @@ import inlineSize from "./src/tailwindcss/plugin/inlineSize";
 import captionSide from "./src/tailwindcss/plugin/captionSide";
 import resize from "./src/tailwindcss/plugin/resize";
 import scrollSnapType from "./src/tailwindcss/plugin/scrollSnapType";
+import scrollMargin from "./src/tailwindcss/plugin/scrollMargin";
 import containerQueries from "@tailwindcss/container-queries";
 import forms from "@tailwindcss/forms";
 import typography from "@tailwindcss/typography";
@@ -26,6 +27,7 @@ const tailwindConfig = {
     captionSide,
     resize,
     scrollSnapType,
+    scrollMargin,
     containerQueries,
     forms,
     typography,
