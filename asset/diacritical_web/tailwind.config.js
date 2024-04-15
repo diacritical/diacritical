@@ -12,6 +12,7 @@ import scrollPadding from "./src/tailwindcss/plugin/scrollPadding";
 import gap from "./src/tailwindcss/plugin/gap";
 import space from "./src/tailwindcss/plugin/space";
 import divideWidth from "./src/tailwindcss/plugin/divideWidth";
+import overflow from "./src/tailwindcss/plugin/overflow";
 import containerQueries from "@tailwindcss/container-queries";
 import forms from "@tailwindcss/forms";
 import typography from "@tailwindcss/typography";
@@ -36,6 +37,7 @@ const tailwindConfig = {
     gap,
     space,
     divideWidth,
+    overflow,
     containerQueries,
     forms,
     typography,
