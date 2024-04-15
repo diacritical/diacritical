@@ -1,6 +1,7 @@
 import path from "node:path";
 import heroicons from "./src/tailwindcss/plugin/heroicons";
 import inset from "./src/tailwindcss/plugin/inset";
+import margin from "./src/tailwindcss/plugin/margin";
 import containerQueries from "@tailwindcss/container-queries";
 import forms from "@tailwindcss/forms";
 import typography from "@tailwindcss/typography";
@@ -14,6 +15,7 @@ const tailwindConfig = {
   plugins: [
     heroicons(heroiconsPath),
     inset,
+    margin,
     containerQueries,
     forms,
     typography,
