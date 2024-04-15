@@ -16,6 +16,7 @@ import overflow from "./src/tailwindcss/plugin/overflow";
 import overscrollBehavior from "./src/tailwindcss/plugin/overscrollBehavior";
 import borderRadius from "./src/tailwindcss/plugin/borderRadius";
 import borderWidth from "./src/tailwindcss/plugin/borderWidth";
+import borderColor from "./src/tailwindcss/plugin/borderColor";
 import containerQueries from "@tailwindcss/container-queries";
 import forms from "@tailwindcss/forms";
 import typography from "@tailwindcss/typography";
@@ -44,6 +45,7 @@ const tailwindConfig = {
     overscrollBehavior,
     borderRadius,
     borderWidth,
+    borderColor,
     containerQueries,
     forms,
     typography,
