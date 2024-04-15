@@ -5,6 +5,7 @@ import margin from "./src/tailwindcss/plugin/margin";
 import blockSize from "./src/tailwindcss/plugin/blockSize";
 import inlineSize from "./src/tailwindcss/plugin/inlineSize";
 import captionSide from "./src/tailwindcss/plugin/captionSide";
+import resize from "./src/tailwindcss/plugin/resize";
 import containerQueries from "@tailwindcss/container-queries";
 import forms from "@tailwindcss/forms";
 import typography from "@tailwindcss/typography";
@@ -22,6 +23,7 @@ const tailwindConfig = {
     blockSize,
     inlineSize,
     captionSide,
+    resize,
     containerQueries,
     forms,
     typography,
