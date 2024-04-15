@@ -10,6 +10,7 @@ import scrollSnapType from "./src/tailwindcss/plugin/scrollSnapType";
 import scrollMargin from "./src/tailwindcss/plugin/scrollMargin";
 import scrollPadding from "./src/tailwindcss/plugin/scrollPadding";
 import gap from "./src/tailwindcss/plugin/gap";
+import space from "./src/tailwindcss/plugin/space";
 import containerQueries from "@tailwindcss/container-queries";
 import forms from "@tailwindcss/forms";
 import typography from "@tailwindcss/typography";
@@ -32,6 +33,7 @@ const tailwindConfig = {
     scrollMargin,
     scrollPadding,
     gap,
+    space,
     containerQueries,
     forms,
     typography,
