@@ -202,6 +202,28 @@
     "hexpm",
     "317346c14febaba9ca40fd97b5b5919f7751fb85d399cc8e7e8872049f37e0af"
   },
+  ecto_psql_extras: {
+    :hex,
+    :ecto_psql_extras,
+    "0.7.15",
+    "0fc29dbae0e444a29bd6abeee4cf3c4c037e692a272478a234a1cc765077dbb1",
+    [:mix],
+    [
+      {:ecto_sql, "~> 3.7", hex: :ecto_sql, repo: "hexpm", optional: false},
+      {
+        :postgrex,
+        "~> 0.16.0 or ~> 0.17.0",
+        [hex: :postgrex, repo: "hexpm", optional: false]
+      },
+      {
+        :table_rex,
+        "~> 3.1.1 or ~> 4.0.0",
+        [hex: :table_rex, repo: "hexpm", optional: false]
+      }
+    ],
+    "hexpm",
+    "b6127f3a5c6fc3d84895e4768cc7c199f22b48b67d6c99b13fbf4a374e73f039"
+  },
   ecto_sql: {
     :hex,
     :ecto_sql,
@@ -804,6 +826,16 @@
     ],
     "hexpm",
     "ff70980087650a72951ebd109a286d83c270e2b6610aba447140562adff8cf0a"
+  },
+  table_rex: {
+    :hex,
+    :table_rex,
+    "4.0.0",
+    "3c613a68ebdc6d4d1e731bc973c233500974ec3993c99fcdabb210407b90959b",
+    [:mix],
+    [],
+    "hexpm",
+    "c35c4d5612ca49ebb0344ea10387da4d2afe278387d4019e4d8111e815df8f55"
   },
   tailwind_formatter: {
     :hex,

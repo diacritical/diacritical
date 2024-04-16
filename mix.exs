@@ -157,6 +157,7 @@ defmodule DiacriticalApp.MixProject do
         {:boundary, "~> 0.10", runtime: false},
         {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
         {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
+        {:ecto_psql_extras, "~> 0.7"},
         {:ecto_sql, "~> 3.11"},
         {:esbuild, "~> 0.8", runtime: env == :dev},
         {:ex_doc, "~> 0.31", only: :dev, runtime: false},
