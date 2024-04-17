@@ -62,7 +62,7 @@ jobs:
     strategy:
       matrix:
         elixir-version: ["1.16.2"]
-        node-version: ["21.6.2"]
+        node-version: ["21.7.1"]
         os: ["ubuntu-22.04"]
         otp-version: ["26.2.3"]
         postgres: ["postgres:16.2"]
