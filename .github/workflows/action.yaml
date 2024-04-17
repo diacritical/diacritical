@@ -45,6 +45,7 @@ jobs:
       - run: mix credo --all-priorities
       - run: mix dialyzer --format github
       - run: mix asset.setup
+      - run: mix asset.format.check
       - run: mix asset.build
       - run: mix ecto.setup
       - run: mix test

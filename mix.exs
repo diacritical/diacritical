@@ -120,6 +120,8 @@ defmodule DiacriticalApp.MixProject do
           "esbuild diacritical_web --minify",
           "phx.digest"
         ],
+        "asset.format": ["cmd --cd #{@asset_path} npm run format"],
+        "asset.format.check": ["cmd --cd #{@asset_path} npm run format:check"],
         "asset.setup": ["npm.install", "esbuild.install --if-missing"],
         "boundary.ex_doc_groups": [
           "boundary.ex_doc_groups",
