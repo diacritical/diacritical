@@ -170,7 +170,7 @@ defmodule DiacriticalApp.MixProject do
           depth: 1,
           github: "tailwindlabs/heroicons",
           sparse: "optimized",
-          tag: "v2.1.1"
+          tag: "v2.1.3"
         },
         {:jason, "~> 1.4"},
         {:libcluster, "~> 3.3"},

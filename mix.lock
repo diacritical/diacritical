@@ -256,8 +256,8 @@
   elixir_make: {
     :hex,
     :elixir_make,
-    "0.8.2",
-    "cd4a5a75891362e9207adaac7e66223fd256ec2518ae013af7f10c9c85b50b5c",
+    "0.8.3",
+    "d38d7ee1578d722d89b4d452a3e36bcfdc644c618f0d063b874661876e708683",
     [:mix],
     [
       {
@@ -268,7 +268,7 @@
       {:certifi, "~> 2.0", hex: :certifi, repo: "hexpm", optional: true}
     ],
     "hexpm",
-    "9d9607d640c372a7291e5a56ce655aa2351897929be20bd211648fdb79e725dc"
+    "5c99a18571a756d4af7a4d89ca75c28ac899e6103af6f223982f09ce44942cc9"
   },
   erlex: {
     :hex,
@@ -356,8 +356,8 @@
   heroicons: {
     :git,
     "https://github.com/tailwindlabs/heroicons.git",
-    "88ab3a0d790e6a47404cba02800a6b25d2afae50",
-    [sparse: "optimized", tag: "v2.1.1"]
+    "01c786b0353c7e51b86bc903a329e81d7578333d",
+    [sparse: "optimized", tag: "v2.1.3"]
   },
   hpax: {
     :hex,
@@ -912,8 +912,8 @@
   websock_adapter: {
     :hex,
     :websock_adapter,
-    "0.5.5",
-    "9dfeee8269b27e958a65b3e235b7e447769f66b5b5925385f5a569269164a210",
+    "0.5.6",
+    "0437fe56e093fd4ac422de33bf8fc89f7bc1416a3f2d732d8b2c8fd54792fe60",
     [:mix],
     [
       {:bandit, ">= 0.6.0", hex: :bandit, repo: "hexpm", optional: true},
@@ -926,6 +926,6 @@
       {:websock, "~> 0.5", hex: :websock, repo: "hexpm", optional: false}
     ],
     "hexpm",
-    "4b977ba4a01918acbf77045ff88de7f6972c2a009213c515a445c48f224ffce9"
+    "e04378d26b0af627817ae84c92083b7e97aca3121196679b73c73b99d0d133ea"
   }
 }
