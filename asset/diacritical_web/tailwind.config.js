@@ -1,4 +1,5 @@
 import path from "node:path";
+import stackLayout from "./src/tailwindcss/plugin/stackLayout";
 import heroicons from "./src/tailwindcss/plugin/heroicons";
 import inset from "./src/tailwindcss/plugin/inset";
 import margin from "./src/tailwindcss/plugin/margin";
@@ -29,6 +30,7 @@ const heroiconsPath = path.join(__dirname, "../../dep/heroicons/optimized");
 const tailwindConfig = {
   content: ["./js/**/*.js", "../../lib/*_web.ex", "../../lib/*_web/**/*.*ex"],
   plugins: [
+    stackLayout,
     heroicons(heroiconsPath),
     inset,
     margin,
@@ -69,6 +71,20 @@ const tailwindConfig = {
     maxInlineSize: ({ theme }) => ({ ...theme("maxWidth") }),
     minBlockSize: ({ theme }) => ({ ...theme("minHeight") }),
     minInlineSize: ({ theme }) => ({ ...theme("minWidth") }),
+    nthChild: {
+      1: 1,
+      2: 2,
+      3: 3,
+      4: 4,
+      5: 5,
+      6: 6,
+      7: 7,
+      8: 8,
+      9: 9,
+      10: 10,
+      11: 11,
+      12: 12,
+    },
   },
 };
 
