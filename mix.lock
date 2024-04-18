@@ -19,8 +19,8 @@
   bandit: {
     :hex,
     :bandit,
-    "1.3.0",
-    "6a4e8d7c9ea721edd02c389e2cc867890cd96f83116e71ddf1ccbdd80661550c",
+    "1.4.1",
+    "6ff703b33a967bc20b41ed3840a4c58e62abe62b4cc598cff7429af78e174990",
     [:mix],
     [
       {:hpax, "~> 0.1.1", hex: :hpax, repo: "hexpm", optional: false},
@@ -38,17 +38,17 @@
       {:websock, "~> 0.5", hex: :websock, repo: "hexpm", optional: false}
     ],
     "hexpm",
-    "bda37d6c614d74778a5dc43b8bcdc3245cd30619eab0342f58042f968f2165da"
+    "5bbc0a4c185358b7d566a3b7b32806723ae139a8704cdc841ad787b677adcb9a"
   },
   boundary: {
     :hex,
     :boundary,
-    "0.10.2",
-    "d68f23551cd7926e7a80b9a47c9f8ac37c1cc15e454f170a312147756eb1fff2",
+    "0.10.3",
+    "43c15d67a3a1ba863d0995de1c300e82aeb3cfec592d0a6a88a5aa2cf95d3c32",
     [:mix],
     [],
     "hexpm",
-    "7f0ca83ed695b6ab7f9bb342abde5ff0202b1021ee26a26c832f7948444d8590"
+    "a037f12b28b2baf971f7e986e642967c94ff7bf74f25ad6a4d7c52e7e8739850"
   },
   bunt: {
     :hex,
@@ -498,12 +498,12 @@
   nimble_pool: {
     :hex,
     :nimble_pool,
-    "1.0.0",
-    "5eb82705d138f4dd4423f69ceb19ac667b3b492ae570c9f5c900bb3d2f50a847",
+    "1.1.0",
+    "bf9c29fbdcba3564a8b800d1eeb5a3c58f36e1e11d7b7fb2e084a643f645f06b",
     [:mix],
     [],
     "hexpm",
-    "80be3b882d2d351882256087078e1b1952a28bf98d0a287be87e4a24a710b67a"
+    "af2e4e6b34197db81f7aad230c1118eac993acc0dae6bc83bac0126d4ae0813a"
   },
   phoenix: {
     :hex,
@@ -623,8 +623,8 @@
   phoenix_live_reload: {
     :hex,
     :phoenix_live_reload,
-    "1.5.2",
-    "354460993a480656b71c3887f5565f612b3bdbdd8688c83f9e6f512307067dd4",
+    "1.5.3",
+    "f2161c207fda0e4fb55165f650f7f8db23f02b29e3bff00ff7ef161d6ac1f09d",
     [:mix],
     [
       {
@@ -635,7 +635,7 @@
       {:phoenix, "~> 1.4", hex: :phoenix, repo: "hexpm", optional: false}
     ],
     "hexpm",
-    "2bb3722f327e14a7aa47b1acf27ed633c8cd27b167e18b8237954b9b4804af39"
+    "b4ec9cd73cb01ff1bd1cac92e045d13e7030330b74164297d1aee3907b54803c"
   },
   phoenix_live_view: {
     :hex,
