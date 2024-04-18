@@ -2,6 +2,7 @@ import path from "node:path";
 import stackLayout from "./src/tailwindcss/plugin/stackLayout";
 import boxLayout from "./src/tailwindcss/plugin/boxLayout";
 import centerLayout from "./src/tailwindcss/plugin/centerLayout";
+import clusterLayout from "./src/tailwindcss/plugin/clusterLayout";
 import heroicons from "./src/tailwindcss/plugin/heroicons";
 import inset from "./src/tailwindcss/plugin/inset";
 import margin from "./src/tailwindcss/plugin/margin";
@@ -35,6 +36,7 @@ const tailwindConfig = {
     stackLayout,
     boxLayout,
     centerLayout,
+    clusterLayout,
     heroicons(heroiconsPath),
     inset,
     margin,
