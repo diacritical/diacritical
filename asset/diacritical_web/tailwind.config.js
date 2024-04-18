@@ -10,6 +10,7 @@ import gridLayout from "./src/tailwindcss/plugin/gridLayout";
 import frameLayout from "./src/tailwindcss/plugin/frameLayout";
 import reelLayout from "./src/tailwindcss/plugin/reelLayout";
 import imposterLayout from "./src/tailwindcss/plugin/imposterLayout";
+import iconLayout from "./src/tailwindcss/plugin/iconLayout";
 import heroicons from "./src/tailwindcss/plugin/heroicons";
 import inset from "./src/tailwindcss/plugin/inset";
 import margin from "./src/tailwindcss/plugin/margin";
@@ -51,6 +52,7 @@ const tailwindConfig = {
     frameLayout,
     reelLayout,
     imposterLayout,
+    iconLayout,
     heroicons(heroiconsPath),
     inset,
     margin,
