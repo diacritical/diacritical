@@ -1,6 +1,6 @@
 ARG ELIXIR="1.16.2"
 ARG OTP="26.2.3"
-ARG DEBIAN="bookworm-20240130-slim"
+ARG DEBIAN="bookworm-20240311-slim"
 
 ARG BUILD="hexpm/elixir:${ELIXIR}-erlang-${OTP}-debian-${DEBIAN}"
 ARG APP="debian:${DEBIAN}"
