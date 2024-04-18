@@ -8,6 +8,7 @@ import switcherLayout from "./src/tailwindcss/plugin/switcherLayout";
 import coverLayout from "./src/tailwindcss/plugin/coverLayout";
 import gridLayout from "./src/tailwindcss/plugin/gridLayout";
 import frameLayout from "./src/tailwindcss/plugin/frameLayout";
+import reelLayout from "./src/tailwindcss/plugin/reelLayout";
 import heroicons from "./src/tailwindcss/plugin/heroicons";
 import inset from "./src/tailwindcss/plugin/inset";
 import margin from "./src/tailwindcss/plugin/margin";
@@ -47,6 +48,7 @@ const tailwindConfig = {
     coverLayout,
     gridLayout,
     frameLayout,
+    reelLayout,
     heroicons(heroiconsPath),
     inset,
     margin,
