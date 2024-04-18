@@ -3,6 +3,7 @@ import stackLayout from "./src/tailwindcss/plugin/stackLayout";
 import boxLayout from "./src/tailwindcss/plugin/boxLayout";
 import centerLayout from "./src/tailwindcss/plugin/centerLayout";
 import clusterLayout from "./src/tailwindcss/plugin/clusterLayout";
+import sidebarLayout from "./src/tailwindcss/plugin/sidebarLayout";
 import heroicons from "./src/tailwindcss/plugin/heroicons";
 import inset from "./src/tailwindcss/plugin/inset";
 import margin from "./src/tailwindcss/plugin/margin";
@@ -37,6 +38,7 @@ const tailwindConfig = {
     boxLayout,
     centerLayout,
     clusterLayout,
+    sidebarLayout,
     heroicons(heroiconsPath),
     inset,
     margin,
@@ -63,6 +65,7 @@ const tailwindConfig = {
   theme: {
     blockSize: ({ theme }) => ({ ...theme("height") }),
     extend: {
+      flexGrow: { 999: 999 },
       fontFamily: {
         display: [
           "Inter Variable",
@@ -71,6 +74,31 @@ const tailwindConfig = {
         ],
         sans: ["Inter Variable", "Inter", ...defaultTheme.fontFamily.sans],
       },
+    },
+    fraction: {
+      "1/2": "1 / 2",
+      "1/3": "1 / 3",
+      "2/3": "2 / 3",
+      "1/4": "1 / 4",
+      "2/4": "1 / 2",
+      "3/4": "3 / 4",
+      "1/6": "1 / 6",
+      "2/6": "1 / 3",
+      "3/6": "1 / 2",
+      "4/6": "2 / 3",
+      "5/6": "5 / 6",
+      "1/12": "1 / 12",
+      "2/12": "1 / 6",
+      "3/12": "1 / 4",
+      "4/12": "1 / 3",
+      "5/12": "5 / 12",
+      "6/12": "1 / 2",
+      "7/12": "7 / 12",
+      "8/12": "2 / 3",
+      "9/12": "3 / 4",
+      "10/12": "5 / 6",
+      "11/12": "11 / 12",
+      full: 1,
     },
     inlineSize: ({ theme }) => ({ ...theme("width") }),
     maxBlockSize: ({ theme }) => ({ ...theme("maxHeight") }),
