@@ -4,6 +4,7 @@ import boxLayout from "./src/tailwindcss/plugin/boxLayout";
 import centerLayout from "./src/tailwindcss/plugin/centerLayout";
 import clusterLayout from "./src/tailwindcss/plugin/clusterLayout";
 import sidebarLayout from "./src/tailwindcss/plugin/sidebarLayout";
+import switcherLayout from "./src/tailwindcss/plugin/switcherLayout";
 import heroicons from "./src/tailwindcss/plugin/heroicons";
 import inset from "./src/tailwindcss/plugin/inset";
 import margin from "./src/tailwindcss/plugin/margin";
@@ -39,6 +40,7 @@ const tailwindConfig = {
     centerLayout,
     clusterLayout,
     sidebarLayout,
+    switcherLayout,
     heroicons(heroiconsPath),
     inset,
     margin,
