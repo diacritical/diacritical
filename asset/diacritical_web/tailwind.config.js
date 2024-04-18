@@ -5,6 +5,7 @@ import centerLayout from "./src/tailwindcss/plugin/centerLayout";
 import clusterLayout from "./src/tailwindcss/plugin/clusterLayout";
 import sidebarLayout from "./src/tailwindcss/plugin/sidebarLayout";
 import switcherLayout from "./src/tailwindcss/plugin/switcherLayout";
+import coverLayout from "./src/tailwindcss/plugin/coverLayout";
 import heroicons from "./src/tailwindcss/plugin/heroicons";
 import inset from "./src/tailwindcss/plugin/inset";
 import margin from "./src/tailwindcss/plugin/margin";
@@ -41,6 +42,7 @@ const tailwindConfig = {
     clusterLayout,
     sidebarLayout,
     switcherLayout,
+    coverLayout,
     heroicons(heroiconsPath),
     inset,
     margin,
@@ -76,6 +78,9 @@ const tailwindConfig = {
         ],
         sans: ["Inter Variable", "Inter", ...defaultTheme.fontFamily.sans],
       },
+      height: { dvb: "100dvb" },
+      maxHeight: { dvb: "100dvb" },
+      minHeight: { dvb: "100dvb" },
     },
     fraction: {
       "1/2": "1 / 2",
