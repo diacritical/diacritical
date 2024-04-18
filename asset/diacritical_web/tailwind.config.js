@@ -1,5 +1,6 @@
 import path from "node:path";
 import stackLayout from "./src/tailwindcss/plugin/stackLayout";
+import boxLayout from "./src/tailwindcss/plugin/boxLayout";
 import heroicons from "./src/tailwindcss/plugin/heroicons";
 import inset from "./src/tailwindcss/plugin/inset";
 import margin from "./src/tailwindcss/plugin/margin";
@@ -31,6 +32,7 @@ const tailwindConfig = {
   content: ["./js/**/*.js", "../../lib/*_web.ex", "../../lib/*_web/**/*.*ex"],
   plugins: [
     stackLayout,
+    boxLayout,
     heroicons(heroiconsPath),
     inset,
     margin,
