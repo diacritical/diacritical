@@ -63,9 +63,9 @@ jobs:
     strategy:
       matrix:
         elixir-version: ["1.16.2"]
-        node-version: ["21.7.1"]
+        node-version: ["21.7.3"]
         os: ["ubuntu-22.04"]
-        otp-version: ["26.2.3"]
+        otp-version: ["26.2.4"]
         postgres: ["postgres:16.2"]
   deploy:
     name: Fly.io Deployment

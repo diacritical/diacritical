@@ -19,8 +19,8 @@
   bandit: {
     :hex,
     :bandit,
-    "1.4.1",
-    "6ff703b33a967bc20b41ed3840a4c58e62abe62b4cc598cff7429af78e174990",
+    "1.5.0",
+    "3bc864a0da7f013ad3713a7f550c6a6ec0e19b8d8715ec678256a0dc197d5539",
     [:mix],
     [
       {:hpax, "~> 0.1.1", hex: :hpax, repo: "hexpm", optional: false},
@@ -38,7 +38,7 @@
       {:websock, "~> 0.5", hex: :websock, repo: "hexpm", optional: false}
     ],
     "hexpm",
-    "5bbc0a4c185358b7d566a3b7b32806723ae139a8704cdc841ad787b677adcb9a"
+    "92d18d9a7228a597e0d4661ef69a874ea82d63ff49c7d801a5c68cb18ebbbd72"
   },
   boundary: {
     :hex,
@@ -63,12 +63,12 @@
   castore: {
     :hex,
     :castore,
-    "1.0.6",
-    "ffc42f110ebfdafab0ea159cd43d31365fa0af0ce4a02ecebf1707ae619ee727",
+    "1.0.7",
+    "b651241514e5f6956028147fe6637f7ac13802537e895a724f90bf3e36ddd1dd",
     [:mix],
     [],
     "hexpm",
-    "374c6e7ca752296be3d6780a6d5b922854ffcc74123da90f2f328996b962d33a"
+    "da7785a4b0d2a021cd1292a60875a784b6caef71e76bf4917bdee1f390455cf5"
   },
   comeonin: {
     :hex,
@@ -178,8 +178,8 @@
   ex_doc: {
     :hex,
     :ex_doc,
-    "0.31.2",
-    "8b06d0a5ac69e1a54df35519c951f1f44a7b7ca9a5bb7a260cd8a174d6322ece",
+    "0.32.1",
+    "21e40f939515373bcdc9cffe65f3b3543f05015ac6c3d01d991874129d173420",
     [:mix],
     [
       {
@@ -200,7 +200,7 @@
       }
     ],
     "hexpm",
-    "317346c14febaba9ca40fd97b5b5919f7751fb85d399cc8e7e8872049f37e0af"
+    "5142c9db521f106d61ff33250f779807ed2a88620e472ac95dc7d59c380113da"
   },
   ecto_psql_extras: {
     :hex,
@@ -508,8 +508,8 @@
   phoenix: {
     :hex,
     :phoenix,
-    "1.7.11",
-    "1d88fc6b05ab0c735b250932c4e6e33bfa1c186f76dcf623d8dd52f07d6379c7",
+    "1.7.12",
+    "1cc589e0eab99f593a8aa38ec45f15d25297dd6187ee801c8de8947090b5a9d3",
     [:mix],
     [
       {:castore, ">= 0.0.0", hex: :castore, repo: "hexpm", optional: false},
@@ -552,7 +552,7 @@
       }
     ],
     "hexpm",
-    "b1ec57f2e40316b306708fe59b92a16b9f6f4bf50ccfa41aa8c7feb79e0ec02a"
+    "d646192fbade9f485b01bc9920c139bfdd19d0f8df3d73fd8eaf2dfbe0d2837c"
   },
   phoenix_ecto: {
     :hex,
@@ -788,8 +788,8 @@
   swoosh: {
     :hex,
     :swoosh,
-    "1.16.3",
-    "4ab7dc429e84afaf8ffe1c7c06ce1acbc7ddde758d2cb9152dd2ac32289d5498",
+    "1.16.4",
+    "d407768b3b68e3d1ff8d43b575a20c13bea338647143e241a324894cdb5af0b2",
     [:mix],
     [
       {:bandit, ">= 1.0.0", hex: :bandit, repo: "hexpm", optional: true},
@@ -825,7 +825,7 @@
       }
     ],
     "hexpm",
-    "ff70980087650a72951ebd109a286d83c270e2b6610aba447140562adff8cf0a"
+    "a38798368c09b09d7108803c42f24bb051d3e87bc1b81e6f09b20bf5a31c6676"
   },
   table_rex: {
     :hex,
@@ -876,12 +876,12 @@
   telemetry_poller: {
     :hex,
     :telemetry_poller,
-    "1.0.0",
-    "db91bb424e07f2bb6e73926fcafbfcbcb295f0193e0a00e825e589a0a47e8453",
+    "1.1.0",
+    "58fa7c216257291caaf8d05678c8d01bd45f4bdbc1286838a28c4bb62ef32999",
     [:rebar3],
     [{:telemetry, "~> 1.0", hex: :telemetry, repo: "hexpm", optional: false}],
     "hexpm",
-    "b3a24eafd66c3f42da30fc3ca7dda1e9d546c12250a2d60d7b81d264fbec4f6e"
+    "9eb9d9cbfd81cbd7cdd24682f8711b6e2b691289a0de6826e58452f28c103c8f"
   },
   thousand_island: {
     :hex,

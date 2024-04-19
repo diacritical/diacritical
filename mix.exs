@@ -155,14 +155,14 @@ defmodule DiacriticalApp.MixProject do
       compilers: [:boundary | Mix.compilers()],
       deps: [
         {:argon2_elixir, "~> 4.0"},
-        {:bandit, "~> 1.3"},
+        {:bandit, "~> 1.5"},
         {:boundary, "~> 0.10", runtime: false},
         {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
         {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
         {:ecto_psql_extras, "~> 0.7"},
         {:ecto_sql, "~> 3.11"},
         {:esbuild, "~> 0.8", runtime: env == :dev},
-        {:ex_doc, "~> 0.31", only: :dev, runtime: false},
+        {:ex_doc, "~> 0.32", only: :dev, runtime: false},
         {:floki, "~> 0.36", only: :test},
         {:gettext, "~> 0.24"},
         {
@@ -184,10 +184,10 @@ defmodule DiacriticalApp.MixProject do
         {:phoenix_live_view, "~> 0.20"},
         {:postgrex, "~> 0.17"},
         {:req, "~> 0.4"},
-        {:swoosh, "~> 1.14"},
+        {:swoosh, "~> 1.16"},
         {:tailwind_formatter, "~> 0.4", only: [:dev, :test], runtime: false},
         {:telemetry_metrics, "~> 1.0"},
-        {:telemetry_poller, "~> 1.0"}
+        {:telemetry_poller, "~> 1.1"}
       ],
       deps_path: "dep",
       dialyzer: [ignore_warnings: ".dialyzer.exs", plt_add_apps: [:ex_unit]],
