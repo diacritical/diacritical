@@ -55,7 +55,15 @@ config :diacritical, Repo,
   priv: "priv/diacritical/repo",
   socket_options: [:inet6]
 
-config :diacritical, ecto_repos: [Repo]
+config :diacritical,
+  ecto_repos: [Repo],
+  generators: [
+    binary_id: true,
+    migration: true,
+    sample_binary_id: "ad229840-aabb-44ca-8a58-16b304fc0672",
+    timestamp_type: :utc_datetime_usec
+  ]
+
 config :diacritical, env: [prod: true]
 
 config :esbuild,
@@ -71,7 +79,7 @@ config :esbuild,
     cd: Path.expand("../asset/diacritical_web", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../dep", __DIR__)}
   ],
-  version: "0.21.1"
+  version: "0.21.4"
 
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

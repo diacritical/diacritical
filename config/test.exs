@@ -31,4 +31,5 @@ config :diacritical, env: [test: true]
 config :logger, level: :warning
 config :os_mon, start_cpu_sup: false, start_disksup: false, start_memsup: false
 config :phoenix, :plug_init_mode, :runtime
+config :phoenix_live_view, :enable_expensive_runtime_checks, true
 config :swoosh, :api_client, false

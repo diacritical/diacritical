@@ -167,6 +167,7 @@ defmodule DiacriticalWeb.Router do
       pipe_through :browser
 
       live_dashboard "/dashboard", metrics: Telemetry
+      forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
   end
 

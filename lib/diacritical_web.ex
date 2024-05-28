@@ -17,7 +17,8 @@ defmodule DiacriticalWeb do
       Phoenix.LiveView,
       Phoenix.PubSub,
       Phoenix.Template,
-      Plug
+      Plug,
+      Plug.Swoosh.MailboxPreview
     ],
     exports: [Endpoint]
 

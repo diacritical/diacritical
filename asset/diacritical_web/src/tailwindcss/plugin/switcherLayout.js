@@ -8,7 +8,7 @@ export default plugin(({ matchComponents, theme }) => {
         flexWrap: "wrap",
         "& > *": {
           flexBasis: `calc((${value} - ${theme("flexBasis.full")}) * 999)`,
-          flexGrow: theme("flexGrow.1"),
+          flexGrow: theme("flexGrow.DEFAULT"),
         },
       }),
     },
