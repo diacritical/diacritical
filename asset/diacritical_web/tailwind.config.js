@@ -1,60 +1,64 @@
 import path from "node:path";
-import stackLayout from "./src/tailwindcss/plugin/stackLayout";
-import boxLayout from "./src/tailwindcss/plugin/boxLayout";
-import centerLayout from "./src/tailwindcss/plugin/centerLayout";
-import clusterLayout from "./src/tailwindcss/plugin/clusterLayout";
-import sidebarLayout from "./src/tailwindcss/plugin/sidebarLayout";
-import switcherLayout from "./src/tailwindcss/plugin/switcherLayout";
-import coverLayout from "./src/tailwindcss/plugin/coverLayout";
-import gridLayout from "./src/tailwindcss/plugin/gridLayout";
-import frameLayout from "./src/tailwindcss/plugin/frameLayout";
-import reelLayout from "./src/tailwindcss/plugin/reelLayout";
-import imposterLayout from "./src/tailwindcss/plugin/imposterLayout";
-import containerLayout from "./src/tailwindcss/plugin/containerLayout";
-import iconLayout from "./src/tailwindcss/plugin/iconLayout";
-import heroicons from "./src/tailwindcss/plugin/heroicons";
-import inset from "./src/tailwindcss/plugin/inset";
-import margin from "./src/tailwindcss/plugin/margin";
-import blockSize from "./src/tailwindcss/plugin/blockSize";
-import inlineSize from "./src/tailwindcss/plugin/inlineSize";
-import captionSide from "./src/tailwindcss/plugin/captionSide";
-import resize from "./src/tailwindcss/plugin/resize";
-import scrollSnapType from "./src/tailwindcss/plugin/scrollSnapType";
-import scrollMargin from "./src/tailwindcss/plugin/scrollMargin";
-import scrollPadding from "./src/tailwindcss/plugin/scrollPadding";
-import gap from "./src/tailwindcss/plugin/gap";
-import space from "./src/tailwindcss/plugin/space";
-import divideWidth from "./src/tailwindcss/plugin/divideWidth";
-import overflow from "./src/tailwindcss/plugin/overflow";
-import overscrollBehavior from "./src/tailwindcss/plugin/overscrollBehavior";
-import borderRadius from "./src/tailwindcss/plugin/borderRadius";
-import borderWidth from "./src/tailwindcss/plugin/borderWidth";
-import borderColor from "./src/tailwindcss/plugin/borderColor";
-import padding from "./src/tailwindcss/plugin/padding";
+
+import elStack from "./src/tailwindcss/plugin/component/elStack";
+import elBox from "./src/tailwindcss/plugin/component/elBox";
+import elCenter from "./src/tailwindcss/plugin/component/elCenter";
+import elCluster from "./src/tailwindcss/plugin/component/elCluster";
+import elSidebar from "./src/tailwindcss/plugin/component/elSidebar";
+import elSwitcher from "./src/tailwindcss/plugin/component/elSwitcher";
+import elCover from "./src/tailwindcss/plugin/component/elCover";
+import elGrid from "./src/tailwindcss/plugin/component/elGrid";
+import elFrame from "./src/tailwindcss/plugin/component/elFrame";
+import elReel from "./src/tailwindcss/plugin/component/elReel";
+import elImposter from "./src/tailwindcss/plugin/component/elImposter";
+import elContainer from "./src/tailwindcss/plugin/component/elContainer";
+import elIcon from "./src/tailwindcss/plugin/component/elIcon";
+import heroicons from "./src/tailwindcss/plugin/component/heroicons";
+
+import inset from "./src/tailwindcss/plugin/utility/inset";
+import margin from "./src/tailwindcss/plugin/utility/margin";
+import blockSize from "./src/tailwindcss/plugin/utility/blockSize";
+import inlineSize from "./src/tailwindcss/plugin/utility/inlineSize";
+import captionSide from "./src/tailwindcss/plugin/utility/captionSide";
+import resize from "./src/tailwindcss/plugin/utility/resize";
+import scrollSnapType from "./src/tailwindcss/plugin/utility/scrollSnapType";
+import scrollMargin from "./src/tailwindcss/plugin/utility/scrollMargin";
+import scrollPadding from "./src/tailwindcss/plugin/utility/scrollPadding";
+import gap from "./src/tailwindcss/plugin/utility/gap";
+import space from "./src/tailwindcss/plugin/utility/space";
+import divideWidth from "./src/tailwindcss/plugin/utility/divideWidth";
+import overflow from "./src/tailwindcss/plugin/utility/overflow";
+import overscrollBehavior from "./src/tailwindcss/plugin/utility/overscrollBehavior";
+import borderRadius from "./src/tailwindcss/plugin/utility/borderRadius";
+import borderWidth from "./src/tailwindcss/plugin/utility/borderWidth";
+import borderColor from "./src/tailwindcss/plugin/utility/borderColor";
+import padding from "./src/tailwindcss/plugin/utility/padding";
+
 import containerQueries from "@tailwindcss/container-queries";
 import forms from "@tailwindcss/forms";
 import typography from "@tailwindcss/typography";
+
 import defaultTheme from "tailwindcss/defaultTheme";
-import extractConfig from "./src/tailwindcss/util/extractConfig";
+import extractConfig from "./src/tailwindcss/utility/extractConfig";
 
 const heroiconsPath = path.join(__dirname, "../../dep/heroicons/optimized");
 
 const tailwindConfig = {
   content: ["./js/**/*.js", "../../lib/*_web.ex", "../../lib/*_web/**/*.*ex"],
   plugins: [
-    stackLayout,
-    boxLayout,
-    centerLayout,
-    clusterLayout,
-    sidebarLayout,
-    switcherLayout,
-    coverLayout,
-    gridLayout,
-    frameLayout,
-    reelLayout,
-    imposterLayout,
-    iconLayout,
-    containerLayout,
+    elStack,
+    elBox,
+    elCenter,
+    elCluster,
+    elSidebar,
+    elSwitcher,
+    elCover,
+    elGrid,
+    elFrame,
+    elReel,
+    elImposter,
+    elIcon,
+    elContainer,
     heroicons(heroiconsPath),
     inset,
     margin,
