@@ -1,5 +1,5 @@
 import plugin from "tailwindcss/plugin";
 
-export default plugin(({ addComponents, theme }) => {
+export default plugin(({ addComponents }) => {
   addComponents({ ".el-container": { containerType: "inline-size" } });
 });

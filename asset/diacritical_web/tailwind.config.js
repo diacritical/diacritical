@@ -11,8 +11,8 @@ import elGrid from "./src/tailwindcss/plugin/component/elGrid";
 import elFrame from "./src/tailwindcss/plugin/component/elFrame";
 import elReel from "./src/tailwindcss/plugin/component/elReel";
 import elImposter from "./src/tailwindcss/plugin/component/elImposter";
-import elContainer from "./src/tailwindcss/plugin/component/elContainer";
 import elIcon from "./src/tailwindcss/plugin/component/elIcon";
+import elContainer from "./src/tailwindcss/plugin/component/elContainer";
 import heroicons from "./src/tailwindcss/plugin/component/heroicons";
 
 import inset from "./src/tailwindcss/plugin/utility/inset";
@@ -79,7 +79,6 @@ const tailwindConfig = {
     borderColor,
     padding,
     containerQueries,
-    forms,
     typography,
   ],
   theme: {

@@ -14,7 +14,7 @@ export default plugin(({ matchComponents, theme }) => {
           flexBasis: theme("flexBasis.auto"),
           inlineSize: theme("inlineSize.auto"),
         },
-        "& > :not([hidden]) + :not([hidden])": { marginInlineStart: value },
+        "& > * + *": { marginInlineStart: value },
       }),
     },
     { values: theme("space") },

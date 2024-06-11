@@ -1,30 +1,18 @@
 import plugin from "tailwindcss/plugin";
 
 export default plugin(({ matchComponents, theme }) => {
+  const elStack = (value, combinator) => ({
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    [`&${combinator} *`]: { marginBlock: theme("margin.0") },
+    [`&${combinator} * + *`]: { marginBlockStart: value },
+  });
+
   matchComponents(
     {
-      "el-stack": (value) => {
-        value = value === "0" ? "0px" : value;
-
-        return {
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          "& > :not([hidden])": { marginBlock: theme("margin.0") },
-          "& > :not([hidden]) + :not([hidden])": { marginBlockStart: value },
-        };
-      },
-      "el-stack-recursive": (value) => {
-        value = value === "0" ? "0px" : value;
-
-        return {
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          "& :not([hidden])": { marginBlock: theme("margin.0") },
-          "& :not([hidden]) + :not([hidden])": { marginBlockStart: value },
-        };
-      },
+      "el-stack": (value) => elStack(value, " >"),
+      "el-stack-recursive": (value) => elStack(value, ""),
     },
     { supportsNegativeValues: true, values: theme("space") },
   );
@@ -33,9 +21,7 @@ export default plugin(({ matchComponents, theme }) => {
     {
       "el-stack-split": (value) => ({
         "&:only-child": { blockSize: theme("blockSize.full") },
-        [`& > :nth-child(${value} of :not([hidden]))`]: {
-          marginBlockEnd: theme("margin.auto"),
-        },
+        [`& > :nth-child(${value})`]: { marginBlockEnd: theme("margin.auto") },
       }),
     },
     { values: theme("nthChild") },
