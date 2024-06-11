@@ -19,8 +19,8 @@
   bandit: {
     :hex,
     :bandit,
-    "1.5.2",
-    "ed0a41c43a9e529c670d0fd48371db4027e7b80d43b1942893e17deb8bed0540",
+    "1.5.3",
+    "c7ee44871da696371a5674dd2c2062e974a18cd787732efcf50cc70b98c78fdc",
     [:mix],
     [
       {:hpax, "~> 0.1.1", hex: :hpax, repo: "hexpm", optional: false},
@@ -38,7 +38,7 @@
       {:websock, "~> 0.5", hex: :websock, repo: "hexpm", optional: false}
     ],
     "hexpm",
-    "35ddbdce7e8a2a3c6b5093f7299d70832a43ed2f4a1852885a61d334cab1b4ad"
+    "3812ed5e48c1f1e3109edb5c463c6f8aaf25ecfac2826606be3e5237550116ef"
   },
   boundary: {
     :hex,
@@ -456,8 +456,8 @@
   mint: {
     :hex,
     :mint,
-    "1.6.0",
-    "88a4f91cd690508a04ff1c3e28952f322528934be541844d54e0ceb765f01d5e",
+    "1.6.1",
+    "065e8a5bc9bbd46a41099dfea3e0656436c5cbcb6e741c80bd2bad5cd872446f",
     [:mix],
     [
       {
@@ -472,7 +472,7 @@
       }
     ],
     "hexpm",
-    "3c5ae85d90a5aca0a49c0d8b67360bbe407f3b54f1030a111047ff988e8fefaa"
+    "4fc518dcc191d02f433393a72a7ba3f6f94b101d094cb6bf532ea54c89423780"
   },
   nimble_options: {
     :hex,
