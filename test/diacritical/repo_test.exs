@@ -286,8 +286,9 @@ defmodule Diacritical.RepoTest do
     end
   end
 
-  @tag supervisor: Repo
   describe "stop/0" do
+    @describetag supervisor: Repo
+
     import Repo, only: [stop: 0]
 
     setup [:sleep_on_exit, :c_conf_stop]
@@ -297,8 +298,9 @@ defmodule Diacritical.RepoTest do
     end
   end
 
-  @tag supervisor: Repo
   describe "stop/1" do
+    @describetag supervisor: Repo
+
     import Repo, only: [stop: 1]
 
     setup [:sleep_on_exit, :c_conf_stop]

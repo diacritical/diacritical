@@ -62,15 +62,15 @@ jobs:
         ports: ["5432:5432"]
     strategy:
       matrix:
-        elixir-version: ["1.16.3"]
+        elixir-version: ["1.17.0"]
         node-version: ["22.2.0"]
-        os: ["ubuntu-22.04"]
-        otp-version: ["26.2.5"]
+        os: ["ubuntu-24.04"]
+        otp-version: ["27.0"]
         postgres: ["postgres:16.3"]
   deploy:
     name: Fly.io Deployment
     needs: test
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@v1

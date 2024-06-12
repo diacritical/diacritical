@@ -44,6 +44,7 @@ defmodule DiacriticalWeb.Endpoint do
 
   socket "/live",
          Phoenix.LiveView.Socket,
+         longpoll: [connect_info: [session: config[:session]]],
          websocket: [connect_info: [session: config[:session]]]
 
   plug Plug.Static,
@@ -53,8 +54,8 @@ defmodule DiacriticalWeb.Endpoint do
 
   if code_reloading? do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
-    plug Phoenix.CodeReloader
     plug Phoenix.LiveReloader
+    plug Phoenix.CodeReloader
     plug Phoenix.Ecto.CheckRepoStatus, otp_app: :diacritical
   end
 

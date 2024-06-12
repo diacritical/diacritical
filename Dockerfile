@@ -1,9 +1,10 @@
-ARG ELIXIR="1.16.3"
-ARG OTP="26.2.5"
-ARG DEBIAN="bookworm-20240513-slim"
+ARG ELIXIR_VER="1.17.0"
+ARG OTP_VER="27.0"
+ARG OS_NAME="debian"
+ARG OS_VER="bookworm-20240513-slim"
 
-ARG BUILD="hexpm/elixir:${ELIXIR}-erlang-${OTP}-debian-${DEBIAN}"
-ARG APP="debian:${DEBIAN}"
+ARG BUILD="hexpm/elixir:${ELIXIR_VER}-erlang-${OTP_VER}-${OS_NAME}-${OS_VER}"
+ARG APP="${OS_NAME}:${OS_VER}"
 
 FROM ${BUILD} as build
 
