@@ -157,7 +157,7 @@ defmodule DiacriticalApp.MixProject do
         {:argon2_elixir, "~> 4.0"},
         {:bandit, "~> 1.5"},
         {:boundary, "~> 0.10", runtime: false},
-        {:credo, "1.7.7-rc.0", only: [:dev, :test], runtime: false},
+        {:credo, "~> 1.7.7", only: [:dev, :test], runtime: false},
         {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
         {:ecto_psql_extras, "~> 0.8"},
         {:ecto_sql, "~> 3.11"},

@@ -1,7 +1,7 @@
 ARG ELIXIR_VER="1.17.0"
 ARG OTP_VER="27.0"
 ARG OS_NAME="debian"
-ARG OS_VER="bookworm-20240513-slim"
+ARG OS_VER="bookworm-20240612-slim"
 
 ARG BUILD="hexpm/elixir:${ELIXIR_VER}-erlang-${OTP_VER}-${OS_NAME}-${OS_VER}"
 ARG APP="${OS_NAME}:${OS_VER}"
@@ -55,5 +55,3 @@ RUN chmod +x /app/bin/server
 USER nobody
 
 CMD ["/app/bin/server"]
-
-ENV ERL_AFLAGS="-proto_dist inet6_tcp"
