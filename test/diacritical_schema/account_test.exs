@@ -308,7 +308,7 @@ defmodule DiacriticalSchema.AccountTest do
     end
   end
 
-  describe "changeset/2 when %Account{} = data" do
+  describe "changeset/2 when is_struct(data, Account)" do
     import Account, only: [changeset: 2]
 
     setup ~W[checkout_repo c_struct c_password c_param_account]a
@@ -499,7 +499,7 @@ defmodule DiacriticalSchema.AccountTest do
     end
   end
 
-  describe "query/2 when Account = queryable" do
+  describe "query/2 when queryable == Account" do
     import Account, only: [query: 2]
 
     setup :c_arg

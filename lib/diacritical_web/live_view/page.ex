@@ -48,8 +48,9 @@ defmodule DiacriticalWeb.LiveView.Page do
   """
   @doc since: "0.8.0"
   @spec mount(param(), session(), socket()) :: mount()
-  def mount(param, session, %Phoenix.LiveView.Socket{} = socket)
-      when (is_map(param) or is_atom(param)) and is_map(session) do
+  def mount(param, session, socket)
+      when (is_map(param) or is_atom(param)) and is_map(session) and
+             is_struct(socket, Phoenix.LiveView.Socket) do
     {:ok, assign(socket, greeting: Diacritical.greet())}
   end
 

@@ -78,7 +78,8 @@ defmodule DiacriticalSchema.Option do
   @spec changeset(data(), param()) :: changeset()
   def changeset(data \\ %__MODULE__{}, param)
 
-  def changeset(%__MODULE__{} = data, param) when is_map(param) do
+  def changeset(data, param)
+      when is_struct(data, __MODULE__) and is_map(param) do
     do_changeset(data, param)
   end
 

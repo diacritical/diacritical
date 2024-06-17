@@ -24,12 +24,14 @@ defmodule DiacriticalWeb.RouterTest do
   @type context_merge() :: DiacriticalCase.context_merge()
 
   @spec c_conn_format_html(context()) :: context_merge()
-  defp c_conn_format_html(%{conn: %{valid: %Plug.Conn{} = conn} = c}) do
+  defp c_conn_format_html(%{conn: %{valid: conn} = c})
+       when is_struct(conn, Plug.Conn) do
     %{conn: %{c | valid: Phoenix.Controller.put_format(conn, "html")}}
   end
 
   @spec c_conn_session(context()) :: context_merge()
-  defp c_conn_session(%{conn: %{valid: %Plug.Conn{} = conn} = c}) do
+  defp c_conn_session(%{conn: %{valid: conn} = c})
+       when is_struct(conn, Plug.Conn) do
     secret_key_base = Endpoint.config(:secret_key_base)
 
     %{

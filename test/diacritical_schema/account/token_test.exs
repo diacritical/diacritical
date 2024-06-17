@@ -297,7 +297,7 @@ defmodule DiacriticalSchema.Account.TokenTest do
     end
   end
 
-  describe "changeset/2 when %Token{} = data" do
+  describe "changeset/2 when is_struct(data, Token)" do
     import Token, only: [changeset: 2]
 
     setup ~W[checkout_repo c_struct c_param_token]a
@@ -374,7 +374,7 @@ defmodule DiacriticalSchema.Account.TokenTest do
     end
   end
 
-  describe "query/2 when Token = queryable" do
+  describe "query/2 when queryable == Token" do
     import Token, only: [query: 2]
 
     setup :c_arg

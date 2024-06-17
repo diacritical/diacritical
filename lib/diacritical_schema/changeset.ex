@@ -85,8 +85,9 @@ defmodule DiacriticalSchema.Changeset do
     |> Ecto.Changeset.delete_change(key)
   end
 
-  def put_digest(%Ecto.Changeset{} = changeset, key, digest_key)
-      when is_atom(key) and is_atom(digest_key) do
+  def put_digest(changeset, key, digest_key)
+      when is_struct(changeset, Ecto.Changeset) and is_atom(key) and
+             is_atom(digest_key) do
     changeset
   end
 
@@ -120,8 +121,8 @@ defmodule DiacriticalSchema.Changeset do
   @doc since: "0.15.0"
   @spec validate_argon2(t()) :: t()
   @spec validate_argon2(t(), change_key()) :: t()
-  def validate_argon2(%Ecto.Changeset{} = changeset, key \\ :password_digest)
-      when is_atom(key) do
+  def validate_argon2(changeset, key \\ :password_digest)
+      when is_struct(changeset, Ecto.Changeset) and is_atom(key) do
     Ecto.Changeset.validate_format(changeset, key, regex_argon2())
   end
 
@@ -149,8 +150,8 @@ defmodule DiacriticalSchema.Changeset do
   @doc since: "0.15.0"
   @spec validate_email(t()) :: t()
   @spec validate_email(t(), change_key()) :: t()
-  def validate_email(%Ecto.Changeset{} = changeset, key \\ :email)
-      when is_atom(key) do
+  def validate_email(changeset, key \\ :email)
+      when is_struct(changeset, Ecto.Changeset) and is_atom(key) do
     changeset
     |> Ecto.Changeset.validate_format(key, regex_email())
     |> Ecto.Changeset.validate_length(key, max: 254)
@@ -182,8 +183,8 @@ defmodule DiacriticalSchema.Changeset do
   @doc since: "0.15.0"
   @spec validate_password(t()) :: t()
   @spec validate_password(t(), change_key()) :: t()
-  def validate_password(%Ecto.Changeset{} = changeset, key \\ :password)
-      when is_atom(key) do
+  def validate_password(changeset, key \\ :password)
+      when is_struct(changeset, Ecto.Changeset) and is_atom(key) do
     Ecto.Changeset.validate_length(changeset, key, max: 128, min: 8)
   end
 
@@ -209,8 +210,8 @@ defmodule DiacriticalSchema.Changeset do
   @doc since: "0.22.0"
   @spec validate_slug(t()) :: t()
   @spec validate_slug(t(), change_key()) :: t()
-  def validate_slug(%Ecto.Changeset{} = changeset, key \\ :slug)
-      when is_atom(key) do
+  def validate_slug(changeset, key \\ :slug)
+      when is_struct(changeset, Ecto.Changeset) and is_atom(key) do
     changeset
     |> Ecto.Changeset.validate_format(key, regex_slug())
     |> Ecto.Changeset.validate_length(key, max: 32)

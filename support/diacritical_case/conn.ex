@@ -63,7 +63,8 @@ defmodule DiacriticalCase.Conn do
   """
   @doc since: "0.5.0"
   @spec c_conn_format_txt(context()) :: context_merge()
-  def c_conn_format_txt(%{conn: %{valid: %Plug.Conn{} = conn} = c}) do
+  def c_conn_format_txt(%{conn: %{valid: conn} = c})
+      when is_struct(conn, Plug.Conn) do
     %{conn: %{c | valid: Phoenix.Controller.put_format(conn, "txt")}}
   end
 

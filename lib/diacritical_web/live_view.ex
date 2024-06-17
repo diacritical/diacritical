@@ -86,7 +86,8 @@ defmodule DiacriticalWeb.LiveView do
   @type render() :: DiacriticalWeb.render()
 
   @spec maybe_get_nonce(socket()) :: maybe_nonce()
-  defp maybe_get_nonce(%Phoenix.LiveView.Socket{} = socket) do
+  defp maybe_get_nonce(socket)
+       when is_struct(socket, Phoenix.LiveView.Socket) do
     if connected?(socket) do
       maybe_token = get_connect_params(socket)["_csp_token"]
 
@@ -98,7 +99,7 @@ defmodule DiacriticalWeb.LiveView do
   end
 
   @spec maybe_get_host(socket()) :: maybe_host()
-  defp maybe_get_host(%Phoenix.LiveView.Socket{} = socket) do
+  defp maybe_get_host(socket) when is_struct(socket, Phoenix.LiveView.Socket) do
     if connected?(socket) do
       get_connect_params(socket)["host"]
     end
@@ -153,13 +154,9 @@ defmodule DiacriticalWeb.LiveView do
   """
   @doc since: "0.8.0"
   @spec on_mount(name(), param(), session(), socket()) :: hook()
-  def on_mount(
-        :require_account,
-        param,
-        session,
-        %Phoenix.LiveView.Socket{} = socket
-      )
-      when is_map(param) and is_map(session) do
+  def on_mount(:require_account, param, session, socket)
+      when is_map(param) and is_map(session) and
+             is_struct(socket, Phoenix.LiveView.Socket) do
     if socket.assigns[:account] do
       {:cont, socket}
     else
@@ -167,8 +164,9 @@ defmodule DiacriticalWeb.LiveView do
     end
   end
 
-  def on_mount(name, param, session, %Phoenix.LiveView.Socket{} = socket)
-      when is_atom(name) and is_map(param) and is_map(session) do
+  def on_mount(name, param, session, socket)
+      when is_atom(name) and is_map(param) and is_map(session) and
+             is_struct(socket, Phoenix.LiveView.Socket) do
     maybe_nonce = maybe_get_nonce(socket)
     maybe_host = maybe_get_host(socket)
 
@@ -197,8 +195,9 @@ defmodule DiacriticalWeb.LiveView do
       ...>   alias Diacritical
       ...>
       ...>   @impl Phoenix.LiveView
-      ...>   def mount(param, session, %Phoenix.LiveView.Socket{} = socket)
-      ...>       when (is_map(param) or is_atom(param)) and is_map(session) do
+      ...>   def mount(param, session, socket)
+      ...>       when (is_map(param) or is_atom(param)) and is_map(session) and
+      ...>              is_struct(socket, Phoenix.LiveView.Socket) do
       ...>     {:ok, assign(socket, greeting: Diacritical.greet())}
       ...>   end
       ...>

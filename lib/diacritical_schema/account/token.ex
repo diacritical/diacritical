@@ -111,7 +111,8 @@ defmodule DiacriticalSchema.Account.Token do
   @spec changeset(data(), param()) :: changeset()
   def changeset(data \\ %__MODULE__{}, param)
 
-  def changeset(%__MODULE__{} = data, param) when is_map(param) do
+  def changeset(data, param)
+      when is_struct(data, __MODULE__) and is_map(param) do
     do_changeset(data, param)
   end
 
@@ -176,7 +177,8 @@ defmodule DiacriticalSchema.Account.Token do
   """
   @doc since: "0.16.0"
   @spec query(queryable(), arg()) :: queryable()
-  def query(__MODULE__ = queryable, arg) when is_list(arg) or is_map(arg) do
+  def query(queryable, arg)
+      when queryable == __MODULE__ and (is_list(arg) or is_map(arg)) do
     do_query(queryable, arg)
   end
 

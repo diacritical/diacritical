@@ -21,7 +21,8 @@ defmodule DiacriticalWeb.Controller.PageTest do
   @type context_merge() :: DiacriticalCase.context_merge()
 
   @spec c_conn_view_page(context()) :: context_merge()
-  defp c_conn_view_page(%{conn: %{valid: %Plug.Conn{} = conn} = c}) do
+  defp c_conn_view_page(%{conn: %{valid: conn} = c})
+       when is_struct(conn, Plug.Conn) do
     %{conn: %{c | valid: Phoenix.Controller.put_view(conn, txt: TXT.Page)}}
   end
 

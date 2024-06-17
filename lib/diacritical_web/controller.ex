@@ -28,7 +28,7 @@ defmodule DiacriticalWeb.Controller do
       ...>
       ...>   alias Diacritical
       ...>
-      ...>   def greet(%Plug.Conn{} = conn, _param) do
+      ...>   def greet(conn, _param) when is_struct(conn, Plug.Conn) do
       ...>     render(conn, :greet, greeting: Diacritical.greet())
       ...>   end
       ...> end

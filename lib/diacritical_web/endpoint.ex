@@ -36,7 +36,7 @@ defmodule DiacriticalWeb.Endpoint do
   """
   @doc since: "0.4.0"
   @spec greet(conn(), opt()) :: conn()
-  def greet(%Plug.Conn{} = conn, _opt) do
+  def greet(conn, _opt) when is_struct(conn, Plug.Conn) do
     conn
     |> Phoenix.Controller.accepts(["txt", "text"])
     |> Page.call(:greet)

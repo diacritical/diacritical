@@ -203,7 +203,8 @@ defmodule DiacriticalSchema do
     do_query(queryable, arg)
   end
 
-  def query(%Ecto.Query{} = queryable, arg) when is_list(arg) or is_map(arg) do
+  def query(queryable, arg)
+      when is_struct(queryable, Ecto.Query) and (is_list(arg) or is_map(arg)) do
     do_query(queryable, arg)
   end
 end

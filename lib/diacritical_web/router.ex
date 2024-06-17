@@ -41,7 +41,7 @@ defmodule DiacriticalWeb.Router do
 
   @dialyzer {:no_unused, put_nonce: 2}
   @spec put_nonce(conn(), opt()) :: conn()
-  defp put_nonce(%Plug.Conn{} = conn, _opt) do
+  defp put_nonce(conn, _opt) when is_struct(conn, Plug.Conn) do
     18
     |> :crypto.strong_rand_bytes()
     |> Base.url_encode64()
@@ -50,7 +50,8 @@ defmodule DiacriticalWeb.Router do
 
   @dialyzer {:no_unused, put_secure_headers: 2}
   @spec put_secure_headers(conn(), opt()) :: conn()
-  defp put_secure_headers(%Plug.Conn{assigns: %{nonce: nonce}} = conn, _opt) do
+  defp put_secure_headers(%Plug.Conn{assigns: %{nonce: nonce}} = conn, _opt)
+       when is_binary(nonce) do
     cross_origin_embedder_policy =
       if @config[:code_reloader] do
         "unsafe-none"
@@ -105,7 +106,8 @@ defmodule DiacriticalWeb.Router do
 
   @dialyzer {:no_unused, get_signed_cookie: 2}
   @spec get_signed_cookie(conn(), key()) :: value()
-  defp get_signed_cookie(%Plug.Conn{} = conn, key) when is_binary(key) do
+  defp get_signed_cookie(conn, key)
+       when is_struct(conn, Plug.Conn) and is_binary(key) do
     conn
     |> fetch_cookies(signed: key)
     |> get_in([Access.key(:cookies), key])
@@ -113,7 +115,7 @@ defmodule DiacriticalWeb.Router do
 
   @dialyzer {:no_unused, put_account: 2}
   @spec put_account(conn(), opt()) :: conn()
-  defp put_account(%Plug.Conn{} = conn, _opt) do
+  defp put_account(conn, _opt) when is_struct(conn, Plug.Conn) do
     {token, conn} =
       cond do
         token = get_session(conn, "token") ->
@@ -132,7 +134,7 @@ defmodule DiacriticalWeb.Router do
 
   @dialyzer {:no_unused, put_option: 2}
   @spec put_option(conn(), opt()) :: conn()
-  defp put_option(%Plug.Conn{} = conn, _opt) do
+  defp put_option(conn, _opt) when is_struct(conn, Plug.Conn) do
     Option.all()
     |> Map.new(&{&1.key, &1.value})
     |> then(&assign(conn, :option, &1))

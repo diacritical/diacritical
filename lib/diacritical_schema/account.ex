@@ -183,8 +183,8 @@ defmodule DiacriticalSchema.Account do
   @spec changeset(data(), param(), opt()) :: changeset()
   def changeset(data \\ %__MODULE__{}, param, opt \\ [])
 
-  def changeset(%__MODULE__{} = data, param, opt)
-      when is_map(param) and is_list(opt) do
+  def changeset(data, param, opt)
+      when is_struct(data, __MODULE__) and is_map(param) and is_list(opt) do
     do_changeset(data, param, opt)
   end
 
@@ -270,7 +270,8 @@ defmodule DiacriticalSchema.Account do
   """
   @doc since: "0.16.0"
   @spec query(queryable(), arg()) :: queryable()
-  def query(__MODULE__ = queryable, arg) when is_list(arg) or is_map(arg) do
+  def query(queryable, arg)
+      when queryable == __MODULE__ and (is_list(arg) or is_map(arg)) do
     do_query(queryable, arg)
   end
 

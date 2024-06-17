@@ -245,7 +245,7 @@ defmodule DiacriticalSchema.OptionTest do
     end
   end
 
-  describe "changeset/2 when %Option{} = data" do
+  describe "changeset/2 when is_struct(data, Option)" do
     import Option, only: [changeset: 2]
 
     setup ~W[checkout_repo c_struct c_param_option]a

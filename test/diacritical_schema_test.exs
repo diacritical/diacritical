@@ -156,7 +156,7 @@ defmodule DiacriticalSchemaTest do
     end
   end
 
-  describe "query/2 when %Ecto.Query{} = queryable" do
+  describe "query/2 when is_struct(queryable, Ecto.Query)" do
     import DiacriticalSchema, only: [query: 2]
 
     setup :c_arg
