@@ -172,7 +172,7 @@ defmodule DiacriticalApp.MixProject do
           depth: 1,
           github: "tailwindlabs/heroicons",
           sparse: "optimized",
-          tag: "v2.1.3"
+          tag: "v2.1.4"
         },
         {:jason, "~> 1.4"},
         {:libcluster, "~> 3.3"},
@@ -181,7 +181,7 @@ defmodule DiacriticalApp.MixProject do
         {:phoenix_html, "~> 4.1"},
         {:phoenix_live_dashboard, "~> 0.8"},
         {:phoenix_live_reload, "~> 1.5", runtime: env == :dev},
-        {:phoenix_live_view, "1.0.0-rc.0", override: true},
+        {:phoenix_live_view, "1.0.0-rc.5", override: true},
         {:postgrex, "~> 0.18"},
         {:req, "~> 0.5"},
         {:swoosh, "~> 1.16"},
