@@ -446,12 +446,12 @@
   mime: {
     :hex,
     :mime,
-    "2.0.5",
-    "dc34c8efd439abe6ae0343edbb8556f4d63f178594894720607772a041b04b02",
+    "2.0.6",
+    "8f18486773d9b15f95f4f4f1e39b710045fa1de891fada4516559967276e4dc2",
     [:mix],
     [],
     "hexpm",
-    "da0d64a365c45bc9935cc5c8a7fc5e49a0e0f9932a761c55d6c52b142780a05c"
+    "c9945363a6b26d747389aac3643f8e0e09d30499a138ad64fe8fd1d13d9b153e"
   },
   mint: {
     :hex,
