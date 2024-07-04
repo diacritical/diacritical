@@ -26,6 +26,10 @@ defmodule DiacriticalWeb.Router do
   @typedoc since: "0.6.0"
   @type opt() :: DiacriticalWeb.opt()
 
+  @typedoc "Represents the HTTP header value."
+  @typedoc since: "0.42.0"
+  @type header_value() :: String.t()
+
   @typedoc "Represents the cookie or session key."
   @typedoc since: "0.18.0"
   @type key() :: String.t()
@@ -48,56 +52,70 @@ defmodule DiacriticalWeb.Router do
     |> then(&assign(conn, :nonce, &1))
   end
 
+  @dialyzer {:no_unused, content_security_policy: 1}
+  @spec content_security_policy(conn()) :: header_value()
+  defp content_security_policy(%Plug.Conn{assigns: %{nonce: nonce}} = conn)
+       when is_binary(nonce) do
+    "base-uri 'self'; " <>
+      "connect-src 'self' wss://#{conn.host}:#{conn.port}; " <>
+      "default-src 'none'; " <>
+      "font-src 'self'; " <>
+      "form-action 'self'; " <>
+      "frame-ancestors 'self'; " <>
+      "frame-src 'self'; " <>
+      "img-src 'self' 'nonce-#{nonce}' data:; " <>
+      "script-src 'self' 'nonce-#{nonce}'; " <>
+      "style-src 'self' 'nonce-#{nonce}'; " <>
+      "upgrade-insecure-requests"
+  end
+
+  @dialyzer {:no_unused, cross_origin_embedder_policy: 0}
+  @spec cross_origin_embedder_policy() :: header_value()
+  defp cross_origin_embedder_policy() do
+    if @config[:code_reloader] do
+      "unsafe-none"
+    else
+      "require-corp"
+    end
+  end
+
+  @dialyzer {:no_unused, permissions_policy: 0}
+  @spec permissions_policy() :: header_value()
+  defp permissions_policy() do
+    "accelerometer=(self), ambient-light-sensor=(self), " <>
+      "attribution-reporting=(self), autoplay=(self), battery=(self), " <>
+      "bluetooth=(self), camera=(self), ch-ua=(self), " <>
+      "ch-ua-arch=(self), ch-ua-bitness=(self), " <>
+      "ch-ua-full-version=(self), ch-ua-full-version-list=(self), " <>
+      "ch-ua-mobile=(self), ch-ua-model=(self), " <>
+      "ch-ua-platform=(self), ch-ua-platform-version=(self), " <>
+      "ch-ua-wow64=(self), compute-pressure=(self), " <>
+      "cross-origin-isolated=(self), direct-sockets=(self), " <>
+      "display-capture=(self), encrypted-media=(self), " <>
+      "execution-while-not-rendered=(self), " <>
+      "execution-while-out-of-viewport=(self), fullscreen=(self), " <>
+      "geolocation=(self), gyroscope=(self), hid=(self), " <>
+      "identity-credentials-get=(self), idle-detection=(self), " <>
+      "keyboard-map=(self), magnetometer=(self), microphone=(self), " <>
+      "midi=(self), navigation-override=(self), payment=(self), " <>
+      "picture-in-picture=(self), publickey-credentials-get=(self), " <>
+      "screen-wake-lock=(self), serial=(self), sync-xhr=(self), " <>
+      "usb=(self), web-share=(self), window-management=(self), " <>
+      "xr-spatial-tracking=(self)"
+  end
+
   @dialyzer {:no_unused, put_secure_headers: 2}
   @spec put_secure_headers(conn(), opt()) :: conn()
   defp put_secure_headers(%Plug.Conn{assigns: %{nonce: nonce}} = conn, _opt)
        when is_binary(nonce) do
-    cross_origin_embedder_policy =
-      if @config[:code_reloader] do
-        "unsafe-none"
-      else
-        "require-corp"
-      end
-
     put_secure_browser_headers(
       conn,
       %{
-        "content-security-policy" =>
-          "base-uri 'self'; " <>
-            "connect-src 'self' wss://#{conn.host}:#{conn.port}; " <>
-            "default-src 'none'; " <>
-            "font-src 'self'; " <>
-            "form-action 'self'; " <>
-            "frame-ancestors 'self'; " <>
-            "frame-src 'self'; " <>
-            "img-src 'self' 'nonce-#{nonce}' data:; " <>
-            "script-src 'self' 'nonce-#{nonce}'; " <>
-            "style-src 'self' 'nonce-#{nonce}'; " <>
-            "upgrade-insecure-requests",
-        "cross-origin-embedder-policy" => cross_origin_embedder_policy,
+        "content-security-policy" => content_security_policy(conn),
+        "cross-origin-embedder-policy" => cross_origin_embedder_policy(),
         "cross-origin-opener-policy" => "same-origin",
         "cross-origin-resource-policy" => "same-origin",
-        "permissions-policy" =>
-          "accelerometer=(self), ambient-light-sensor=(self), " <>
-            "attribution-reporting=(self), autoplay=(self), battery=(self), " <>
-            "bluetooth=(self), camera=(self), ch-ua=(self), " <>
-            "ch-ua-arch=(self), ch-ua-bitness=(self), " <>
-            "ch-ua-full-version=(self), ch-ua-full-version-list=(self), " <>
-            "ch-ua-mobile=(self), ch-ua-model=(self), " <>
-            "ch-ua-platform=(self), ch-ua-platform-version=(self), " <>
-            "ch-ua-wow64=(self), compute-pressure=(self), " <>
-            "cross-origin-isolated=(self), direct-sockets=(self), " <>
-            "display-capture=(self), encrypted-media=(self), " <>
-            "execution-while-not-rendered=(self), " <>
-            "execution-while-out-of-viewport=(self), fullscreen=(self), " <>
-            "geolocation=(self), gyroscope=(self), hid=(self), " <>
-            "identity-credentials-get=(self), idle-detection=(self), " <>
-            "keyboard-map=(self), magnetometer=(self), microphone=(self), " <>
-            "midi=(self), navigation-override=(self), payment=(self), " <>
-            "picture-in-picture=(self), publickey-credentials-get=(self), " <>
-            "screen-wake-lock=(self), serial=(self), sync-xhr=(self), " <>
-            "usb=(self), web-share=(self), window-management=(self), " <>
-            "xr-spatial-tracking=(self)",
+        "permissions-policy" => permissions_policy(),
         "referrer-policy" => "no-referrer"
       }
     )
