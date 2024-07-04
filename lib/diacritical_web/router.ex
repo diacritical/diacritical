@@ -65,11 +65,12 @@ defmodule DiacriticalWeb.Router do
         "content-security-policy" =>
           "base-uri 'self'; " <>
             "connect-src 'self' wss://#{conn.host}:#{conn.port}; " <>
-            "default-src 'self'; " <>
+            "default-src 'none'; " <>
+            "font-src 'self'; " <>
             "form-action 'self'; " <>
             "frame-ancestors 'self'; " <>
+            "frame-src 'self'; " <>
             "img-src 'self' 'nonce-#{nonce}' data:; " <>
-            "object-src 'none'; " <>
             "script-src 'self' 'nonce-#{nonce}'; " <>
             "style-src 'self' 'nonce-#{nonce}'; " <>
             "upgrade-insecure-requests",
@@ -77,20 +78,26 @@ defmodule DiacriticalWeb.Router do
         "cross-origin-opener-policy" => "same-origin",
         "cross-origin-resource-policy" => "same-origin",
         "permissions-policy" =>
-          "accelerometer=(), ambient-light-sensor=(), autoplay=(), " <>
-            "battery=(), bluetooth=(), camera=(), ch-ua=(), ch-ua-arch=(), " <>
-            "ch-ua-bitness=(), ch-ua-full-version=(), " <>
-            "ch-ua-full-version-list=(), ch-ua-mobile=(), ch-ua-model=(), " <>
-            "ch-ua-platform=(), ch-ua-platform-version=(), ch-ua-wow64=(), " <>
-            "cross-origin-isolated=(), display-capture=(), " <>
-            "encrypted-media=(), execution-while-not-rendered=(), " <>
-            "execution-while-out-of-viewport=(), fullscreen=(), " <>
-            "geolocation=(), gyroscope=(), hid=(), idle-detection=(), " <>
-            "keyboard-map=(), magnetometer=(), microphone=(), midi=(), " <>
-            "navigation-override=(), payment=(), picture-in-picture=(), " <>
-            "publickey-credentials-get=(), screen-wake-lock=(), serial=(), " <>
-            "sync-xhr=(), usb=(), web-share=(), window-management=(), " <>
-            "xr-spatial-tracking=()",
+          "accelerometer=(self), ambient-light-sensor=(self), " <>
+            "attribution-reporting=(self), autoplay=(self), battery=(self), " <>
+            "bluetooth=(self), camera=(self), ch-ua=(self), " <>
+            "ch-ua-arch=(self), ch-ua-bitness=(self), " <>
+            "ch-ua-full-version=(self), ch-ua-full-version-list=(self), " <>
+            "ch-ua-mobile=(self), ch-ua-model=(self), " <>
+            "ch-ua-platform=(self), ch-ua-platform-version=(self), " <>
+            "ch-ua-wow64=(self), compute-pressure=(self), " <>
+            "cross-origin-isolated=(self), direct-sockets=(self), " <>
+            "display-capture=(self), encrypted-media=(self), " <>
+            "execution-while-not-rendered=(self), " <>
+            "execution-while-out-of-viewport=(self), fullscreen=(self), " <>
+            "geolocation=(self), gyroscope=(self), hid=(self), " <>
+            "identity-credentials-get=(self), idle-detection=(self), " <>
+            "keyboard-map=(self), magnetometer=(self), microphone=(self), " <>
+            "midi=(self), navigation-override=(self), payment=(self), " <>
+            "picture-in-picture=(self), publickey-credentials-get=(self), " <>
+            "screen-wake-lock=(self), serial=(self), sync-xhr=(self), " <>
+            "usb=(self), web-share=(self), window-management=(self), " <>
+            "xr-spatial-tracking=(self)",
         "referrer-policy" => "no-referrer"
       }
     )

@@ -74,6 +74,10 @@ defmodule DiacriticalWeb.HTML do
       import Phoenix.Controller, only: [get_csrf_token: 0]
       import Phoenix.HTML
       import Token, only: [sign: 1]
+
+      alias DiacriticalWeb
+
+      alias DiacriticalWeb.Endpoint
     end
   end
 end
