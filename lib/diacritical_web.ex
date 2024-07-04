@@ -42,6 +42,10 @@ defmodule DiacriticalWeb do
   @typedoc since: "0.5.0"
   @type conn() :: Plug.Conn.t()
 
+  @typedoc "Represents the nonce."
+  @typedoc since: "0.43.0"
+  @type nonce() :: binary()
+
   @typedoc "Represents the connection option."
   @typedoc since: "0.5.0"
   @type opt() :: Plug.opts()

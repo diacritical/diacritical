@@ -29,7 +29,7 @@ defmodule DiacriticalWeb.LiveView do
 
   @typedoc "Represents the potential nonce."
   @typedoc since: "0.8.0"
-  @type maybe_nonce() :: nil | binary()
+  @type maybe_nonce() :: nil | DiacriticalWeb.nonce()
 
   @typedoc "Represents the potential host."
   @typedoc since: "0.12.0"

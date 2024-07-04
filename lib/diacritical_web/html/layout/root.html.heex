@@ -28,6 +28,7 @@
   <body>
     <%= @inner_content %>
     <script
+      nonce={assigns[:nonce]}
       src={~p"/asset/js/app.js"}
       defer
       integrity={static_integrity(Endpoint, "/asset/js/app.js")}

@@ -26,6 +26,10 @@ defmodule DiacriticalWeb.Router do
   @typedoc since: "0.6.0"
   @type opt() :: DiacriticalWeb.opt()
 
+  @typedoc "Represents the nonce."
+  @typedoc since: "0.43.0"
+  @type nonce() :: DiacriticalWeb.nonce()
+
   @typedoc "Represents the HTTP header value."
   @typedoc since: "0.42.0"
   @type header_value() :: String.t()
@@ -53,20 +57,13 @@ defmodule DiacriticalWeb.Router do
   end
 
   @dialyzer {:no_unused, content_security_policy: 1}
-  @spec content_security_policy(conn()) :: header_value()
-  defp content_security_policy(%Plug.Conn{assigns: %{nonce: nonce}} = conn)
-       when is_binary(nonce) do
-    "base-uri 'self'; " <>
-      "connect-src 'self' wss://#{conn.host}:#{conn.port}; " <>
-      "default-src 'none'; " <>
-      "font-src 'self'; " <>
-      "form-action 'self'; " <>
-      "frame-ancestors 'self'; " <>
-      "frame-src 'self'; " <>
-      "img-src 'self' 'nonce-#{nonce}' data:; " <>
-      "script-src 'self' 'nonce-#{nonce}'; " <>
-      "style-src 'self' 'nonce-#{nonce}'; " <>
-      "upgrade-insecure-requests"
+  @spec content_security_policy(nonce()) :: header_value()
+  defp content_security_policy(nonce) when is_binary(nonce) do
+    "base-uri 'self'; connect-src 'self'; default-src 'none'; " <>
+      "font-src 'self'; form-action 'self'; frame-ancestors 'self'; " <>
+      "frame-src 'self'; img-src 'nonce-#{nonce}' data: 'self'; " <>
+      "script-src 'nonce-#{nonce}' 'self' 'strict-dynamic'; " <>
+      "style-src 'nonce-#{nonce}' 'self'; upgrade-insecure-requests"
   end
 
   @dialyzer {:no_unused, cross_origin_embedder_policy: 0}
@@ -111,7 +108,7 @@ defmodule DiacriticalWeb.Router do
     put_secure_browser_headers(
       conn,
       %{
-        "content-security-policy" => content_security_policy(conn),
+        "content-security-policy" => content_security_policy(nonce),
         "cross-origin-embedder-policy" => cross_origin_embedder_policy(),
         "cross-origin-opener-policy" => "same-origin",
         "cross-origin-resource-policy" => "same-origin",
