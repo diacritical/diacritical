@@ -62,8 +62,8 @@ jobs:
         ports: ["5432:5432"]
     strategy:
       matrix:
-        elixir-version: ["1.17.1"]
-        node-version: ["22.3.0"]
+        elixir-version: ["1.17.2"]
+        node-version: ["22.4.0"]
         os: ["ubuntu-24.04"]
         otp-version: ["27.0"]
         postgres: ["postgres:16.3"]

@@ -61,9 +61,9 @@ defmodule DiacriticalWeb.Router do
   defp content_security_policy(nonce) when is_binary(nonce) do
     "base-uri 'self'; connect-src 'self'; default-src 'none'; " <>
       "font-src 'self'; form-action 'self'; frame-ancestors 'self'; " <>
-      "frame-src 'self'; img-src 'nonce-#{nonce}' data: 'self'; " <>
-      "script-src 'nonce-#{nonce}' 'self' 'strict-dynamic'; " <>
-      "style-src 'nonce-#{nonce}' 'self'; upgrade-insecure-requests"
+      "frame-src 'self'; img-src data: 'self' 'nonce-#{nonce}'; " <>
+      "script-src https: 'unsafe-inline' 'strict-dynamic' 'nonce-#{nonce}'; " <>
+      "style-src 'self' 'nonce-#{nonce}'; upgrade-insecure-requests"
   end
 
   @dialyzer {:no_unused, cross_origin_embedder_policy: 0}
