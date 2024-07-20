@@ -137,12 +137,12 @@
   earmark_parser: {
     :hex,
     :earmark_parser,
-    "1.4.40",
-    "f3534689f6b58f48aa3a9ac850d4f05832654fe257bf0549c08cc290035f70d5",
+    "1.4.41",
+    "ab34711c9dc6212dda44fcd20ecb87ac3f3fce6f0ca2f28d4a00e4154f8cd599",
     [:mix],
     [],
     "hexpm",
-    "cdb34f35892a45325bad21735fadb88033bcb7c4c296a999bde769783f53e46a"
+    "a81a04c7e34b6617c2792e291b5a2e57ab316365c2644ddc553bb9ed863ebefa"
   },
   ecto: {
     :hex,
@@ -256,8 +256,8 @@
   ex_doc: {
     :hex,
     :ex_doc,
-    "0.34.1",
-    "9751a0419bc15bc7580c73fde506b17b07f6402a1e5243be9e0f05a68c723368",
+    "0.34.2",
+    "13eedf3844ccdce25cfd837b99bea9ad92c4e511233199440488d217c92571e8",
     [:mix],
     [
       {
@@ -283,7 +283,7 @@
       }
     ],
     "hexpm",
-    "d441f1a86a235f59088978eff870de2e815e290e44a8bd976fe5d64470a4c9d2"
+    "5ce5f16b41208a50106afed3de6a2ed34f4acfd65715b82a0b84b49d995f95c1"
   },
   expo: {
     :hex,
@@ -361,8 +361,8 @@
   heroicons: {
     :git,
     "https://github.com/tailwindlabs/heroicons.git",
-    "c1b192b8cd0f1b3c569d25ba995d170f3db86039",
-    [depth: 1, sparse: "optimized", tag: "v2.1.4"]
+    "ad0ad1f6d51bd64dcd67e363d2b2833a8de25154",
+    [depth: 1, sparse: "optimized", tag: "v2.1.5"]
   },
   hpax: {
     :hex,
@@ -436,12 +436,12 @@
   makeup_erlang: {
     :hex,
     :makeup_erlang,
-    "1.0.0",
-    "6f0eff9c9c489f26b69b61440bf1b238d95badae49adac77973cbacae87e3c2e",
+    "1.0.1",
+    "c7f58c120b2b5aa5fd80d540a89fdf866ed42f1f3994e4fe189abebeab610839",
     [:mix],
     [{:makeup, "~> 1.0", hex: :makeup, repo: "hexpm", optional: false}],
     "hexpm",
-    "ea7a9307de9d1548d2a72d299058d1fd2339e3d398560a0e46c27dab4891e4d2"
+    "8a89a1eeccc2d798d6ea15496a6e4870b75e014d1af514b1b71fa33134f57814"
   },
   mime: {
     :hex,
@@ -774,26 +774,26 @@
   req: {
     :hex,
     :req,
-    "0.5.1",
-    "90584216d064389a4ff2d4279fe2c11ff6c812ab00fa01a9fb9d15457f65ba70",
+    "0.5.4",
+    "e375e4812adf83ffcf787871d7a124d873e983e3b77466e6608b973582f7f837",
     [:mix],
     [
       {:brotli, "~> 0.3.1", hex: :brotli, repo: "hexpm", optional: true},
       {:ezstd, "~> 1.0", hex: :ezstd, repo: "hexpm", optional: true},
       {:finch, "~> 0.17", hex: :finch, repo: "hexpm", optional: false},
       {:jason, "~> 1.0", hex: :jason, repo: "hexpm", optional: false},
-      {:mime, "~> 1.6 or ~> 2.0", hex: :mime, repo: "hexpm", optional: false},
+      {:mime, "~> 2.0.6 or ~> 2.1", hex: :mime, repo: "hexpm", optional: false},
       {:nimble_csv, "~> 1.0", hex: :nimble_csv, repo: "hexpm", optional: true},
       {:plug, "~> 1.0", hex: :plug, repo: "hexpm", optional: true}
     ],
     "hexpm",
-    "7ea96a1a95388eb0fefa92d89466cdfedba24032794e5c1147d78ec90db7edca"
+    "a17998ffe2ef54f79bfdd782ef9f4cbf987d93851e89444cbc466a6a25eee494"
   },
   swoosh: {
     :hex,
     :swoosh,
-    "1.16.9",
-    "20c6a32ea49136a4c19f538e27739bb5070558c0fa76b8a95f4d5d5ca7d319a1",
+    "1.16.10",
+    "04be6e2eb1a31aa0aa21a731175c81cc3998189456a92daf13d44a5c754afcf5",
     [:mix],
     [
       {:bandit, ">= 1.0.0", hex: :bandit, repo: "hexpm", optional: true},
@@ -813,7 +813,7 @@
       {:jason, "~> 1.0", hex: :jason, repo: "hexpm", optional: false},
       {:mail, "~> 0.2", hex: :mail, repo: "hexpm", optional: true},
       {:mime, "~> 1.1 or ~> 2.0", hex: :mime, repo: "hexpm", optional: false},
-      {:mua, "~> 0.2.0", hex: :mua, repo: "hexpm", optional: true},
+      {:mua, "~> 0.2.3", hex: :mua, repo: "hexpm", optional: true},
       {:multipart, "~> 0.4", hex: :multipart, repo: "hexpm", optional: true},
       {:plug, "~> 1.9", hex: :plug, repo: "hexpm", optional: true},
       {
@@ -829,7 +829,7 @@
       }
     ],
     "hexpm",
-    "878b1a7a6c10ebbf725a3349363f48f79c5e3d792eb621643b0d276a38acc0a6"
+    "756be04db173c0cbe318f1dfe2bcc88aa63aed78cf5a4b02b61b36ee11fc716a"
   },
   table_rex: {
     :hex,

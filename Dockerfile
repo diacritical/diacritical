@@ -1,5 +1,5 @@
 ARG ELIXIR_VER="1.17.2"
-ARG OTP_VER="27.0"
+ARG OTP_VER="27.0.1"
 ARG OS_NAME="debian"
 ARG OS_VER="bookworm-20240701-slim"
 
