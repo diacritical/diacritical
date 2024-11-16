@@ -1,6 +1,6 @@
 [
   inputs: [
-    ".{boundary,credo,formatter}.exs",
+    ".{boundary,credo,dialyzer,formatter}.exs",
     "{lib,test}/**/*.{ex,exs}",
     "mix.{exs,lock}"
   ],
