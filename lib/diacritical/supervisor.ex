@@ -98,7 +98,6 @@ defmodule Diacritical.Supervisor do
 
   ## Example
 
-      iex> start_supervisor!(%{})
       iex> %{init_arg: %{valid: init_arg}} = c_init_arg()
       iex> %{err: err} = c_err()
       iex>
