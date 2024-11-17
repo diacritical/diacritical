@@ -112,7 +112,7 @@ defmodule DiacriticalApp.MixProject do
       name: "Diacritical",
       source_url: "https://github.com/diacritical/diacritical",
       start_permanent: env == :prod,
-      version: "0.2.0"
+      version: "0.3.0"
     ]
   end
 end
