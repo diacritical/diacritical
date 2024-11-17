@@ -97,11 +97,11 @@ defmodule DiacriticalApp.MixProject do
       boundary: [default: [type: :strict]],
       compilers: [:boundary | Mix.compilers()],
       deps: [
+        {:bandit, "~> 1.5"},
         {:boundary, "~> 0.10", runtime: false},
         {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
         {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
-        {:ex_doc, "~> 0.34", only: :dev, runtime: false},
-        {:plug, "~> 1.16"}
+        {:ex_doc, "~> 0.34", only: :dev, runtime: false}
       ],
       deps_path: "dep",
       dialyzer: [plt_add_apps: [:ex_unit]],
