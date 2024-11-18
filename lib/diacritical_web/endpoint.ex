@@ -7,6 +7,7 @@ defmodule DiacriticalWeb.Endpoint do
   alias DiacriticalWeb
 
   alias DiacriticalWeb.Controller
+  alias DiacriticalWeb.Router
 
   alias Controller.Page
 
@@ -41,5 +42,5 @@ defmodule DiacriticalWeb.Endpoint do
     |> Page.call(:greet)
   end
 
-  plug :greet
+  plug Router
 end
