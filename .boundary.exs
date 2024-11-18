@@ -14,6 +14,7 @@
     DiacriticalWeb.Controller.Page,
     DiacriticalWeb.Endpoint,
     DiacriticalWeb.TXT,
+    DiacriticalWeb.TXT.Error,
     DiacriticalWeb.TXT.Page
   ]
 ]
