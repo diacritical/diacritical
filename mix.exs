@@ -106,7 +106,7 @@ defmodule DiacriticalApp.MixProject do
         {:phoenix, "~> 1.7"}
       ],
       deps_path: "dep",
-      dialyzer: [plt_add_apps: [:ex_unit]],
+      dialyzer: [ignore_warnings: ".dialyzer.exs", plt_add_apps: [:ex_unit]],
       docs: [groups_for_modules: groups_for_modules(env)],
       elixir: "~> 1.17",
       elixirc_options: [warnings_as_errors: true],
