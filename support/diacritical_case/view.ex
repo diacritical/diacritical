@@ -20,6 +20,19 @@ defmodule DiacriticalCase.View do
 
   ## Example
 
+      iex> %{assigns: _assigns} = c_assigns_empty()
+
+  """
+  @doc since: "0.6.0"
+  @spec c_assigns_empty() :: context_merge()
+  @spec c_assigns_empty(context()) :: context_merge()
+  def c_assigns_empty(c \\ %{}) when is_map(c), do: %{assigns: %{}}
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
       iex> %{assigns: _assigns} = c_assigns_greeting()
 
   """
@@ -28,6 +41,36 @@ defmodule DiacriticalCase.View do
   @spec c_assigns_greeting(context()) :: context_merge()
   def c_assigns_greeting(c \\ %{}) when is_map(c) do
     %{assigns: %{invalid: {}, valid: %{greeting: Diacritical.greet()}}}
+  end
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
+      iex> %{resp_body: _resp_body} = c_resp_body_404()
+
+  """
+  @doc since: "0.6.0"
+  @spec c_resp_body_404() :: context_merge()
+  @spec c_resp_body_404(context()) :: context_merge()
+  def c_resp_body_404(c \\ %{}) when is_map(c) do
+    %{resp_body: "Not Found\n"}
+  end
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
+      iex> %{resp_body: _resp_body} = c_resp_body_500()
+
+  """
+  @doc since: "0.6.0"
+  @spec c_resp_body_500() :: context_merge()
+  @spec c_resp_body_500(context()) :: context_merge()
+  def c_resp_body_500(c \\ %{}) when is_map(c) do
+    %{resp_body: "Internal Server Error\n"}
   end
 
   @doc """
