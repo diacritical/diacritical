@@ -44,6 +44,28 @@ defmodule DiacriticalCase.ViewTest do
     end
   end
 
+  describe "c_resp_body_dismiss/0" do
+    import View, only: [c_resp_body_dismiss: 0]
+
+    test "success" do
+      assert %{resp_body: _resp_body} = c_resp_body_dismiss()
+    end
+  end
+
+  describe "c_resp_body_dismiss/1" do
+    import View, only: [c_resp_body_dismiss: 1]
+
+    setup :c_context
+
+    test "FunctionClauseError", %{context: %{invalid: context}} do
+      assert_raise FunctionClauseError, fn -> c_resp_body_dismiss(context) end
+    end
+
+    test "success", %{context: %{valid: context}} do
+      assert %{resp_body: _resp_body} = c_resp_body_dismiss(context)
+    end
+  end
+
   describe "c_resp_body_greet/0" do
     import View, only: [c_resp_body_greet: 0]
 
