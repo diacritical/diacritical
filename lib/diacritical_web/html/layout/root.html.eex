@@ -8,8 +8,11 @@
       content="<%= assigns[:page_description] || "Here be dragons." %>"
     />
     <title><%= assigns[:page_title] || "Diacritical" %></title>
+    <link href="<%= ~p"/asset/css/app.css" %>" rel="stylesheet" />
   </head>
   <body>
     <%= @inner_content %>
+    <script src="<%= ~p"/asset/js/app.js" %>" defer>
+    </script>
   </body>
 </html>
