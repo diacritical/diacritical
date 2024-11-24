@@ -104,8 +104,8 @@
   ex_doc: {
     :hex,
     :ex_doc,
-    "0.35.0",
-    "14dcaac6ee0091d1e6938a7ddaf62a4a8c6c0d0b0002e6a9252997a08df719a0",
+    "0.35.1",
+    "de804c590d3df2d9d5b8aec77d758b00c814b356119b3d4455e4b8a8687aecaf",
     [:mix],
     [
       {
@@ -131,7 +131,7 @@
       }
     ],
     "hexpm",
-    "d69a789ea0248a108c80eef509ec88ffe277f74828169c33f6f7ddaef89c98a5"
+    "2121c6402c8d44b05622677b761371a759143b958c6c19f6558ff64d0aed40df"
   },
   file_system: {
     :hex,
@@ -290,6 +290,23 @@
     [],
     "hexpm",
     "f2f2df5a72bc9a2f510b21497fd7d2b86d932ec0598f0210fed4114adc546c6f"
+  },
+  phoenix_live_reload: {
+    :hex,
+    :phoenix_live_reload,
+    "1.5.3",
+    "f2161c207fda0e4fb55165f650f7f8db23f02b29e3bff00ff7ef161d6ac1f09d",
+    [:mix],
+    [
+      {
+        :file_system,
+        "~> 0.3 or ~> 1.0",
+        [hex: :file_system, repo: "hexpm", optional: false]
+      },
+      {:phoenix, "~> 1.4", hex: :phoenix, repo: "hexpm", optional: false}
+    ],
+    "hexpm",
+    "b4ec9cd73cb01ff1bd1cac92e045d13e7030330b74164297d1aee3907b54803c"
   },
   phoenix_pubsub: {
     :hex,
