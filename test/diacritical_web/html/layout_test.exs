@@ -45,13 +45,15 @@ defmodule DiacriticalWeb.HTML.LayoutTest do
 
     setup :c_assigns_inner_content
 
-    test "FunctionClauseError", %{assigns: %{invalid: assigns}} do
-      assert_raise FunctionClauseError, fn -> app(assigns) end
+    test "Protocol.UndefinedError", %{assigns: %{invalid: assigns}} do
+      assert_raise Protocol.UndefinedError, fn ->
+        render_component(&app/1, assigns)
+      end
     end
 
     test "success", %{assigns: %{valid: assigns}} do
       assert function_exported?(Layout, :app, 1)
-      assert safe_to_string(app(assigns)) =~ "<main>"
+      assert render_component(&app/1, assigns) =~ "<main>"
     end
   end
 
@@ -60,13 +62,15 @@ defmodule DiacriticalWeb.HTML.LayoutTest do
 
     setup :c_assigns_inner_content
 
-    test "FunctionClauseError", %{assigns: %{invalid: assigns}} do
-      assert_raise FunctionClauseError, fn -> root(assigns) end
+    test "Protocol.UndefinedError", %{assigns: %{invalid: assigns}} do
+      assert_raise Protocol.UndefinedError, fn ->
+        render_component(&root/1, assigns)
+      end
     end
 
     test "success", %{assigns: %{valid: assigns}} do
       assert function_exported?(Layout, :root, 1)
-      assert safe_to_string(root(assigns)) =~ "<!DOCTYPE html>"
+      assert render_component(&root/1, assigns) =~ "<!DOCTYPE html>"
     end
   end
 end
