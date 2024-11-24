@@ -18,6 +18,7 @@
     DiacriticalWeb.HTML.Layout,
     DiacriticalWeb.HTML.Page,
     DiacriticalWeb.LiveView,
+    DiacriticalWeb.LiveView.Page,
     DiacriticalWeb.Router,
     DiacriticalWeb.TXT,
     DiacriticalWeb.TXT.Error,

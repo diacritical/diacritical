@@ -45,6 +45,28 @@ defmodule DiacriticalWeb.LiveView do
   @typedoc since: "0.8.0"
   @type hook() :: {status(), socket()}
 
+  @typedoc "Represents the assigns."
+  @typedoc since: "0.8.0"
+  @type assigns() :: DiacriticalWeb.assigns()
+
+  @typedoc "Represents the opt keyword."
+  @typedoc since: "0.8.0"
+  @type opt_keyword() ::
+          {:layout, {module(), String.t()}}
+          | {:temporary_assigns, Keyword.t()}
+
+  @typedoc "Represents the opt."
+  @typedoc since: "0.8.0"
+  @type opt() :: [opt_keyword()]
+
+  @typedoc "Represents the mount."
+  @typedoc since: "0.8.0"
+  @type mount() :: {:ok, socket()} | {:ok, socket(), opt()}
+
+  @typedoc "Represents the render."
+  @typedoc since: "0.8.0"
+  @type render() :: DiacriticalWeb.render()
+
   @spec maybe_get_nonce(socket()) :: maybe_nonce()
   defp maybe_get_nonce(socket)
        when is_struct(socket, Phoenix.LiveView.Socket) do
