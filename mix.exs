@@ -114,6 +114,7 @@ defmodule DiacriticalApp.MixProject do
         {:esbuild, "~> 0.8", runtime: env == :dev},
         {:ex_doc, "~> 0.34", only: :dev, runtime: false},
         {:jason, "~> 1.4"},
+        {:libcluster, "~> 3.4"},
         {:phoenix, "~> 1.7"},
         {:phoenix_html, "~> 4.1"},
         {:phoenix_live_reload, "~> 1.5", runtime: env == :dev},
