@@ -111,6 +111,7 @@ defmodule DiacriticalApp.MixProject do
         {:boundary, "~> 0.10", runtime: false},
         {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
         {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
+        {:ecto, "~> 3.12"},
         {:esbuild, "~> 0.8", runtime: env == :dev},
         {:ex_doc, "~> 0.34", only: :dev, runtime: false},
         {:jason, "~> 1.4"},
