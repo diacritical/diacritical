@@ -47,5 +47,19 @@ defmodule DiacriticalWeb.Endpoint do
     from: {:diacritical, "priv/diacritical_web/static"},
     only: DiacriticalWeb.static_path()
 
+  plug Plug.Parsers,
+    parsers: [:urlencoded, :multipart, :json],
+    pass: ["*/*"],
+    json_decoder: Phoenix.json_library()
+
+  plug Plug.MethodOverride
+  plug Plug.Head
+
+  plug Plug.Session,
+    key: "__Host-session",
+    same_site: "Strict",
+    signing_salt: "lf9AkeLG25qjrLYr",
+    store: :cookie
+
   plug Router
 end
