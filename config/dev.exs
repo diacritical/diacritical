@@ -12,6 +12,12 @@ config :diacritical, Endpoint,
   debug_errors: true,
   http: [port: 4_004],
   https: [port: 4_005],
+  live_reload: [
+    patterns: [
+      ~r/lib\/diacritical_web\/(?:controller|html|txt)\/.*(?:ex)$/,
+      ~r/priv\/diacritical_web\/static\/.*(?:css|ico|js|svg|txt)$/
+    ]
+  ],
   url: [host: "localhost", path: "/", port: 4_005, scheme: "https"]
 
 config :diacritical, env: [dev: true]
