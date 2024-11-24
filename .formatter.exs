@@ -1,5 +1,5 @@
 [
-  import_deps: [:phoenix, :plug],
+  import_deps: [:ecto, :phoenix, :plug],
   inputs: [
     ".{boundary,credo,dialyzer,formatter}.exs",
     "{config,lib,rel,support,test}/**/*.{eex,ex,exs,heex}",
