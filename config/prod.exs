@@ -43,6 +43,8 @@ config :esbuild,
     args: [
       "css/app.css",
       "js/app.js",
+      "vendor/inter/inter.css",
+      "--loader:.woff2=file",
       "--bundle",
       "--target=es2020,chrome87,edge88,firefox78,safari14",
       "--outdir=../../priv/diacritical_web/static/asset"
