@@ -74,7 +74,7 @@ defmodule Diacritical.MixProject do
         {:ex_doc, "~> 0.35", only: :dev, runtime: false}
       ],
       deps_path: "dep",
-      dialyzer: [ignore_warnings: ".dialyzer.exs"],
+      dialyzer: [ignore_warnings: ".dialyzer.exs", plt_add_apps: [:ex_unit]],
       docs: [groups_for_modules: groups_for_modules(env)],
       elixir: "~> 1.17",
       elixirc_options: [warnings_as_errors: true],
