@@ -3,6 +3,13 @@ defmodule DiacriticalWeb do
   @moduledoc since: "0.4.0"
 
   use Boundary,
-    deps: [Diacritical, Phoenix, Phoenix.PubSub, Plug],
+    deps: [
+      Diacritical,
+      EEx.Engine,
+      Phoenix,
+      Phoenix.PubSub,
+      Phoenix.Template,
+      Plug
+    ],
     exports: [Endpoint]
 end
