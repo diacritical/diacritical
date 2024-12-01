@@ -15,7 +15,7 @@ config :diacritical, Endpoint,
   live_reload: [
     patterns: [
       ~r/lib\/diacritical_web\/(?:controller|html|txt)\/.*(?:ex)$/,
-      ~r/priv\/diacritical_web\/static\/.*(?:css|ico|js|svg|txt)$/
+      ~r/priv\/diacritical_web\/static\/.*(?:css|ico|js|svg|txt|woff2)$/
     ]
   ],
   url: [host: "localhost", path: "/", port: 4_005, scheme: "https"],
