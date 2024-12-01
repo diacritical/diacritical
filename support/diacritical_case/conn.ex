@@ -19,6 +19,21 @@ defmodule DiacriticalCase.Conn do
 
   ## Example
 
+      iex> %{action: _action} = c_action_greet()
+
+  """
+  @doc since: "0.5.0"
+  @spec c_action_greet() :: context_merge()
+  @spec c_action_greet(context()) :: context_merge()
+  def c_action_greet(c \\ %{}) when is_map(c) do
+    %{action: %{invalid: "greet", valid: :greet}}
+  end
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
       iex> %{conn: _conn} = c_conn()
 
   """
@@ -37,6 +52,62 @@ defmodule DiacriticalCase.Conn do
       }
     }
   end
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
+      iex> %{conn: _conn} = c_conn_format_txt(%{conn: %{valid: %Plug.Conn{}}})
+
+  """
+  @doc since: "0.5.0"
+  @spec c_conn_format_txt(context()) :: context_merge()
+  def c_conn_format_txt(%{conn: %{valid: conn} = c})
+      when is_struct(conn, Plug.Conn) do
+    %{conn: %{c | valid: Phoenix.Controller.put_format(conn, "txt")}}
+  end
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
+      iex> %{opt: _opt} = c_opt()
+
+  """
+  @doc since: "0.5.0"
+  @spec c_opt() :: context_merge()
+  @spec c_opt(context()) :: context_merge()
+  def c_opt(c \\ %{}) when is_map(c), do: %{opt: []}
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
+      iex> %{request_path: _request_path} = c_request_path_hello()
+
+  """
+  @doc since: "0.5.0"
+  @spec c_request_path_hello() :: context_merge()
+  @spec c_request_path_hello(context()) :: context_merge()
+  def c_request_path_hello(c \\ %{}) when is_map(c) do
+    %{request_path: "/hello"}
+  end
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
+      iex> %{status: _status} = c_status_ok()
+
+  """
+  @doc since: "0.5.0"
+  @spec c_status_ok() :: context_merge()
+  @spec c_status_ok(context()) :: context_merge()
+  def c_status_ok(c \\ %{}) when is_map(c), do: %{status: 200}
 
   using do
     quote do
