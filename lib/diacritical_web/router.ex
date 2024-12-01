@@ -25,6 +25,11 @@ defmodule DiacriticalWeb.Router do
   @typedoc since: "0.6.0"
   @type header_value() :: String.t()
 
+  @config Phoenix.Endpoint.Supervisor.config(
+            :diacritical,
+            :"Elixir.DiacriticalWeb.Endpoint"
+          )
+
   @dialyzer {:no_unused, put_nonce: 2}
   @spec put_nonce(conn(), opt()) :: conn()
   defp put_nonce(conn, _opt) when is_struct(conn, Plug.Conn) do
@@ -42,6 +47,16 @@ defmodule DiacriticalWeb.Router do
       "frame-src 'self'; img-src 'nonce-#{nonce}' 'self' data:; " <>
       "script-src 'nonce-#{nonce}' 'strict-dynamic' 'unsafe-inline' 'self'; " <>
       "style-src 'nonce-#{nonce}' 'self'; upgrade-insecure-requests"
+  end
+
+  @dialyzer {:no_unused, cross_origin_embedder_policy: 0}
+  @spec cross_origin_embedder_policy() :: header_value()
+  defp cross_origin_embedder_policy() do
+    if @config[:code_reloader] do
+      "unsafe-none"
+    else
+      "require-corp"
+    end
   end
 
   @dialyzer {:no_unused, permissions_policy: 0}
@@ -77,7 +92,7 @@ defmodule DiacriticalWeb.Router do
       conn,
       %{
         "content-security-policy" => content_security_policy(nonce),
-        "cross-origin-embedder-policy" => "require-corp",
+        "cross-origin-embedder-policy" => cross_origin_embedder_policy(),
         "cross-origin-opener-policy" => "same-origin",
         "cross-origin-resource-policy" => "same-origin",
         "permissions-policy" => permissions_policy(),
