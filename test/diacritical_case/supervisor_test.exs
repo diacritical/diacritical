@@ -2,22 +2,11 @@ defmodule DiacriticalCase.SupervisorTest do
   @moduledoc "Defines an `ExUnit.Case` case."
   @moduledoc since: "0.3.0"
 
-  use ExUnit.Case, async: true
+  use DiacriticalCase.Template, async: true
 
   alias DiacriticalCase
 
   alias DiacriticalCase.Supervisor
-
-  @typedoc "Represents the context."
-  @typedoc since: "0.3.0"
-  @type context() :: DiacriticalCase.context()
-
-  @typedoc "Represents the context merge value."
-  @typedoc since: "0.3.0"
-  @type context_merge() :: DiacriticalCase.context_merge()
-
-  @spec c_context(context()) :: context_merge()
-  defp c_context(c) when is_map(c), do: %{context: %{invalid: [], valid: %{}}}
 
   doctest Supervisor, import: true
 
