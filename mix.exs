@@ -112,14 +112,15 @@ defmodule DiacriticalApp.MixProject do
         {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
         {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
         {:dns_cluster, "~> 0.1"},
-        {:ecto, "~> 3.12"},
+        {:ecto_sql, "~> 3.12"},
         {:esbuild, "~> 0.8", runtime: env == :dev},
         {:ex_doc, "~> 0.35", only: :dev, runtime: false},
         {:jason, "~> 1.4"},
         {:phoenix, "~> 1.7"},
         {:phoenix_html, "~> 4.1"},
         {:phoenix_live_reload, "~> 1.5", runtime: env == :dev},
-        {:phoenix_live_view, "1.0.0-rc.7", override: true}
+        {:phoenix_live_view, "1.0.0-rc.7", override: true},
+        {:postgrex, "~> 0.19"}
       ],
       deps_path: "dep",
       dialyzer: [ignore_warnings: ".dialyzer.exs", plt_add_apps: [:ex_unit]],
