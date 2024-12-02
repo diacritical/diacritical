@@ -71,6 +71,16 @@
     "hexpm",
     "71fbc9a6b8be21d993deca85bf151df023a3097b01e09a2809d460348561d8cd"
   },
+  decimal: {
+    :hex,
+    :decimal,
+    "2.2.0",
+    "df3d06bb9517e302b1bd265c1e7f16cda51547ad9d99892049340841f3e15836",
+    [:mix],
+    [],
+    "hexpm",
+    "af8daf87384b51b7e611fb1a1f2c4d4876b65ef968fa8bd3adf44cff401c7f21"
+  },
   dialyxir: {
     :hex,
     :dialyxir,
@@ -100,6 +110,24 @@
     [],
     "hexpm",
     "a81a04c7e34b6617c2792e291b5a2e57ab316365c2644ddc553bb9ed863ebefa"
+  },
+  ecto: {
+    :hex,
+    :ecto,
+    "3.12.5",
+    "4a312960ce612e17337e7cefcf9be45b95a3be6b36b6f94dfb3d8c361d631866",
+    [:mix],
+    [
+      {:decimal, "~> 2.0", hex: :decimal, repo: "hexpm", optional: false},
+      {:jason, "~> 1.0", hex: :jason, repo: "hexpm", optional: true},
+      {
+        :telemetry,
+        "~> 0.4 or ~> 1.0",
+        [hex: :telemetry, repo: "hexpm", optional: false]
+      }
+    ],
+    "hexpm",
+    "6eb18e80bef8bb57e17f5a7f068a1719fbda384d40fc37acb8eb8aeca493b6ea"
   },
   erlex: {
     :hex,
