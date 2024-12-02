@@ -25,6 +25,7 @@ config :diacritical, Endpoint,
     otp_app: :diacritical,
     port: 4_001
   ],
+  live_view: [signing_salt: "aTStPuSKpOqy8Elq"],
   pubsub_server: :"Elixir.Diacritical.PubSub",
   render_errors: [
     formats: [html: HTML.Error, txt: TXT.Error],
@@ -33,6 +34,12 @@ config :diacritical, Endpoint,
   ],
   secret_key_base:
     "rHHk51MXiuewZ3FpqbHMHso7zRMqFYN8sPGAVNJ0Y956svsgKntwfdrOKxM6WCMa",
+  session: [
+    key: "__Host-session",
+    same_site: "Strict",
+    signing_salt: "OGTrT2EZEe9HnTC5",
+    store: :cookie
+  ],
   server: true,
   url: [host: nil, path: "/", port: 443, scheme: "https"]
 
