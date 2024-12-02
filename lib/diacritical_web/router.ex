@@ -104,6 +104,14 @@ defmodule DiacriticalWeb.Router do
     )
   end
 
+  @dialyzer {:no_unused, put_tenant: 2}
+  @spec put_tenant(conn(), opt()) :: conn()
+  defp put_tenant(%Plug.Conn{host: host} = conn, _opt) when is_binary(host) do
+    host
+    |> DiacriticalWeb.to_tenant()
+    |> then(&assign(conn, :tenant, &1))
+  end
+
   pipeline :plaintext do
     plug :accepts, ["txt", "text"]
   end
@@ -115,6 +123,7 @@ defmodule DiacriticalWeb.Router do
     plug :protect_from_forgery
     plug :put_nonce
     plug :put_secure_headers
+    plug :put_tenant
   end
 
   scope "/" do

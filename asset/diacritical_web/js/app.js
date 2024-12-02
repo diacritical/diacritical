@@ -10,9 +10,11 @@ let csrfToken = document
   .querySelector('meta[name="csrf-token"]')
   .getAttribute("content");
 
+let host = window.location.hostname;
+
 let liveSocket = new LiveSocket("/live", Socket, {
   longPollFallbackMs: 2500,
-  params: { _csp_token: cspToken, _csrf_token: csrfToken },
+  params: { _csp_token: cspToken, _csrf_token: csrfToken, host: host },
 });
 
 liveSocket.connect();
