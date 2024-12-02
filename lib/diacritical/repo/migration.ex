@@ -42,6 +42,10 @@ defmodule Diacritical.Repo.Migration do
   @typedoc since: "0.10.0"
   @type rollback() :: on_run()
 
+  @typedoc "Represents the status."
+  @typedoc since: "0.10.0"
+  @type status() :: :ok
+
   @app :diacritical
 
   @spec source() :: source()
