@@ -1,4 +1,4 @@
-import Config, only: [config_env: 0, config: 3]
+import Config, only: [config: 2, config: 3, config_env: 0]
 
 alias Diacritical
 alias DiacriticalWeb
@@ -10,6 +10,8 @@ alias DiacriticalWeb.Endpoint
 config :diacritical, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
 
 if config_env() == :prod do
+  config :argon2_elixir, m_cost: 16, parallelism: 1, t_cost: 8
+
   secret_key_base =
     System.get_env("SECRET_KEY_BASE") ||
       raise """
