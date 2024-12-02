@@ -46,13 +46,26 @@ jobs:
       - run: mix dialyzer --format github
       - run: mix asset.setup
       - run: mix asset.build
+      - run: mix ecto.setup
       - run: mix test
+    services:
+      postgres:
+        env:
+          POSTGRES_PASSWORD: postgres
+        image: ${{ matrix.postgres }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-retries 5
+          --health-timeout 5s
+        ports: ["5432:5432"]
     strategy:
       matrix:
         elixir-version: ["1.17.3"]
         node-version: ["23.3.0"]
         os: ["ubuntu-24.04"]
         otp-version: ["27.1.2"]
+        postgres: ["postgres:17.2"]
   deploy:
     name: Fly.io Deployment
     needs: test
