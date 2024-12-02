@@ -10,6 +10,7 @@ defmodule DiacriticalApp do
 
   alias Diacritical.Repo
   alias Diacritical.Supervisor
+  alias Diacritical.Telemetry
   alias DiacriticalWeb.Endpoint
 
   @typedoc "Represents the application."
@@ -106,6 +107,7 @@ defmodule DiacriticalApp do
       {
         :children,
         [
+          Telemetry,
           Repo,
           {DNSCluster, query: query},
           {Phoenix.PubSub, name: :"Elixir.Diacritical.PubSub"},
