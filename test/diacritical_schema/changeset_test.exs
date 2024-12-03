@@ -2,7 +2,7 @@ defmodule DiacriticalSchema.ChangesetTest do
   @moduledoc "Defines an `ExUnit.Case` case."
   @moduledoc since: "0.14.0"
 
-  use ExUnit.Case, async: true
+  use DiacriticalCase.Repo, async: true
 
   alias DiacriticalCase
   alias DiacriticalSchema
@@ -18,14 +18,15 @@ defmodule DiacriticalSchema.ChangesetTest do
   @type context_merge() :: DiacriticalCase.context_merge()
 
   @spec c_changeset_digest(context()) :: context_merge()
-  defp c_changeset_digest(c) when is_map(c) do
+  defp c_changeset_digest(%{password: %{correct: password}})
+       when is_binary(password) do
     changeset =
       Ecto.Changeset.change(
         {
           %{password: nil, password_digest: nil},
           %{password: :string, password_digest: :string}
         },
-        %{password: "correct horse battery staple"}
+        %{password: password}
       )
 
     %{
@@ -74,23 +75,22 @@ defmodule DiacriticalSchema.ChangesetTest do
   end
 
   @spec c_changeset_password(context()) :: context_merge()
-  defp c_changeset_password(c) when is_map(c) do
+  defp c_changeset_password(%{
+         password: %{correct: password, incorrect: password!}
+       })
+       when is_binary(password) and is_binary(password!) do
     data = {%{password: nil}, %{password: :string}}
 
     %{
       changeset: %{
-        goldilocks:
-          Ecto.Changeset.change(
-            data,
-            %{password: "correct horse battery staple"}
-          ),
+        goldilocks: Ecto.Changeset.change(data, %{password: password}),
         invalid: %{},
         long:
           Ecto.Changeset.change(
             data,
             %{password: Enum.reduce(1..129, "", fn _i, acc -> "-#{acc}" end)}
           ),
-        short: Ecto.Changeset.change(data, %{password: "hunter2"})
+        short: Ecto.Changeset.change(data, %{password: password!})
       }
     }
   end
@@ -100,7 +100,7 @@ defmodule DiacriticalSchema.ChangesetTest do
   describe "put_digest/1" do
     import Changeset, only: [put_digest: 1]
 
-    setup :c_changeset_digest
+    setup [:c_password, :c_changeset_digest]
 
     test "FunctionClauseError", %{changeset: %{invalid: changeset}} do
       assert_raise FunctionClauseError, fn -> put_digest(changeset) end
@@ -119,7 +119,7 @@ defmodule DiacriticalSchema.ChangesetTest do
   describe "put_digest/2" do
     import Changeset, only: [put_digest: 2]
 
-    setup [:c_changeset_digest, :c_key_password]
+    setup ~W[c_password c_changeset_digest c_key_password]a
 
     test "FunctionClauseError (&1)", %{
       changeset: %{invalid: changeset},
@@ -154,7 +154,7 @@ defmodule DiacriticalSchema.ChangesetTest do
   describe "put_digest/3" do
     import Changeset, only: [put_digest: 3]
 
-    setup [:c_changeset_digest, :c_key_password]
+    setup ~W[c_password c_changeset_digest c_key_password]a
 
     setup do
       %{digest_key: %{invalid: "password_digest", valid: :password_digest}}
@@ -315,7 +315,7 @@ defmodule DiacriticalSchema.ChangesetTest do
   describe "validate_password/1" do
     import Changeset, only: [validate_password: 1]
 
-    setup :c_changeset_password
+    setup [:c_password, :c_changeset_password]
 
     test "FunctionClauseError", %{changeset: %{invalid: changeset}} do
       assert_raise FunctionClauseError, fn -> validate_password(changeset) end
@@ -337,7 +337,7 @@ defmodule DiacriticalSchema.ChangesetTest do
   describe "validate_password/2" do
     import Changeset, only: [validate_password: 2]
 
-    setup [:c_changeset_password, :c_key_password]
+    setup ~W[c_password c_changeset_password c_key_password]a
 
     test "FunctionClauseError (&1)", %{
       changeset: %{invalid: changeset},

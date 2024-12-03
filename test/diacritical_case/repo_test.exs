@@ -22,6 +22,28 @@ defmodule DiacriticalCase.RepoTest do
     end
   end
 
+  describe "c_password/0" do
+    import Repo, only: [c_password: 0]
+
+    test "success" do
+      assert %{password: _password} = c_password()
+    end
+  end
+
+  describe "c_password/1" do
+    import Repo, only: [c_password: 1]
+
+    setup :c_context
+
+    test "FunctionClauseError", %{context: %{invalid: context}} do
+      assert_raise FunctionClauseError, fn -> c_password(context) end
+    end
+
+    test "success", %{context: %{valid: context}} do
+      assert %{password: _password} = c_password(context)
+    end
+  end
+
   describe "checkout_repo/0" do
     import Repo, only: [checkout_repo: 0]
 
