@@ -11,10 +11,13 @@ defmodule DiacriticalWeb.LiveView do
   import Phoenix.Component, only: [assign_new: 3]
   import Phoenix.LiveView
 
+  alias Diacritical
   alias DiacriticalWeb
 
+  alias Diacritical.Context
   alias DiacriticalWeb.HTML
 
+  alias Context.Account
   alias HTML.Layout
 
   @typedoc "Represents the socket."
@@ -28,6 +31,10 @@ defmodule DiacriticalWeb.LiveView do
   @typedoc "Represents the potential host."
   @typedoc since: "0.11.0"
   @type maybe_host() :: nil | DiacriticalWeb.host()
+
+  @typedoc "Represents the potential account."
+  @typedoc since: "0.17.0"
+  @type maybe_account() :: Account.maybe_account()
 
   @typedoc "Represents the session name."
   @typedoc since: "0.8.0"
@@ -91,31 +98,52 @@ defmodule DiacriticalWeb.LiveView do
     end
   end
 
+  @spec maybe_get_account(session()) :: maybe_account()
+  defp maybe_get_account(session) when is_map(session) do
+    if token = session["token"] do
+      Account.get_by_token_data_and_type(token, "session")
+    end
+  end
+
   @doc """
   Attaches a hook to apply common assignments onto the given `socket`.
 
   ## Examples
 
+      iex> checkout_repo()
       iex> %{name: %{valid: name}} = c_name_default(%{})
-      iex> %{param: %{valid: param}} = c_param(%{})
-      iex> %{session: %{valid: session}} = c_session(%{})
+      iex> %{param: %{valid: param}} = c_param()
+      iex> %{session: %{valid: session}} = c_session()
       iex> %{socket: %{halted: socket!, unsigned: socket}} = c_socket_nonce(%{})
       iex>
       iex> on_mount(name, param, session, socket)
       {:halt, socket!}
 
+      iex> checkout_repo()
       iex> %{name: %{valid: name}} = c_name_default(%{})
-      iex> %{param: %{valid: param}} = c_param(%{})
-      iex> %{session: %{valid: session}} = c_session(%{})
+      iex> %{param: %{valid: param}} = c_param()
+      iex> %{session: %{valid: session}} = c_session()
       iex> %{socket: %{mounted: socket!, signed: socket}} = c_socket_nonce(%{})
       iex>
       iex> on_mount(name, param, session, socket)
       {:cont, socket!}
 
+      iex> checkout_repo()
+      iex> %{token: %{loaded: %{data: data}}} = c = c_token_loaded()
       iex> %{name: %{valid: name}} = c_name_default(%{})
-      iex> %{param: %{valid: param}} = c_param(%{})
-      iex> %{session: %{valid: session}} = c_session(%{})
-      iex> %{socket: %{assigned: socket}} = c_socket_nonce(%{})
+      iex> %{param: %{valid: param}} = c_param()
+      iex> session = %{"token" => data}
+      iex> %{socket: %{authenticated: socket!, signed: socket}} = c_socket_nonce(c)
+      iex>
+      iex> on_mount(name, param, session, socket)
+      {:cont, socket!}
+
+      iex> checkout_repo()
+      iex> %{token: %{loaded: %{data: data}}} = c = c_token_loaded()
+      iex> %{name: %{valid: name}} = c_name_default(%{})
+      iex> %{param: %{valid: param}} = c_param()
+      iex> session = %{"token" => data}
+      iex> %{socket: %{assigned: socket}} = c_socket_nonce(c)
       iex>
       iex> on_mount(name, param, session, socket)
       {:cont, socket}
@@ -137,6 +165,7 @@ defmodule DiacriticalWeb.LiveView do
         socket
         |> assign_new(:nonce, fn -> maybe_nonce end)
         |> assign_new(:tenant, fn -> DiacriticalWeb.to_tenant(maybe_host) end)
+        |> assign_new(:account, fn -> maybe_get_account(session) end)
       }
     end
   end
