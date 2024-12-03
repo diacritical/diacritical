@@ -14,6 +14,10 @@ defmodule DiacriticalSchema.Account do
 
   alias DiacriticalSchema.Account.Token
 
+  @typedoc "Represents the email address."
+  @typedoc since: "0.16.0"
+  @type email() :: DiacriticalSchema.email()
+
   @typedoc "Represents the password."
   @typedoc since: "0.16.0"
   @type password() :: DiacriticalSchema.password()
@@ -28,7 +32,7 @@ defmodule DiacriticalSchema.Account do
           __meta__: Ecto.Schema.Metadata.t(),
           confirmed_at: nil | DateTime.t(),
           deleted_at: nil | DateTime.t(),
-          email: nil | String.t(),
+          email: nil | email(),
           id: nil | Ecto.UUID.t(),
           inserted_at: nil | DateTime.t(),
           password: maybe_password(),
@@ -162,15 +166,14 @@ defmodule DiacriticalSchema.Account do
 
   ## Example
 
-      iex> %{password: %{correct: password, incorrect: password!}} =
-      ...>   c_password()
-      iex> schema = %Account{password_digest: Argon2.hash_pwd_salt(password)}
+      iex> %{password: %{incorrect: password}} = c = c_password()
+      iex> %{account: %{built: schema}} = c_account(c)
       iex>
-      iex> valid_password?(schema, password!)
+      iex> valid_password?(schema, password)
       false
 
-      iex> %{password: %{correct: password}} = c_password()
-      iex> schema = %Account{password_digest: Argon2.hash_pwd_salt(password)}
+      iex> %{password: %{correct: password}} = c = c_password()
+      iex> %{account: %{built: schema}} = c_account(c)
       iex>
       iex> valid_password?(schema, password)
       true

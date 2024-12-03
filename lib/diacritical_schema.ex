@@ -2,7 +2,7 @@ defmodule DiacriticalSchema do
   @moduledoc "Defines commonalities for `Ecto.Schema` schemata."
   @moduledoc since: "0.9.0"
 
-  use Boundary, deps: [Argon2, Ecto]
+  use Boundary, deps: [Argon2, Ecto], exports: {:all, except: [Changeset]}
 
   import Ecto.Query
 
@@ -18,6 +18,10 @@ defmodule DiacriticalSchema do
   @typedoc since: "0.15.0"
   @type arg() :: Enum.t()
 
+  @typedoc "Represents the email address."
+  @typedoc since: "0.16.0"
+  @type email() :: String.t()
+
   @typedoc "Represents the password."
   @typedoc since: "0.16.0"
   @type password() :: String.t()
@@ -25,6 +29,14 @@ defmodule DiacriticalSchema do
   @typedoc "Represents the schema."
   @typedoc since: "0.14.0"
   @type t() :: Ecto.Schema.t()
+
+  @typedoc "Represents the token data."
+  @typedoc since: "0.16.0"
+  @type token_data() :: binary()
+
+  @typedoc "Represents the token type."
+  @typedoc since: "0.16.0"
+  @type token_type() :: String.t()
 
   @field [
     :account_id,

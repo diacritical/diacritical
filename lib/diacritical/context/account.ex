@@ -1,0 +1,120 @@
+defmodule Diacritical.Context.Account do
+  @moduledoc "Defines a `Phoenix` context."
+  @moduledoc since: "0.16.0"
+
+  alias Diacritical
+  alias DiacriticalSchema
+
+  alias Diacritical.Repo
+  alias DiacriticalSchema.Account
+
+  alias Account.Token
+
+  @typedoc "Represents the email address."
+  @typedoc since: "0.16.0"
+  @type email() :: Account.email()
+
+  @typedoc "Represents the potential account."
+  @typedoc since: "0.16.0"
+  @type maybe_account() :: Account.maybe_schema()
+
+  @typedoc "Represents the password."
+  @typedoc since: "0.16.0"
+  @type password() :: Account.password()
+
+  @typedoc "Represents the token data."
+  @typedoc since: "0.16.0"
+  @type token_data() :: Token.token_data()
+
+  @typedoc "Represents the token type."
+  @typedoc since: "0.16.0"
+  @type token_type() :: Token.token_type()
+
+  @doc """
+  Fetches an account from the data store by the given `email`.
+
+  ## Examples
+
+      iex> checkout_repo()
+      iex> %{account: %{built: account}} = c_account()
+      iex>
+      iex> get_by_email(account.email)
+      nil
+
+      iex> checkout_repo()
+      iex> %{account: %{loaded: account}} = c_account_loaded(%{})
+      iex>
+      iex> get_by_email(account.email)
+      account
+
+  """
+  @doc since: "0.16.0"
+  @spec get_by_email(email()) :: maybe_account()
+  def get_by_email(email) when is_binary(email) do
+    Repo.get_by(Account, email: email)
+  end
+
+  @doc """
+  Fetches an account from the data store by the given `email` and `password`.
+
+  ## Examples
+
+      iex> checkout_repo()
+      iex> %{password: %{incorrect: password}} = c_password()
+      iex> %{account: %{loaded: account}} = c_account_loaded(%{})
+      iex>
+      iex> get_by_email_and_password(account.email, password)
+      nil
+
+      iex> checkout_repo()
+      iex> %{password: %{correct: password}} = c_password()
+      iex> %{account: %{loaded: account}} = c_account_loaded(%{})
+      iex>
+      iex> get_by_email_and_password(account.email, password)
+      account
+
+  """
+  @doc since: "0.16.0"
+  @spec get_by_email_and_password(email(), password()) :: maybe_account()
+  def get_by_email_and_password(email, password)
+      when is_binary(email) and is_binary(password) do
+    account = get_by_email(email)
+
+    if Account.valid_password?(account, password) do
+      account
+    end
+  end
+
+  @doc """
+  Fetches an account from the data store by the given token `data` and `type`.
+
+  ## Examples
+
+      iex> checkout_repo()
+      iex> data = :crypto.strong_rand_bytes(32)
+      iex> type = "unknown"
+      iex>
+      iex> get_by_token_data_and_type(data, type)
+      nil
+
+      iex> checkout_repo()
+      iex> %{data: data, type: type} =
+      ...>   Token
+      ...>   |> Token.query(%{limit: 1, order_by: :random})
+      ...>   |> Repo.one()
+      iex>
+      iex> %DiacriticalSchema.Account{} = get_by_token_data_and_type(data, type)
+
+  """
+  @doc since: "0.16.0"
+  @spec get_by_token_data_and_type(token_data(), token_type()) ::
+          maybe_account()
+  def get_by_token_data_and_type(data, type)
+      when is_binary(data) and is_binary(type) do
+    arg = %{filter: %{where_data_type: {data, type}}, select: :account}
+
+    Token
+    |> Token.query(arg)
+    |> Repo.one()
+  end
+end

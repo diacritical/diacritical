@@ -6,8 +6,10 @@ defmodule DiacriticalCase.Repo do
 
   alias Diacritical
   alias DiacriticalCase
+  alias DiacriticalSchema
 
   alias Diacritical.Repo
+  alias DiacriticalSchema.Account
 
   @typedoc "Represents the context."
   @typedoc since: "0.10.0"
@@ -16,6 +18,31 @@ defmodule DiacriticalCase.Repo do
   @typedoc "Represents the context merge value."
   @typedoc since: "0.10.0"
   @type context_merge() :: DiacriticalCase.context_merge()
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
+      iex> %{account: _account} = c_account()
+
+  """
+  @doc since: "0.16.0"
+  @spec c_account() :: context_merge()
+  @spec c_account(context()) :: context_merge()
+  def c_account(c \\ %{}) when is_map(c) do
+    email = "jdoe@example.com"
+    password = c[:password][:correct] || "correct horse battery staple"
+    password_digest = Argon2.hash_pwd_salt(password)
+
+    %{
+      account: %{
+        built: %Account{email: email, password_digest: password_digest},
+        invalid: %{email: ~c"#{email}", password_digest: password_digest},
+        missing: nil
+      }
+    }
+  end
 
   @doc """
   Returns a map of fixtures to be merged into the given `context`.
