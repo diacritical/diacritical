@@ -7,6 +7,7 @@ defmodule DiacriticalCase do
       Argon2,
       Diacritical,
       DiacriticalSchema,
+      Ecto,
       Ecto.Adapters.SQL,
       ExUnit,
       Phoenix,
