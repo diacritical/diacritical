@@ -437,8 +437,8 @@
   phoenix: {
     :hex,
     :phoenix,
-    "1.7.14",
-    "a7d0b3f1bc95987044ddada111e77bd7f75646a08518942c72a8440278ae7825",
+    "1.7.15",
+    "e3021805b8d8d7eefff8e15c8e595eb15461ca8571a84b38c14e7940eb71a2a8",
     [:mix],
     [
       {:castore, ">= 0.0.0", hex: :castore, repo: "hexpm", optional: false},
@@ -481,7 +481,7 @@
       }
     ],
     "hexpm",
-    "c7859bc56cc5dfef19ecfc240775dae358cbaa530231118a9e014df392ace61a"
+    "c6905e200918284575fe8b4aecd39928f87bb1272f5e57310dfdd6677a575fed"
   },
   phoenix_ecto: {
     :hex,
@@ -536,8 +536,8 @@
   phoenix_live_view: {
     :hex,
     :phoenix_live_view,
-    "1.0.0-rc.7",
-    "d2abca526422adea88896769529addb6443390b1d4f1ff9cbe694312d8875fb2",
+    "1.0.0-rc.8",
+    "58567b5f70473b8a11c12ba2b41da6dafa6b4b830f4e8da0df9e17077746d5ba",
     [:mix],
     [
       {:floki, "~> 0.36", hex: :floki, repo: "hexpm", optional: true},
@@ -570,7 +570,7 @@
       }
     ],
     "hexpm",
-    "b82a4575f6f3eb5b97922ec6874b0c52b3ca0cc5dcb4b14ddc478cbfa135dd01"
+    "640a394899e9f3540abbbbfc3005ec7f38fbabb366f283ad84657165744bec00"
   },
   phoenix_pubsub: {
     :hex,
