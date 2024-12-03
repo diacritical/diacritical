@@ -11,6 +11,8 @@ defmodule DiacriticalCase.Repo do
   alias Diacritical.Repo
   alias DiacriticalSchema.Account
 
+  alias Account.Token
+
   @typedoc "Represents the context."
   @typedoc since: "0.10.0"
   @type context() :: DiacriticalCase.context()
@@ -134,6 +136,28 @@ defmodule DiacriticalCase.Repo do
         missing: nil
       }
     }
+  end
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
+      iex> checkout_core(%{})
+      iex>
+      iex> %{token: %{loaded: _token}} = c_token_loaded()
+
+  """
+  @doc since: "0.17.0"
+  @spec c_token_loaded() :: context_merge()
+  @spec c_token_loaded(context()) :: context_merge()
+  def c_token_loaded(c \\ %{}) when is_map(c) do
+    token =
+      Token
+      |> Token.query(%{limit: 1, order_by: :random})
+      |> Repo.one()
+
+    %{token: Map.merge(c[:token] || %{}, %{loaded: token})}
   end
 
   @doc """

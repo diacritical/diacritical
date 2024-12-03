@@ -4,9 +4,23 @@ defmodule DiacriticalCase.RepoTest do
 
   use DiacriticalCase.Template, async: true
 
+  alias Diacritical
   alias DiacriticalCase
 
   alias DiacriticalCase.Repo
+
+  @typedoc "Represents the context."
+  @typedoc since: "0.17.0"
+  @type context() :: DiacriticalCase.context()
+
+  @typedoc "Represents the context merge value."
+  @typedoc since: "0.17.0"
+  @type context_merge() :: DiacriticalCase.context_merge()
+
+  @spec checkout_core(context()) :: context_merge()
+  defp checkout_core(c) when is_map(c) do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Diacritical.Repo)
+  end
 
   doctest Repo, import: true
 
@@ -121,6 +135,30 @@ defmodule DiacriticalCase.RepoTest do
 
     test "success" do
       assert checkout_repo() == :ok
+    end
+  end
+
+  describe "c_token_loaded/0" do
+    import Repo, only: [c_token_loaded: 0]
+
+    setup :checkout_core
+
+    test "success" do
+      assert %{token: %{loaded: _token}} = c_token_loaded()
+    end
+  end
+
+  describe "c_token_loaded/1" do
+    import Repo, only: [c_token_loaded: 1]
+
+    setup [:checkout_core, :c_context]
+
+    test "FunctionClauseError", %{context: %{invalid: context}} do
+      assert_raise FunctionClauseError, fn -> c_token_loaded(context) end
+    end
+
+    test "success", %{context: %{valid: context}} do
+      assert %{token: %{loaded: _token}} = c_token_loaded(context)
     end
   end
 
