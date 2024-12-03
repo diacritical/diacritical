@@ -9,7 +9,7 @@
       name="description"
       content={assigns[:page_description] || "Here be dragons."}
     />
-    <.live_title><%= assigns[:page_title] || "Diacritical" %></.live_title>
+    <.live_title>{assigns[:page_title] || "Diacritical"}</.live_title>
     <link
       nonce={assigns[:nonce]}
       href={~p"/asset/vendor/inter/inter.css"}
@@ -24,7 +24,7 @@
     />
   </head>
   <body>
-    <%= @inner_content %>
+    {@inner_content}
     <script
       nonce={assigns[:nonce]}
       src={~p"/asset/js/app.js"}

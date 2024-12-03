@@ -72,7 +72,7 @@ defmodule DiacriticalWeb.LiveView.Page do
   @spec render(assigns()) :: render()
   def render(assigns) when is_map(assigns) do
     ~H"""
-    <span><%= @greeting %></span>
+    <span>{@greeting}</span>
     """
   end
 end
