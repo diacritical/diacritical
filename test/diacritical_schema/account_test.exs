@@ -2,7 +2,7 @@ defmodule DiacriticalSchema.AccountTest do
   @moduledoc "Defines an `ExUnit.Case` case."
   @moduledoc since: "0.14.0"
 
-  use ExUnit.Case, async: true
+  use DiacriticalCase.Repo, async: true
 
   alias DiacriticalCase
   alias DiacriticalSchema
@@ -21,30 +21,50 @@ defmodule DiacriticalSchema.AccountTest do
   defp c_struct(c) when is_map(c) do
     %{
       struct: %{
-        __meta__: %Ecto.Schema.Metadata{
-          schema: Account,
-          source: "account",
-          state: :built
-        },
-        __struct__: Account,
-        confirmed_at: nil,
-        deleted_at: nil,
-        email: nil,
-        id: nil,
-        inserted_at: nil,
-        password: nil,
-        password_digest: nil,
-        updated_at: nil
+        invalid: %{},
+        valid: %{
+          __meta__: %Ecto.Schema.Metadata{
+            schema: Account,
+            source: "account",
+            state: :built
+          },
+          __struct__: Account,
+          confirmed_at: nil,
+          deleted_at: nil,
+          email: nil,
+          id: nil,
+          inserted_at: nil,
+          password: nil,
+          password_digest: nil,
+          updated_at: nil
+        }
       }
     }
   end
+
+  @spec c_param_account(context()) :: context_merge()
+  defp c_param_account(c) when is_map(c) do
+    email = "jdoe@example.com"
+    password = "correct horse battery staple"
+
+    %{
+      param: %{
+        atom: %{email: email, password: password},
+        err: %{email: "jdoeexample.com", password: "hunter2"},
+        invalid: [],
+        string: %{"email" => email, "password" => password}
+      }
+    }
+  end
+
+  doctest Account, import: true
 
   describe "__struct__/0" do
     import Account, only: [__struct__: 0]
 
     setup :c_struct
 
-    test "success", %{struct: struct} do
+    test "success", %{struct: %{valid: struct}} do
       assert __struct__() == struct
     end
   end
@@ -54,7 +74,7 @@ defmodule DiacriticalSchema.AccountTest do
 
     setup :c_struct
 
-    test "success", %{struct: struct} do
+    test "success", %{struct: %{valid: struct}} do
       assert __struct__(%{}) == struct
     end
   end
@@ -225,6 +245,105 @@ defmodule DiacriticalSchema.AccountTest do
 
     test ":embed, embed" do
       assert __schema__(:embed, :field) == nil
+    end
+  end
+
+  describe "changeset/1" do
+    import Account, only: [changeset: 1]
+
+    setup [:checkout_repo, :c_param_account]
+
+    test "FunctionClauseError", %{param: %{invalid: param}} do
+      assert_raise FunctionClauseError, fn -> changeset(param) end
+    end
+
+    test "failure", %{param: %{err: param}} do
+      refute changeset(param).valid?
+    end
+
+    test "atom", %{param: %{atom: param}} do
+      assert changeset(param).valid?
+    end
+
+    test "string", %{param: %{string: param}} do
+      assert changeset(param).valid?
+    end
+  end
+
+  describe "changeset/2 when %Account{} = data" do
+    import Account, only: [changeset: 2]
+
+    setup ~W[checkout_repo c_struct c_param_account]a
+
+    test "FunctionClauseError (&1)", %{
+      param: %{atom: param},
+      struct: %{invalid: struct}
+    } do
+      assert_raise FunctionClauseError, fn -> changeset(struct, param) end
+    end
+
+    test "FunctionClauseError (&2)", %{
+      param: %{invalid: param},
+      struct: %{valid: struct}
+    } do
+      assert_raise FunctionClauseError, fn -> changeset(struct, param) end
+    end
+
+    test "failure", %{param: %{err: param}, struct: %{valid: struct}} do
+      refute changeset(struct, param).valid?
+    end
+
+    test "atom", %{param: %{atom: param}, struct: %{valid: struct}} do
+      assert changeset(struct, param).valid?
+    end
+
+    test "string", %{param: %{string: param}, struct: %{valid: struct}} do
+      assert changeset(struct, param).valid?
+    end
+  end
+
+  describe "changeset/2 when %Ecto.Changeset{data: %Account{}} = data" do
+    import Account, only: [changeset: 2]
+
+    setup ~W[checkout_repo c_struct c_param_account]a
+
+    setup %{struct: %{invalid: struct, valid: struct!}} do
+      %{
+        changeset: %{
+          invalid: %Ecto.Changeset{data: struct},
+          valid: %Ecto.Changeset{
+            data: struct!,
+            types: Account.__changeset__(),
+            valid?: true
+          }
+        }
+      }
+    end
+
+    test "FunctionClauseError (&1)", %{
+      changeset: %{invalid: changeset},
+      param: %{atom: param}
+    } do
+      assert_raise FunctionClauseError, fn -> changeset(changeset, param) end
+    end
+
+    test "FunctionClauseError (&2)", %{
+      changeset: %{valid: changeset},
+      param: %{invalid: param}
+    } do
+      assert_raise FunctionClauseError, fn -> changeset(changeset, param) end
+    end
+
+    test "failure", %{changeset: %{valid: changeset}, param: %{err: param}} do
+      refute changeset(changeset, param).valid?
+    end
+
+    test "atom", %{changeset: %{valid: changeset}, param: %{atom: param}} do
+      assert changeset(changeset, param).valid?
+    end
+
+    test "string", %{changeset: %{valid: changeset}, param: %{string: param}} do
+      assert changeset(changeset, param).valid?
     end
   end
 end

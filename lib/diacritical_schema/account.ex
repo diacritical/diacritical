@@ -1,8 +1,44 @@
 defmodule DiacriticalSchema.Account do
-  @moduledoc "Defines an `Ecto.Schema` schema."
+  @moduledoc "Defines an `Ecto.Schema` schema and `Ecto.Changeset` changeset."
   @moduledoc since: "0.14.0"
 
   use DiacriticalSchema
+
+  alias Diacritical
+  alias DiacriticalSchema
+
+  alias Diacritical.Repo
+  alias DiacriticalSchema.Changeset
+
+  @typedoc "Represents the schema."
+  @typedoc since: "0.14.0"
+  @type t() :: %__MODULE__{
+          __meta__: Ecto.Schema.Metadata.t(),
+          confirmed_at: nil | DateTime.t(),
+          deleted_at: nil | DateTime.t(),
+          email: nil | String.t(),
+          id: nil | Ecto.UUID.t(),
+          inserted_at: nil | DateTime.t(),
+          password: nil | String.t(),
+          password_digest: nil | String.t(),
+          updated_at: nil | DateTime.t()
+        }
+
+  @typedoc "Represents the changeset."
+  @typedoc since: "0.14.0"
+  @type changeset() :: Changeset.t(t())
+
+  @typedoc "Represents the data."
+  @typedoc since: "0.14.0"
+  @type data() :: Changeset.data(changeset(), t())
+
+  @typedoc "Represents the parameter."
+  @typedoc since: "0.14.0"
+  @type param() :: Changeset.param()
+
+  @typedoc "Represents the parameter key."
+  @typedoc since: "0.14.0"
+  @type key() :: Changeset.key()
 
   schema "account" do
     field :email, :string
@@ -12,5 +48,77 @@ defmodule DiacriticalSchema.Account do
     field :inserted_at, :utc_datetime_usec, read_after_writes: true
     field :updated_at, :utc_datetime_usec, read_after_writes: true
     field :deleted_at, :utc_datetime_usec
+  end
+
+  @spec do_digest(data(), param(), key()) :: changeset()
+  defp do_digest(data, param, key)
+       when (is_struct(data, __MODULE__) or is_struct(data, Ecto.Changeset)) and
+              is_map(param) and (is_atom(key) or is_binary(key)) do
+    field = [:password]
+
+    data
+    |> Ecto.Changeset.cast(param, field)
+    |> Ecto.Changeset.validate_required(field)
+    |> Changeset.validate_password()
+    |> Changeset.put_digest()
+    |> changeset(Map.delete(param, key))
+  end
+
+  @spec do_changeset(data(), param()) :: changeset()
+  defp do_changeset(data, param)
+       when (is_struct(data, __MODULE__) or is_struct(data, Ecto.Changeset)) and
+              is_map_key(param, :password) do
+    do_digest(data, param, :password)
+  end
+
+  defp do_changeset(data, param)
+       when (is_struct(data, __MODULE__) or is_struct(data, Ecto.Changeset)) and
+              is_map_key(param, "password") do
+    do_digest(data, param, "password")
+  end
+
+  defp do_changeset(data, param)
+       when (is_struct(data, __MODULE__) or is_struct(data, Ecto.Changeset)) and
+              is_map(param) do
+    required = [:email, :password_digest]
+    permitted = [:confirmed_at, :deleted_at] ++ required
+
+    data
+    |> Ecto.Changeset.cast(param, permitted)
+    |> Ecto.Changeset.validate_required(required)
+    |> Changeset.validate_email()
+    |> Changeset.validate_argon2()
+    |> Ecto.Changeset.unsafe_validate_unique(:email, Repo)
+    |> Ecto.Changeset.unique_constraint(:email)
+  end
+
+  @doc """
+  Applies the given `param` as a validated changeset for the given `data`.
+
+  ## Examples
+
+      iex> checkout_repo()
+      iex> %{param: %{err: param}} = c_param_account(%{})
+      iex>
+      iex> %Ecto.Changeset{valid?: false} = changeset(param)
+
+      iex> checkout_repo()
+      iex> %{param: %{atom: param}} = c_param_account(%{})
+      iex>
+      iex> %Ecto.Changeset{valid?: true} = changeset(param)
+
+  """
+  @doc since: "0.14.0"
+  @spec changeset(param()) :: changeset()
+  @spec changeset(data(), param()) :: changeset()
+  def changeset(data \\ %__MODULE__{}, param)
+
+  def changeset(%__MODULE__{} = data, param) when is_map(param) do
+    do_changeset(data, param)
+  end
+
+  def changeset(%Ecto.Changeset{data: %__MODULE__{}} = data, param)
+      when is_map(param) do
+    do_changeset(data, param)
   end
 end

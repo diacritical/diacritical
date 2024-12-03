@@ -2,9 +2,19 @@ defmodule DiacriticalSchema.Changeset do
   @moduledoc "Defines commonalities for `Ecto.Changeset` changesets."
   @moduledoc since: "0.14.0"
 
+  alias DiacriticalSchema
+
+  @typedoc "Represents the changeset of a specified data-type."
+  @typedoc since: "0.14.0"
+  @type t(data_type) :: Ecto.Changeset.t(data_type)
+
+  @typedoc "Represents the data-type."
+  @typedoc since: "0.14.0"
+  @type data_type() :: nil | map() | DiacriticalSchema.t()
+
   @typedoc "Represents the changeset."
   @typedoc since: "0.14.0"
-  @type t() :: Ecto.Changeset.t()
+  @type t() :: t(data_type())
 
   @typedoc "Represents the change key."
   @typedoc since: "0.14.0"
@@ -13,6 +23,18 @@ defmodule DiacriticalSchema.Changeset do
   @typedoc "Represents the format."
   @typedoc since: "0.14.0"
   @type format() :: Regex.t()
+
+  @typedoc "Represents the data."
+  @typedoc since: "0.14.0"
+  @type data(changeset, schema) :: changeset | schema
+
+  @typedoc "Represents the parameter key."
+  @typedoc since: "0.14.0"
+  @type key() :: atom() | String.t()
+
+  @typedoc "Represents the parameter."
+  @typedoc since: "0.14.0"
+  @type param() :: :invalid | %{required(key()) => term()}
 
   @doc """
   Hashes the value of the `changeset` change, `key`, onto `digest_key`.
