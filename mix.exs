@@ -1,8 +1,20 @@
-defmodule Diacritical.MixProject do
-  @moduledoc "Defines a `Mix.Project` project."
+defmodule DiacriticalApp.MixProject do
+  @moduledoc "Defines a `Mix.Project` project and an OTP application."
   @moduledoc since: "0.1.0"
 
   use Mix.Project
+
+  alias DiacriticalApp
+
+  @typedoc "Represents the application configuration keyword."
+  @typedoc since: "0.3.0"
+  @type application_keyword() ::
+          {:mod, {module(), DiacriticalApp.init_arg()}}
+          | {Keyword.key(), Keyword.value()}
+
+  @typedoc "Represents the application configuration."
+  @typedoc since: "0.3.0"
+  @type application() :: [application_keyword()]
 
   @typedoc "Represents the environment."
   @typedoc since: "0.2.0"
@@ -19,13 +31,30 @@ defmodule Diacritical.MixProject do
   @typedoc "Represents the project configuration keyword."
   @typedoc since: "0.1.0"
   @type project_keyword() ::
-          {:app, Application.app()}
+          {:app, DiacriticalApp.app()}
           | {:version, String.t()}
           | {Keyword.key(), Keyword.value()}
 
   @typedoc "Represents the project configuration."
   @typedoc since: "0.1.0"
   @type project() :: [project_keyword()]
+
+  @doc """
+  Returns the application configuration.
+
+  ## Example
+
+      iex> {DiacriticalApp, _init_arg} = application()[:mod]
+
+  """
+  @doc since: "0.3.0"
+  @spec application() :: application()
+  def application() do
+    [
+      extra_applications: [:logger, :os_mon, :runtime_tools],
+      mod: {DiacriticalApp, []}
+    ]
+  end
 
   @spec groups_for_modules(env()) :: groups_for_modules()
   defp groups_for_modules(:dev) do
