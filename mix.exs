@@ -103,6 +103,7 @@ defmodule DiacriticalApp.MixProject do
         {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
         {:dns_cluster, "~> 0.1"},
         {:ex_doc, "~> 0.35", only: :dev, runtime: false},
+        {:jason, "~> 1.4"},
         {:phoenix, "~> 1.7"}
       ],
       deps_path: "dep",
