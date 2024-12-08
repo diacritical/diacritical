@@ -49,9 +49,6 @@ defmodule DiacriticalWeb.EndpointTest do
     %{uri: %{string: URI.to_string(struct), struct: struct}}
   end
 
-  @spec c_request_path_hello(context()) :: context_merge()
-  defp c_request_path_hello(c) when is_map(c), do: %{request_path: "/hello"}
-
   @spec c_path(context()) :: context_merge()
   defp c_path(%{config: [{key, [path: path]}], request_path: request_path})
        when is_atom(key) and is_binary(path) and is_binary(request_path) do
@@ -86,12 +83,6 @@ defmodule DiacriticalWeb.EndpointTest do
   defp c_pid_pubsub(c) when is_map(c) do
     %{pid: Process.whereis(:"Elixir.Diacritical.PubSub")}
   end
-
-  @spec c_opt(context()) :: context_merge()
-  defp c_opt(c) when is_map(c), do: %{opt: []}
-
-  @spec c_status_ok(context()) :: context_merge()
-  defp c_status_ok(c) when is_map(c), do: %{status: 200}
 
   doctest Endpoint, import: true
 
@@ -451,7 +442,13 @@ defmodule DiacriticalWeb.EndpointTest do
   describe "greet/2" do
     import Endpoint, only: [greet: 2]
 
-    setup ~W[c_request_path_hello c_conn c_opt c_status_ok c_resp_body_greet]a
+    setup [
+      :c_request_path_hello,
+      :c_conn,
+      :c_opt,
+      :c_status_ok,
+      :c_resp_body_greet
+    ]
 
     test "FunctionClauseError", %{conn: %{invalid: conn}, opt: opt} do
       assert_raise FunctionClauseError, fn -> greet(conn, opt) end

@@ -2,6 +2,16 @@ defmodule DiacriticalWeb.Controller do
   @moduledoc "Defines commonalities for `Phoenix.Controller` controllers."
   @moduledoc since: "0.5.0"
 
+  alias DiacriticalWeb
+
+  @typedoc "Represents the connection."
+  @typedoc since: "0.5.0"
+  @type conn() :: DiacriticalWeb.conn()
+
+  @typedoc "Represents the connection option."
+  @typedoc since: "0.5.0"
+  @type opt() :: DiacriticalWeb.opt()
+
   @doc """
   In `use`, calls `use Phoenix.Controller`, then stores the associated view.
 

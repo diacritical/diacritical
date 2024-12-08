@@ -6,10 +6,19 @@ defmodule DiacriticalWeb do
     deps: [
       Diacritical,
       EEx.Engine,
+      Logger,
       Phoenix,
       Phoenix.PubSub,
       Phoenix.Template,
       Plug
     ],
     exports: [Endpoint]
+
+  @typedoc "Represents the connection."
+  @typedoc since: "0.5.0"
+  @type conn() :: Plug.Conn.t()
+
+  @typedoc "Represents the connection option."
+  @typedoc since: "0.5.0"
+  @type opt() :: Plug.opts()
 end
