@@ -47,6 +47,12 @@ defmodule DiacriticalWeb.Endpoint do
     from: {:diacritical, "priv/diacritical_web/static"},
     only: DiacriticalWeb.static_path()
 
+  if code_reloading? do
+    socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
+    plug Phoenix.CodeReloader
+    plug Phoenix.LiveReloader
+  end
+
   plug Plug.Parsers,
     json_decoder: Phoenix.json_library(),
     parsers: [:urlencoded, :multipart, :json],
