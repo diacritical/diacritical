@@ -7,5 +7,5 @@
     DiacriticalCase.Template,
     DiacriticalCase.View
   ],
-  DiacriticalWeb: [DiacriticalWeb, DiacriticalWeb.Endpoint]
+  DiacriticalWeb: [DiacriticalWeb, DiacriticalWeb.Endpoint, DiacriticalWeb.TXT]
 ]
