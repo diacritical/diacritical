@@ -25,7 +25,11 @@ config :diacritical, Endpoint,
     port: 4_001
   ],
   pubsub_server: :"Elixir.Diacritical.PubSub",
-  render_errors: [formats: [html: HTML.Error, txt: TXT.Error]],
+  render_errors: [
+    formats: [html: HTML.Error, txt: TXT.Error],
+    layout: [html: {HTML.Layout, :app}],
+    root_layout: [html: {HTML.Layout, :root}]
+  ],
   secret_key_base:
     "NtJ2ZriOUZtZl95rk6LxwUgSvP8kP5mJPo4JgnzQwzxwiz7rrArS0Ai5sjPy085G",
   server: true,
