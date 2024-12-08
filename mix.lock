@@ -301,6 +301,23 @@
     "hexpm",
     "f2f2df5a72bc9a2f510b21497fd7d2b86d932ec0598f0210fed4114adc546c6f"
   },
+  phoenix_live_reload: {
+    :hex,
+    :phoenix_live_reload,
+    "1.5.3",
+    "f2161c207fda0e4fb55165f650f7f8db23f02b29e3bff00ff7ef161d6ac1f09d",
+    [:mix],
+    [
+      {
+        :file_system,
+        "~> 0.3 or ~> 1.0",
+        [hex: :file_system, repo: "hexpm", optional: false]
+      },
+      {:phoenix, "~> 1.4", hex: :phoenix, repo: "hexpm", optional: false}
+    ],
+    "hexpm",
+    "b4ec9cd73cb01ff1bd1cac92e045d13e7030330b74164297d1aee3907b54803c"
+  },
   phoenix_pubsub: {
     :hex,
     :phoenix_pubsub,

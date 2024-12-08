@@ -109,7 +109,8 @@ defmodule DiacriticalApp.MixProject do
         {:ex_doc, "~> 0.35", only: :dev, runtime: false},
         {:jason, "~> 1.4"},
         {:phoenix, "~> 1.7"},
-        {:phoenix_html, "~> 4.1"}
+        {:phoenix_html, "~> 4.1"},
+        {:phoenix_live_reload, "~> 1.5", runtime: env == :dev}
       ],
       deps_path: "dep",
       dialyzer: [ignore_warnings: ".dialyzer.exs", plt_add_apps: [:ex_unit]],
