@@ -4,10 +4,13 @@ defmodule DiacriticalWeb.Router do
 
   use Phoenix.Router, helpers: false
 
+  import Phoenix.LiveView.Router
+
   alias DiacriticalWeb
 
   alias DiacriticalWeb.Controller
   alias DiacriticalWeb.HTML
+  alias DiacriticalWeb.LiveView
 
   @typedoc "Represents the connection."
   @typedoc since: "0.6.0"
@@ -122,6 +125,6 @@ defmodule DiacriticalWeb.Router do
   scope "/" do
     pipe_through :browser
 
-    get "/", Controller.Page, :greet
+    live "/", LiveView.Page
   end
 end
