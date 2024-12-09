@@ -42,6 +42,11 @@ defmodule DiacriticalWeb.Endpoint do
     |> Page.call(:greet)
   end
 
+  socket "/live",
+         Phoenix.LiveView.Socket,
+         longpoll: [connect_info: [session: config[:session]]],
+         websocket: [connect_info: [session: config[:session]]]
+
   plug Plug.Static,
     at: "/",
     from: {:diacritical, "priv/diacritical_web/static"},
@@ -60,12 +65,6 @@ defmodule DiacriticalWeb.Endpoint do
 
   plug Plug.MethodOverride
   plug Plug.Head
-
-  plug Plug.Session,
-    key: "__Host-session",
-    same_site: "Strict",
-    signing_salt: "t4wyQYyIRqY53Mgx",
-    store: :cookie
-
+  plug Plug.Session, config[:session]
   plug Router
 end

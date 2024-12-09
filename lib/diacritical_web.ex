@@ -8,8 +8,10 @@ defmodule DiacriticalWeb do
       EEx.Engine,
       Logger,
       Phoenix,
+      Phoenix.Component,
       Phoenix.HTML,
       Phoenix.LiveReloader,
+      Phoenix.LiveView,
       Phoenix.PubSub,
       Phoenix.Template,
       Plug
