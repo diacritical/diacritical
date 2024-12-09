@@ -331,6 +331,45 @@
     "hexpm",
     "b4ec9cd73cb01ff1bd1cac92e045d13e7030330b74164297d1aee3907b54803c"
   },
+  phoenix_live_view: {
+    :hex,
+    :phoenix_live_view,
+    "1.0.0",
+    "3a10dfce8f87b2ad4dc65de0732fc2a11e670b2779a19e8d3281f4619a85bce4",
+    [:mix],
+    [
+      {:floki, "~> 0.36", hex: :floki, repo: "hexpm", optional: true},
+      {:jason, "~> 1.0", hex: :jason, repo: "hexpm", optional: true},
+      {
+        :phoenix,
+        "~> 1.6.15 or ~> 1.7.0",
+        [hex: :phoenix, repo: "hexpm", optional: false]
+      },
+      {
+        :phoenix_html,
+        "~> 3.3 or ~> 4.0",
+        [hex: :phoenix_html, repo: "hexpm", optional: false]
+      },
+      {
+        :phoenix_template,
+        "~> 1.0",
+        [hex: :phoenix_template, repo: "hexpm", optional: false]
+      },
+      {
+        :phoenix_view,
+        "~> 2.0",
+        [hex: :phoenix_view, repo: "hexpm", optional: true]
+      },
+      {:plug, "~> 1.15", hex: :plug, repo: "hexpm", optional: false},
+      {
+        :telemetry,
+        "~> 0.4.2 or ~> 1.0",
+        [hex: :telemetry, repo: "hexpm", optional: false]
+      }
+    ],
+    "hexpm",
+    "254caef0028765965ca6bd104cc7d68dcc7d57cc42912bef92f6b03047251d99"
+  },
   phoenix_pubsub: {
     :hex,
     :phoenix_pubsub,
