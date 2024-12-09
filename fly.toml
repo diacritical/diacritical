@@ -36,3 +36,8 @@ kill_signal = "SIGTERM"
 [[services.ports]]
   handlers = ["tls", "http"]
   port = 443
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory = "512mb"
