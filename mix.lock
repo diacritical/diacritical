@@ -71,6 +71,22 @@
     "hexpm",
     "71fbc9a6b8be21d993deca85bf151df023a3097b01e09a2809d460348561d8cd"
   },
+  db_connection: {
+    :hex,
+    :db_connection,
+    "2.7.0",
+    "b99faa9291bb09892c7da373bb82cba59aefa9b36300f6145c5f201c7adf48ec",
+    [:mix],
+    [
+      {
+        :telemetry,
+        "~> 0.4 or ~> 1.0",
+        [hex: :telemetry, repo: "hexpm", optional: false]
+      }
+    ],
+    "hexpm",
+    "dcf08f31b2701f857dfc787fbad78223d61a32204f217f15e881dd93e4bdd3ff"
+  },
   decimal: {
     :hex,
     :decimal,
@@ -128,6 +144,35 @@
     ],
     "hexpm",
     "6eb18e80bef8bb57e17f5a7f068a1719fbda384d40fc37acb8eb8aeca493b6ea"
+  },
+  ecto_sql: {
+    :hex,
+    :ecto_sql,
+    "3.12.1",
+    "c0d0d60e85d9ff4631f12bafa454bc392ce8b9ec83531a412c12a0d415a3a4d0",
+    [:mix],
+    [
+      {
+        :db_connection,
+        "~> 2.4.1 or ~> 2.5",
+        [hex: :db_connection, repo: "hexpm", optional: false]
+      },
+      {:ecto, "~> 3.12", hex: :ecto, repo: "hexpm", optional: false},
+      {:myxql, "~> 0.7", hex: :myxql, repo: "hexpm", optional: true},
+      {
+        :postgrex,
+        "~> 0.19 or ~> 1.0",
+        [hex: :postgrex, repo: "hexpm", optional: true]
+      },
+      {:tds, "~> 2.1.1 or ~> 2.2", hex: :tds, repo: "hexpm", optional: true},
+      {
+        :telemetry,
+        "~> 0.4.0 or ~> 1.0",
+        [hex: :telemetry, repo: "hexpm", optional: false]
+      }
+    ],
+    "hexpm",
+    "aff5b958a899762c5f09028c847569f7dfb9cc9d63bdb8133bff8a5546de6bf5"
   },
   erlex: {
     :hex,
@@ -455,6 +500,29 @@
     [],
     "hexpm",
     "131216a4b030b8f8ce0f26038bc4421ae60e4bb95c5cf5395e1421437824c4fa"
+  },
+  postgrex: {
+    :hex,
+    :postgrex,
+    "0.19.3",
+    "a0bda6e3bc75ec07fca5b0a89bffd242ca209a4822a9533e7d3e84ee80707e19",
+    [:mix],
+    [
+      {
+        :db_connection,
+        "~> 2.1",
+        [hex: :db_connection, repo: "hexpm", optional: false]
+      },
+      {
+        :decimal,
+        "~> 1.5 or ~> 2.0",
+        [hex: :decimal, repo: "hexpm", optional: false]
+      },
+      {:jason, "~> 1.0", hex: :jason, repo: "hexpm", optional: true},
+      {:table, "~> 0.1.0", hex: :table, repo: "hexpm", optional: true}
+    ],
+    "hexpm",
+    "d31c28053655b78f47f948c85bb1cf86a9c1f8ead346ba1aa0d0df017fa05b61"
   },
   telemetry: {
     :hex,
