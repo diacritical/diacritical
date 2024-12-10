@@ -8,6 +8,7 @@
     DiacriticalCase.Template,
     DiacriticalCase.View
   ],
+  DiacriticalSchema: [DiacriticalSchema],
   DiacriticalWeb: [
     DiacriticalWeb,
     DiacriticalWeb.Controller,
