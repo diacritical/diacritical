@@ -20,6 +20,10 @@ defmodule DiacriticalApp.MixProject do
   @typedoc since: "0.2.0"
   @type env() :: :dev | :prod | :test | atom()
 
+  @typedoc "Represents the command switch."
+  @typedoc since: "0.10.0"
+  @type switch() :: String.t()
+
   @typedoc "Represents the module documentation group."
   @typedoc since: "0.2.0"
   @type groups_for_modules() :: nil | Keyword.t([module()])
@@ -40,6 +44,8 @@ defmodule DiacriticalApp.MixProject do
   @type project() :: [project_keyword()]
 
   @asset_path "asset/diacritical_web/"
+  @repo_path "priv/diacritical/repo/"
+  @migration_path "#{@repo_path}/migration/"
   @static_path "priv/diacritical_web/static/"
 
   @doc """
@@ -57,6 +63,19 @@ defmodule DiacriticalApp.MixProject do
       extra_applications: [:logger, :os_mon, :runtime_tools],
       mod: {DiacriticalApp, []}
     ]
+  end
+
+  @spec migration_switch(env()) :: switch()
+  defp migration_switch(:dev = env) do
+    "--migrations-path=#{@migration_path}#{env} #{migration_switch(:test)}"
+  end
+
+  defp migration_switch(:test = env) do
+    "--migrations-path=#{@migration_path}#{env} #{migration_switch(:prod)}"
+  end
+
+  defp migration_switch(env) when is_atom(env) do
+    "--migrations-path=#{@migration_path}#{env}"
   end
 
   @spec groups_for_modules(env()) :: groups_for_modules()
@@ -98,6 +117,21 @@ defmodule DiacriticalApp.MixProject do
           "cmd rm boundary.exs"
         ],
         credo: "credo --config-name default",
+        "ecto.gen.migration":
+          "ecto.gen.migration --migrations-path=#{@migration_path}#{env}",
+        "ecto.load": "ecto.load --dump-path=#{@repo_path}structure.sql",
+        "ecto.migrate": "ecto.migrate #{migration_switch(env)}",
+        "ecto.migration": "ecto.migrations",
+        "ecto.migrations": "ecto.migrations #{migration_switch(env)}",
+        "ecto.reset": ["ecto.drop", "ecto.setup"],
+        "ecto.rollback": "ecto.rollback #{migration_switch(env)}",
+        "ecto.seed": "run #{@repo_path}seed.exs",
+        "ecto.setup": [
+          "ecto.create",
+          "ecto.load --skip-if-loaded",
+          "ecto.migrate",
+          "ecto.seed"
+        ],
         "npm.install": "cmd --cd #{@asset_path} npm install",
         "npm.update": "cmd --cd #{@asset_path} npm update",
         "phx.digest": "phx.digest #{@static_path}",
