@@ -1,8 +1,6 @@
 alias Diacritical
-alias DiacriticalSchema
 
 alias Diacritical.Repo
-alias DiacriticalSchema.TestSchema
 
-ExUnit.start(exclude: [repo: TestSchema, supervisor: Repo])
+ExUnit.start(exclude: [supervisor: Repo])
 Ecto.Adapters.SQL.Sandbox.mode(Repo, :manual)
