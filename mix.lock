@@ -90,12 +90,12 @@
   decimal: {
     :hex,
     :decimal,
-    "2.2.0",
-    "df3d06bb9517e302b1bd265c1e7f16cda51547ad9d99892049340841f3e15836",
+    "2.3.0",
+    "3ad6255aa77b4a3c4f818171b12d237500e63525c2fd056699967a3e7ea20f62",
     [:mix],
     [],
     "hexpm",
-    "af8daf87384b51b7e611fb1a1f2c4d4876b65ef968fa8bd3adf44cff401c7f21"
+    "a4d66355cb29cb47c3cf30e71329e58361cfcb37c34235ef3bf1d7bf3773aeac"
   },
   dialyxir: {
     :hex,
@@ -284,8 +284,8 @@
   makeup_elixir: {
     :hex,
     :makeup_elixir,
-    "1.0.0",
-    "74bb8348c9b3a51d5c589bf5aebb0466a84b33274150e3b6ece1da45584afc82",
+    "1.0.1",
+    "e928a4f984e795e41e3abd27bfc09f51db16ab8ba1aebdba2b3a575437efafc2",
     [:mix],
     [
       {:makeup, "~> 1.0", hex: :makeup, repo: "hexpm", optional: false},
@@ -296,7 +296,7 @@
       }
     ],
     "hexpm",
-    "49159b7d7d999e836bedaf09dcf35ca18b312230cf901b725a64f3f42e407983"
+    "7284900d412a3e5cfd97fdaed4f5ed389b8f2b4cb49efc0eb3bd10e2febf9507"
   },
   makeup_erlang: {
     :hex,
@@ -331,8 +331,8 @@
   phoenix: {
     :hex,
     :phoenix,
-    "1.7.17",
-    "2fcdceecc6fb90bec26fab008f96abbd0fd93bc9956ec7985e5892cf545152ca",
+    "1.7.18",
+    "5310c21443514be44ed93c422e15870aef254cf1b3619e4f91538e7529d2b2e4",
     [:mix],
     [
       {:castore, ">= 0.0.0", hex: :castore, repo: "hexpm", optional: false},
@@ -375,7 +375,7 @@
       }
     ],
     "hexpm",
-    "50e8ad537f3f7b0efb1509b2f75b5c918f697be6a45d48e49a30d3b7c0e464c9"
+    "1797fcc82108442a66f2c77a643a62980f342bfeb63d6c9a515ab8294870004e"
   },
   phoenix_ecto: {
     :hex,
@@ -430,8 +430,8 @@
   phoenix_live_view: {
     :hex,
     :phoenix_live_view,
-    "1.0.0",
-    "3a10dfce8f87b2ad4dc65de0732fc2a11e670b2779a19e8d3281f4619a85bce4",
+    "1.0.1",
+    "5389a30658176c0de816636ce276567478bffd063c082515a6e8368b8fc9a0db",
     [:mix],
     [
       {:floki, "~> 0.36", hex: :floki, repo: "hexpm", optional: true},
@@ -464,7 +464,7 @@
       }
     ],
     "hexpm",
-    "254caef0028765965ca6bd104cc7d68dcc7d57cc42912bef92f6b03047251d99"
+    "c0f517e6f290f10dbb94343ac22e0109437fb1fa6f0696e7c73967b789c1c285"
   },
   phoenix_pubsub: {
     :hex,
