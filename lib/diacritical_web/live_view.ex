@@ -25,6 +25,10 @@ defmodule DiacriticalWeb.LiveView do
   @typedoc since: "0.8.0"
   @type maybe_nonce() :: nil | DiacriticalWeb.nonce()
 
+  @typedoc "Represents the potential host."
+  @typedoc since: "0.11.0"
+  @type maybe_host() :: nil | DiacriticalWeb.host()
+
   @typedoc "Represents the session name."
   @typedoc since: "0.8.0"
   @type name() :: atom()
@@ -80,6 +84,14 @@ defmodule DiacriticalWeb.LiveView do
     end
   end
 
+  @spec maybe_get_host(socket()) :: maybe_host()
+  defp maybe_get_host(socket)
+       when is_struct(socket, Phoenix.LiveView.Socket) do
+    if connected?(socket) do
+      get_connect_params(socket)["_host"]
+    end
+  end
+
   @doc """
   Attaches a hook to apply common assignments onto the given `socket`.
 
@@ -116,11 +128,17 @@ defmodule DiacriticalWeb.LiveView do
       when is_atom(name) and is_map(param) and is_map(session) and
              is_struct(socket, Phoenix.LiveView.Socket) do
     maybe_nonce = maybe_get_nonce(socket)
+    maybe_host = maybe_get_host(socket)
 
-    if connected?(socket) && !maybe_nonce do
+    if connected?(socket) && !(maybe_nonce || maybe_host) do
       {:halt, redirect(socket, to: ~p"/hello")}
     else
-      {:cont, assign_new(socket, :nonce, fn -> maybe_nonce end)}
+      {
+        :cont,
+        socket
+        |> assign_new(:nonce, fn -> maybe_nonce end)
+        |> assign_new(:tenant, fn -> DiacriticalWeb.to_tenant(maybe_host) end)
+      }
     end
   end
 
