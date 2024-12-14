@@ -15,4 +15,21 @@ defmodule DiacriticalWebTest do
       assert static_path() == ~W[asset bimi.svg favicon.ico robots.txt]
     end
   end
+
+  describe "to_tenant/1" do
+    import DiacriticalWeb, only: [to_tenant: 1]
+
+    setup do
+      host = "example.com"
+      %{host: %{invalid: ~c"#{host}", valid: host}}
+    end
+
+    test "FunctionClauseError", %{host: %{invalid: host}} do
+      assert_raise FunctionClauseError, fn -> to_tenant(host) end
+    end
+
+    test "success", %{host: %{valid: host}} do
+      assert to_tenant(host) == "com_example"
+    end
+  end
 end
