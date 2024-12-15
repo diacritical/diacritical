@@ -3,7 +3,8 @@
     Diacritical,
     Diacritical.Repo,
     Diacritical.Repo.Migration,
-    Diacritical.Supervisor
+    Diacritical.Supervisor,
+    Diacritical.Telemetry
   ],
   DiacriticalApp: [DiacriticalApp],
   DiacriticalCase: [

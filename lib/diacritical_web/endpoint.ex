@@ -59,6 +59,9 @@ defmodule DiacriticalWeb.Endpoint do
     plug Phoenix.Ecto.CheckRepoStatus, otp_app: :diacritical
   end
 
+  plug Plug.RequestId
+  plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
+
   plug Plug.Parsers,
     json_decoder: Phoenix.json_library(),
     parsers: [:urlencoded, :multipart, :json],
