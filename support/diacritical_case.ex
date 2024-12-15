@@ -2,7 +2,16 @@ defmodule DiacriticalCase do
   @moduledoc "Defines commonalities for `ExUnit.CaseTemplate` case templates."
   @moduledoc since: "0.3.0"
 
-  use Boundary, deps: [Diacritical, Ecto.Adapters.SQL, ExUnit, Phoenix, Plug]
+  use Boundary,
+    deps: [
+      Argon2,
+      Diacritical,
+      DiacriticalSchema,
+      Ecto.Adapters.SQL,
+      ExUnit,
+      Phoenix,
+      Plug
+    ]
 
   @typedoc "Represents the context."
   @typedoc since: "0.3.0"

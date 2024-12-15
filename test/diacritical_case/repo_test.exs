@@ -22,6 +22,35 @@ defmodule DiacriticalCase.RepoTest do
     end
   end
 
+  describe "c_account/0" do
+    import Repo, only: [c_account: 0]
+
+    test "success" do
+      assert %{account: _account} = c_account()
+    end
+  end
+
+  describe "c_account/1" do
+    import Repo, only: [c_account: 1]
+
+    setup do
+      %{
+        context: %{
+          invalid: %{password: %{correct: ~C""}},
+          valid: %{password: %{correct: ""}}
+        }
+      }
+    end
+
+    test "ArgumentError", %{context: %{invalid: context}} do
+      assert_raise ArgumentError, fn -> c_account(context) end
+    end
+
+    test "success", %{context: %{valid: context}} do
+      assert %{account: _account} = c_account(context)
+    end
+  end
+
   describe "c_password/0" do
     import Repo, only: [c_password: 0]
 
