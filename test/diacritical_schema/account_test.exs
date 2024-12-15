@@ -140,7 +140,7 @@ defmodule DiacriticalSchema.AccountTest do
     end
 
     test ":read_after_writes" do
-      assert __schema__(:read_after_writes) == ~w[id inserted_at updated_at]a
+      assert __schema__(:read_after_writes) == ~W[id inserted_at updated_at]a
     end
 
     test ":autogenerate_id" do
