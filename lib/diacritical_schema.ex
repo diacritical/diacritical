@@ -4,6 +4,10 @@ defmodule DiacriticalSchema do
 
   use Boundary, deps: [Argon2, Ecto]
 
+  @typedoc "Represents the schema."
+  @typedoc since: "0.14.0"
+  @type t() :: Ecto.Schema.t()
+
   @doc """
   In `use`, calls `use Ecto.Schema`, then defines select module attributes.
 
