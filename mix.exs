@@ -141,6 +141,7 @@ defmodule DiacriticalApp.MixProject do
       boundary: [default: [type: :strict]],
       compilers: [:boundary | Mix.compilers()],
       deps: [
+        {:argon2_elixir, "~> 4.1"},
         {:bandit, "~> 1.6"},
         {:boundary, "~> 0.10", runtime: false},
         {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
