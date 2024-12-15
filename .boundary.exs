@@ -1,6 +1,7 @@
 [
   Diacritical: [
     Diacritical,
+    Diacritical.Context,
     Diacritical.Mailer,
     Diacritical.Repo,
     Diacritical.Repo.Migration,
