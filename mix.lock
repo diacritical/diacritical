@@ -674,8 +674,8 @@
   swoosh: {
     :hex,
     :swoosh,
-    "1.17.4",
-    "44e26104899d7b3cbe453f8683f7ab5dca6983a2ef2301f7a7a30aa2d5e34e03",
+    "1.17.5",
+    "14910d267a2633d4335917b37846e376e2067815601592629366c39845dad145",
     [:mix],
     [
       {:bandit, ">= 1.0.0", hex: :bandit, repo: "hexpm", optional: true},
@@ -711,7 +711,7 @@
       }
     ],
     "hexpm",
-    "4b954a8a63d558a8bb2977e84b6baf6fb836da8d88002984bdb653f3259e4e22"
+    "629113d477bc82c4c3bffd15a25e8becc1c7ccc0f0e67743b017caddebb06f04"
   },
   telemetry: {
     :hex,
