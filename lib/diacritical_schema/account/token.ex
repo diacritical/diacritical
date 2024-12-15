@@ -4,6 +4,8 @@ defmodule DiacriticalSchema.Account.Token do
 
   use DiacriticalSchema
 
+  import Ecto.Query
+
   alias Diacritical
   alias DiacriticalSchema
 
@@ -35,6 +37,20 @@ defmodule DiacriticalSchema.Account.Token do
           sent_to: nil | String.t(),
           type: nil | String.t()
         }
+
+  @typedoc "Represents the potential query expression."
+  @typedoc since: "0.15.0"
+  @type maybe_expr() :: DiacriticalSchema.maybe_expr()
+
+  @typedoc "Represents the queryable."
+  @typedoc since: "0.15.0"
+  @type queryable() :: DiacriticalSchema.queryable()
+
+  @typedoc "Represents the query argument."
+  @typedoc since: "0.15.0"
+  @type arg() :: DiacriticalSchema.arg()
+
+  @assoc [:account]
 
   schema "account_token" do
     field :data, :binary
@@ -95,5 +111,73 @@ defmodule DiacriticalSchema.Account.Token do
   def changeset(%Ecto.Changeset{data: struct} = data, param)
       when is_struct(struct, __MODULE__) and is_map(param) do
     do_changeset(data, param)
+  end
+
+  @spec build_filter(maybe_expr(), queryable()) :: queryable()
+  defp build_filter({:where_data_type, {data, type}}, queryable)
+       when is_binary(data) and is_binary(type) and
+              (queryable == __MODULE__ or is_struct(queryable, Ecto.Query)) do
+    where(queryable, data: ^data, type: ^type)
+  end
+
+  defp build_filter(_maybe_expr, queryable)
+       when queryable == __MODULE__ or is_struct(queryable, Ecto.Query) do
+    queryable
+  end
+
+  @spec build_query(maybe_expr(), queryable()) :: queryable()
+  defp build_query({:filter, arg}, queryable)
+       when (is_list(arg) or is_map(arg)) and
+              (queryable == __MODULE__ or is_struct(queryable, Ecto.Query)) do
+    Enum.reduce(arg, queryable, &build_filter/2)
+  end
+
+  defp build_query({:select, target}, queryable)
+       when target in @assoc and
+              (queryable == __MODULE__ or is_struct(queryable, Ecto.Query)) do
+    queryable
+    |> select([_q0, q1], q1)
+    |> join(:inner, [q0], assoc(q0, ^target))
+    |> where([_q0, q1], is_nil(q1.deleted_at))
+  end
+
+  defp build_query(_maybe_expr, queryable)
+       when queryable == __MODULE__ or is_struct(queryable, Ecto.Query) do
+    queryable
+  end
+
+  @spec do_query(queryable(), arg()) :: queryable()
+  defp do_query(queryable, arg)
+       when (queryable == __MODULE__ or is_struct(queryable, Ecto.Query)) and
+              (is_list(arg) or is_map(arg)) do
+    Enum.reduce(arg, DiacriticalSchema.query(queryable, arg), &build_query/2)
+  end
+
+  @doc """
+  Creates an `Ecto.Query` query from the given `queryable` with the given `arg`.
+
+  ## Examples
+
+      iex> %{arg: %{filter: %{where_data_type: %{valid: arg}}}} = c_arg(%{})
+      iex>
+      iex> %Ecto.Query{wheres: [%{}]} = query(Token, arg)
+
+      iex> %{arg: %{select: %{valid: arg}}} = c_arg(%{})
+      iex>
+      iex> %Ecto.Query{select: %{}} = query(Token, arg)
+
+  """
+  @doc since: "0.15.0"
+  @spec query(queryable(), arg()) :: queryable()
+  def query(__MODULE__ = queryable, arg) when is_list(arg) or is_map(arg) do
+    do_query(queryable, arg)
+  end
+
+  def query(
+        %Ecto.Query{from: %{source: {_source, __MODULE__}}} = queryable,
+        arg
+      )
+      when is_list(arg) or is_map(arg) do
+    do_query(queryable, arg)
   end
 end

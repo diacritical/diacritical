@@ -8,6 +8,7 @@ defmodule DiacriticalSchema.Account.TokenTest do
   alias DiacriticalSchema
 
   alias DiacriticalSchema.Account
+  alias DiacriticalSchema.TestSchema
 
   alias Account.Token
 
@@ -87,6 +88,30 @@ defmodule DiacriticalSchema.Account.TokenTest do
           "sent_to" => sent_to,
           "type" => type
         }
+      }
+    }
+  end
+
+  @spec c_arg(context()) :: context_merge()
+  defp c_arg(c) when is_map(c) do
+    type = "unknown"
+
+    %{
+      arg: %{
+        empty: %{},
+        filter: %{
+          empty: %{filter: %{}},
+          unknown: %{filter: [:unknown]},
+          where_data_type: %{
+            invalid: %{filter: %{where_data_type: {nil, ~c"#{type}"}}},
+            valid: %{
+              filter: %{where_data_type: {:crypto.strong_rand_bytes(32), type}}
+            }
+          }
+        },
+        invalid: {},
+        select: %{invalid: %{select: :test_schema}, valid: %{select: :account}},
+        unknown: [:unknown]
       }
     }
   end
@@ -386,6 +411,140 @@ defmodule DiacriticalSchema.Account.TokenTest do
 
     test "string", %{changeset: %{valid: changeset}, param: %{string: param}} do
       assert changeset(changeset, param).valid?
+    end
+  end
+
+  describe "query/2 when is_atom(queryable)" do
+    import Token, only: [query: 2]
+
+    setup :c_arg
+    setup do: %{module: %{invalid: TestSchema, valid: Token}}
+
+    test "FunctionClauseError (&1)", %{
+      arg: %{empty: arg},
+      module: %{invalid: module}
+    } do
+      assert_raise FunctionClauseError, fn -> query(module, arg) end
+    end
+
+    test "FunctionClauseError (&2)", %{
+      arg: %{invalid: arg},
+      module: %{valid: module}
+    } do
+      assert_raise FunctionClauseError, fn -> query(module, arg) end
+    end
+
+    test "empty", %{arg: %{empty: arg}, module: %{valid: module}} do
+      assert query(module, arg) == module
+    end
+
+    test "unknown", %{arg: %{unknown: arg}, module: %{valid: module}} do
+      assert query(module, arg) == module
+    end
+
+    test "filter (empty)", %{
+      arg: %{filter: %{empty: arg}},
+      module: %{valid: module}
+    } do
+      assert query(module, arg) == module
+    end
+
+    test "filter (unknown)", %{
+      arg: %{filter: %{unknown: arg}},
+      module: %{valid: module}
+    } do
+      assert query(module, arg) == module
+    end
+
+    test "filter (:where_data_type)", %{
+      arg: %{filter: %{where_data_type: %{invalid: arg, valid: arg!}}},
+      module: %{valid: module}
+    } do
+      assert query(module, arg) == module
+      assert %Ecto.Query{wheres: [%{}]} = query(module, arg!)
+    end
+
+    test "select", %{
+      arg: %{select: %{invalid: arg, valid: arg!}},
+      module: %{valid: module}
+    } do
+      assert query(module, arg) == module
+      assert %Ecto.Query{select: %{}} = query(module, arg!)
+    end
+  end
+
+  describe "query/2 when is_struct(queryable, Ecto.Query)" do
+    import Token, only: [query: 2]
+
+    setup :c_arg
+
+    setup do
+      %{
+        query: %{
+          invalid: %Ecto.Query{
+            from: %Ecto.Query.FromExpr{
+              source: {TestSchema.__schema__(:source), TestSchema}
+            }
+          },
+          valid: %Ecto.Query{
+            from: %Ecto.Query.FromExpr{
+              source: {Token.__schema__(:source), Token}
+            }
+          }
+        }
+      }
+    end
+
+    test "FunctionClauseError (&1)", %{
+      arg: %{empty: arg},
+      query: %{invalid: query}
+    } do
+      assert_raise FunctionClauseError, fn -> query(query, arg) end
+    end
+
+    test "FunctionClauseError (&2)", %{
+      arg: %{invalid: arg},
+      query: %{valid: query}
+    } do
+      assert_raise FunctionClauseError, fn -> query(query, arg) end
+    end
+
+    test "empty", %{arg: %{empty: arg}, query: %{valid: query}} do
+      assert query(query, arg) == query
+    end
+
+    test "unknown", %{arg: %{unknown: arg}, query: %{valid: query}} do
+      assert query(query, arg) == query
+    end
+
+    test "filter (empty)", %{
+      arg: %{filter: %{empty: arg}},
+      query: %{valid: query}
+    } do
+      assert query(query, arg) == query
+    end
+
+    test "filter (unknown)", %{
+      arg: %{filter: %{unknown: arg}},
+      query: %{valid: query}
+    } do
+      assert query(query, arg) == query
+    end
+
+    test "filter (:where_data_type)", %{
+      arg: %{filter: %{where_data_type: %{invalid: arg, valid: arg!}}},
+      query: %{valid: query}
+    } do
+      assert query(query, arg) == query
+      assert %Ecto.Query{wheres: [%{}]} = query(query, arg!)
+    end
+
+    test "select", %{
+      arg: %{select: %{invalid: arg, valid: arg!}},
+      query: %{valid: query}
+    } do
+      assert query(query, arg) == query
+      assert %Ecto.Query{select: %{}} = query(query, arg!)
     end
   end
 end
