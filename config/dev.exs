@@ -3,6 +3,7 @@ import Config, only: [config: 2, config: 3, import_config: 1]
 alias Diacritical
 alias DiacriticalWeb
 
+alias Diacritical.Mailer
 alias Diacritical.Repo
 alias DiacriticalWeb.Endpoint
 
@@ -33,6 +34,8 @@ config :diacritical, Endpoint,
       [:diacritical_web, ["--sourcemap=inline", "--watch"]]
     }
   ]
+
+config :diacritical, Mailer, adapter: Swoosh.Adapters.Local
 
 config :diacritical, Repo,
   database: "diacritical_dev",

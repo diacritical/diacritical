@@ -3,6 +3,7 @@ import Config, only: [config: 2, config: 3]
 alias Diacritical
 alias DiacriticalWeb
 
+alias Diacritical.Mailer
 alias Diacritical.Repo
 alias DiacriticalWeb.Endpoint
 alias DiacriticalWeb.HTML
@@ -45,6 +46,8 @@ config :diacritical, Endpoint,
   server: true,
   url: [host: nil, path: "/", port: 443, scheme: "https"]
 
+config :diacritical, Mailer, adapter: Swoosh.Adapters.Local
+
 config :diacritical, Repo,
   after_connect: {Postgrex, :query!, ["SET timezone TO UTC", []]},
   database: "diacritical",
@@ -77,3 +80,4 @@ config :logger, :console,
 
 config :logger, level: :info
 config :phoenix, :json_library, Jason
+config :swoosh, api_client: Swoosh.ApiClient.Req

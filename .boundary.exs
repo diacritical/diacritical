@@ -1,6 +1,7 @@
 [
   Diacritical: [
     Diacritical,
+    Diacritical.Mailer,
     Diacritical.Repo,
     Diacritical.Repo.Migration,
     Diacritical.Supervisor,
