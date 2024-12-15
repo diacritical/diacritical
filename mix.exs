@@ -156,7 +156,7 @@ defmodule DiacriticalApp.MixProject do
         {:phoenix_live_reload, "~> 1.5", runtime: env == :dev},
         {:phoenix_live_view, "~> 1.0"},
         {:postgrex, "~> 0.19"},
-        {:telemetry_metrics, "~> 0.6"},
+        {:telemetry_metrics, "~> 1.0"},
         {:telemetry_poller, "~> 1.1"}
       ],
       deps_path: "dep",
