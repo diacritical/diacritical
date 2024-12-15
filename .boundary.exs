@@ -19,6 +19,7 @@
   DiacriticalSchema: [
     DiacriticalSchema,
     DiacriticalSchema.Account,
+    DiacriticalSchema.Changeset,
     DiacriticalSchema.TestSchema
   ],
   DiacriticalWeb: [
