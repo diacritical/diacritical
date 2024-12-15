@@ -96,12 +96,12 @@ defmodule DiacriticalSchema.Account.Token do
   ## Examples
 
       iex> checkout_repo()
-      iex> %{param: %{err: param}} = c_param_token(%{})
+      iex> %{param: %{err: param}} = c_param_token()
       iex>
       iex> %Ecto.Changeset{valid?: false} = changeset(param)
 
       iex> checkout_repo()
-      iex> %{param: %{atom: param}} = c_param_token(%{})
+      iex> %{param: %{atom: param}} = c_param_token()
       iex>
       iex> %Ecto.Changeset{valid?: true} = changeset(param)
 

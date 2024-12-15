@@ -65,33 +65,6 @@ defmodule DiacriticalSchema.Account.TokenTest do
     }
   end
 
-  @spec c_param_token(context()) :: context_merge()
-  defp c_param_token(c) when is_map(c) do
-    account_id = Ecto.UUID.generate()
-    data = :crypto.strong_rand_bytes(32)
-    sent_to = "jdoe@example.com"
-    type = "unknown"
-
-    %{
-      param: %{
-        atom: %{
-          account_id: account_id,
-          data: data,
-          sent_to: sent_to,
-          type: type
-        },
-        err: %{account_id: "", data: "", sent_to: "jdoeexample.com", type: ""},
-        invalid: [],
-        string: %{
-          "account_id" => account_id,
-          "data" => data,
-          "sent_to" => sent_to,
-          "type" => type
-        }
-      }
-    }
-  end
-
   @spec c_arg(context()) :: context_merge()
   defp c_arg(c) when is_map(c) do
     type = "unknown"
