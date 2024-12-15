@@ -52,12 +52,14 @@ defmodule DiacriticalSchema.Changeset do
 
   ## Examples
 
-      iex> %{changeset: %{indigestible: changeset}} = c_changeset_digest(%{})
+      iex> c = c_password()
+      iex> %{changeset: %{indigestible: changeset}} = c_changeset_digest(c)
       iex>
       iex> put_digest(changeset)
       changeset
 
-      iex> %{changeset: %{digestible: changeset}} = c_changeset_digest(%{})
+      iex> c = c_password()
+      iex> %{changeset: %{digestible: changeset}} = c_changeset_digest(c)
       iex>
       iex> %Ecto.Changeset{changes: %{password_digest: _digest}} =
       iex>   put_digest(changeset)
@@ -162,15 +164,18 @@ defmodule DiacriticalSchema.Changeset do
 
   ## Examples
 
-      iex> %{changeset: %{short: changeset}} = c_changeset_password(%{})
+      iex> c = c_password()
+      iex> %{changeset: %{short: changeset}} = c_changeset_password(c)
       iex>
       iex> %Ecto.Changeset{valid?: false} = validate_password(changeset)
 
-      iex> %{changeset: %{long: changeset}} = c_changeset_password(%{})
+      iex> c = c_password()
+      iex> %{changeset: %{long: changeset}} = c_changeset_password(c)
       iex>
       iex> %Ecto.Changeset{valid?: false} = validate_password(changeset)
 
-      iex> %{changeset: %{goldilocks: changeset}} = c_changeset_password(%{})
+      iex> c = c_password()
+      iex> %{changeset: %{goldilocks: changeset}} = c_changeset_password(c)
       iex>
       iex> %Ecto.Changeset{valid?: true} = validate_password(changeset)
 

@@ -70,14 +70,14 @@ defmodule DiacriticalSchema.AccountTest do
   end
 
   @spec c_param_account(context()) :: context_merge()
-  defp c_param_account(c) when is_map(c) do
+  defp c_param_account(%{password: %{correct: password, incorrect: password!}})
+       when is_binary(password) and is_binary(password!) do
     email = "jdoe@example.com"
-    password = "correct horse battery staple"
 
     %{
       param: %{
         atom: %{email: email, password: password},
-        err: %{email: "jdoeexample.com", password: "hunter2"},
+        err: %{email: "jdoeexample.com", password: password!},
         invalid: [],
         string: %{"email" => email, "password" => password}
       }
@@ -337,7 +337,7 @@ defmodule DiacriticalSchema.AccountTest do
   describe "changeset/1" do
     import Account, only: [changeset: 1]
 
-    setup [:checkout_repo, :c_param_account]
+    setup ~W[checkout_repo c_password c_param_account]a
 
     test "FunctionClauseError", %{param: %{invalid: param}} do
       assert_raise FunctionClauseError, fn -> changeset(param) end
@@ -359,7 +359,7 @@ defmodule DiacriticalSchema.AccountTest do
   describe "changeset/2 when is_struct(data, Account)" do
     import Account, only: [changeset: 2]
 
-    setup ~W[checkout_repo c_struct c_param_account]a
+    setup ~W[checkout_repo c_struct c_password c_param_account]a
 
     test "FunctionClauseError (&1)", %{
       param: %{atom: param},
@@ -391,7 +391,7 @@ defmodule DiacriticalSchema.AccountTest do
   describe "changeset/2 when is_struct(data, Ecto.Changeset)" do
     import Account, only: [changeset: 2]
 
-    setup ~W[checkout_repo c_struct c_param_account]a
+    setup ~W[checkout_repo c_struct c_password c_param_account]a
 
     setup %{struct: %{invalid: struct, valid: struct!}} do
       %{
@@ -548,6 +548,63 @@ defmodule DiacriticalSchema.AccountTest do
     } do
       assert query(query, arg) == query
       assert %Ecto.Query{wheres: [%{}]} = query(query, arg!)
+    end
+  end
+
+  describe "valid_password?/2" do
+    import Account, only: [valid_password?: 2]
+
+    setup :c_password
+
+    setup %{password: %{correct: password}} do
+      password_digest = Argon2.hash_pwd_salt(password)
+
+      %{
+        schema: %{
+          built: %Account{password_digest: password_digest},
+          invalid: %{password_digest: password_digest},
+          missing: nil
+        }
+      }
+    end
+
+    test "FunctionClauseError (&1)", %{
+      password: %{correct: password},
+      schema: %{invalid: schema}
+    } do
+      assert_raise FunctionClauseError, fn ->
+        valid_password?(schema, password)
+      end
+    end
+
+    test "FunctionClauseError (&2)", %{
+      password: %{invalid: password},
+      schema: %{built: schema}
+    } do
+      assert_raise FunctionClauseError, fn ->
+        valid_password?(schema, password)
+      end
+    end
+
+    test "missing", %{
+      password: %{missing: password},
+      schema: %{built: schema}
+    } do
+      refute valid_password?(schema, password)
+    end
+
+    test "incorrect", %{
+      password: %{incorrect: password},
+      schema: %{built: schema}
+    } do
+      refute valid_password?(schema, password)
+    end
+
+    test "correct", %{
+      password: %{correct: password},
+      schema: %{built: schema}
+    } do
+      assert valid_password?(schema, password)
     end
   end
 end
