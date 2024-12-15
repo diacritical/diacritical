@@ -9,6 +9,8 @@ defmodule DiacriticalSchema.AccountTest do
 
   alias DiacriticalSchema.Account
 
+  alias Account.Token
+
   @typedoc "Represents the context."
   @typedoc since: "0.14.0"
   @type context() :: DiacriticalCase.context()
@@ -36,7 +38,31 @@ defmodule DiacriticalSchema.AccountTest do
           inserted_at: nil,
           password: nil,
           password_digest: nil,
+          token: %Ecto.Association.NotLoaded{
+            __cardinality__: :many,
+            __field__: :token,
+            __owner__: Account
+          },
           updated_at: nil
+        }
+      }
+    }
+  end
+
+  @spec c_assoc(context()) :: context_merge()
+  defp c_assoc(c) when is_map(c) do
+    %{
+      assoc: %{
+        token: %Ecto.Association.Has{
+          cardinality: :many,
+          field: :token,
+          on_delete: :nothing,
+          on_replace: :raise,
+          owner: Account,
+          owner_key: :id,
+          queryable: Token,
+          related: Token,
+          related_key: :account_id
         }
       }
     }
@@ -82,7 +108,9 @@ defmodule DiacriticalSchema.AccountTest do
   describe "__changeset__/0" do
     import Account, only: [__changeset__: 0]
 
-    test "success" do
+    setup :c_assoc
+
+    test "success", %{assoc: %{token: token}} do
       assert __changeset__() == %{
                confirmed_at: :utc_datetime_usec,
                deleted_at: :utc_datetime_usec,
@@ -91,6 +119,7 @@ defmodule DiacriticalSchema.AccountTest do
                inserted_at: :utc_datetime_usec,
                password: :string,
                password_digest: :string,
+               token: {:assoc, token},
                updated_at: :utc_datetime_usec
              }
     end
@@ -202,7 +231,7 @@ defmodule DiacriticalSchema.AccountTest do
     end
 
     test ":associations" do
-      assert __schema__(:associations) == []
+      assert __schema__(:associations) == [:token]
     end
 
     test ":embeds" do
@@ -243,6 +272,8 @@ defmodule DiacriticalSchema.AccountTest do
   describe "__schema__/2" do
     import Account, only: [__schema__: 2]
 
+    setup :c_assoc
+
     test ":field_source, field" do
       assert __schema__(:field_source, :id) == :id
       assert __schema__(:field_source, :email) == :email
@@ -272,8 +303,8 @@ defmodule DiacriticalSchema.AccountTest do
       assert __schema__(:virtual_type, :field) == nil
     end
 
-    test ":association, assoc" do
-      assert __schema__(:association, :field) == nil
+    test ":association, assoc", %{assoc: %{token: token}} do
+      assert __schema__(:association, :token) == token
     end
 
     test ":embed, embed" do
