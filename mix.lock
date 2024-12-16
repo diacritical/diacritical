@@ -516,6 +516,44 @@
     "hexpm",
     "f2f2df5a72bc9a2f510b21497fd7d2b86d932ec0598f0210fed4114adc546c6f"
   },
+  phoenix_live_dashboard: {
+    :hex,
+    :phoenix_live_dashboard,
+    "0.8.5",
+    "d5f44d7dbd7cfacaa617b70c5a14b2b598d6f93b9caa8e350c51d56cd4350a9b",
+    [:mix],
+    [
+      {:ecto, "~> 3.6.2 or ~> 3.7", hex: :ecto, repo: "hexpm", optional: true},
+      {
+        :ecto_mysql_extras,
+        "~> 0.5",
+        [hex: :ecto_mysql_extras, repo: "hexpm", optional: true]
+      },
+      {
+        :ecto_psql_extras,
+        "~> 0.7",
+        [hex: :ecto_psql_extras, repo: "hexpm", optional: true]
+      },
+      {
+        :ecto_sqlite3_extras,
+        "~> 1.1.7 or ~> 1.2.0",
+        [hex: :ecto_sqlite3_extras, repo: "hexpm", optional: true]
+      },
+      {:mime, "~> 1.6 or ~> 2.0", hex: :mime, repo: "hexpm", optional: false},
+      {
+        :phoenix_live_view,
+        "~> 0.19 or ~> 1.0",
+        [hex: :phoenix_live_view, repo: "hexpm", optional: false]
+      },
+      {
+        :telemetry_metrics,
+        "~> 0.6 or ~> 1.0",
+        [hex: :telemetry_metrics, repo: "hexpm", optional: false]
+      }
+    ],
+    "hexpm",
+    "1d73920515554d7d6c548aee0bf10a4780568b029d042eccb336db29ea0dad70"
+  },
   phoenix_live_reload: {
     :hex,
     :phoenix_live_reload,
