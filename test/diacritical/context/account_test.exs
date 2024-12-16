@@ -22,6 +22,22 @@ defmodule Diacritical.Context.AccountTest do
   @typedoc since: "0.16.0"
   @type context_merge() :: DiacriticalCase.context_merge()
 
+  @spec c_token(context()) :: context_merge()
+  defp c_token(c) when is_map(c) do
+    type = "unknown"
+
+    %{
+      token: %{
+        built: %Token{data: :crypto.strong_rand_bytes(32), type: type},
+        invalid: %{data: ~C"", type: ~c"#{type}"},
+        loaded:
+          Token
+          |> Token.query(%{limit: 1, order_by: :random})
+          |> Repo.one()
+      }
+    }
+  end
+
   @spec c_account_loaded(context()) :: context_merge()
   defp c_account_loaded(c) when is_map(c) do
     loaded =
@@ -33,6 +49,48 @@ defmodule Diacritical.Context.AccountTest do
   end
 
   doctest Account, import: true
+
+  describe "delete_token_by_data_and_type/2" do
+    import Account, only: [delete_token_by_data_and_type: 2]
+
+    setup [:checkout_repo, :c_token]
+    setup do: %{conf: %{missing: {0, nil}, found: {1, nil}}}
+
+    test "FunctionClauseError (&1)", %{
+      token: %{invalid: %{data: data}, loaded: %{type: type}}
+    } do
+      assert_raise FunctionClauseError, fn ->
+        delete_token_by_data_and_type(data, type)
+      end
+    end
+
+    test "FunctionClauseError (&2)", %{
+      token: %{invalid: %{type: type}, loaded: %{data: data}}
+    } do
+      assert_raise FunctionClauseError, fn ->
+        delete_token_by_data_and_type(data, type)
+      end
+    end
+
+    test "missing", %{
+      conf: %{missing: conf},
+      token: %{
+        built: %{data: data, type: type},
+        loaded: %{data: data!, type: type!}
+      }
+    } do
+      assert delete_token_by_data_and_type(data, type) == conf
+      assert delete_token_by_data_and_type(data!, type) == conf
+      assert delete_token_by_data_and_type(data, type!) == conf
+    end
+
+    test "success", %{
+      conf: %{found: conf},
+      token: %{loaded: %{data: data, type: type}}
+    } do
+      assert delete_token_by_data_and_type(data, type) == conf
+    end
+  end
 
   describe "get_by_email/1" do
     import Account, only: [get_by_email: 1]
@@ -100,22 +158,7 @@ defmodule Diacritical.Context.AccountTest do
   describe "get_by_token_data_and_type/2" do
     import Account, only: [get_by_token_data_and_type: 2]
 
-    setup [:checkout_repo, :c_account]
-
-    setup do
-      type = "unknown"
-
-      %{
-        token: %{
-          built: %Token{data: :crypto.strong_rand_bytes(32), type: type},
-          invalid: %{data: ~C"", type: ~c"#{type}"},
-          loaded:
-            Token
-            |> Token.query(%{limit: 1, order_by: :random})
-            |> Repo.one()
-        }
-      }
-    end
+    setup ~W[checkout_repo c_token c_account]a
 
     test "FunctionClauseError (&1)", %{
       token: %{invalid: %{data: data}, loaded: %{type: type}}

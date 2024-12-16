@@ -10,6 +10,18 @@ defmodule Diacritical.Context.Account do
 
   alias Account.Token
 
+  @typedoc "Represents the token data."
+  @typedoc since: "0.16.0"
+  @type token_data() :: Token.token_data()
+
+  @typedoc "Represents the token type."
+  @typedoc since: "0.16.0"
+  @type token_type() :: Token.token_type()
+
+  @typedoc "Represents the query count."
+  @typedoc since: "0.16.0"
+  @type query_count() :: {non_neg_integer(), nil | [term()]}
+
   @typedoc "Represents the email address."
   @typedoc since: "0.16.0"
   @type email() :: Account.email()
@@ -22,14 +34,6 @@ defmodule Diacritical.Context.Account do
   @typedoc since: "0.16.0"
   @type password() :: Account.password()
 
-  @typedoc "Represents the token data."
-  @typedoc since: "0.16.0"
-  @type token_data() :: Token.token_data()
-
-  @typedoc "Represents the token type."
-  @typedoc since: "0.16.0"
-  @type token_type() :: Token.token_type()
-
   @typedoc "Represents the account."
   @typedoc since: "0.16.0"
   @type account() :: Account.t()
@@ -37,6 +41,34 @@ defmodule Diacritical.Context.Account do
   @typedoc "Represents the token confirmation."
   @typedoc since: "0.16.0"
   @type conf_token() :: {:error, Token.changeset()} | {:ok, Token.t()}
+
+  @doc """
+  Deletes a token with the given `data` and `type` from the data store.
+
+  ## Examples
+
+      iex> checkout_repo()
+      iex> %{token: %{built: %{data: data, type: type}}} = c_token(%{})
+      iex>
+      iex> delete_token_by_data_and_type(data, type)
+      {0, nil}
+
+      iex> checkout_repo()
+      iex> %{token: %{loaded: %{data: data, type: type}}} = c_token(%{})
+      iex>
+      iex> delete_token_by_data_and_type(data, type)
+      {1, nil}
+
+  """
+  @doc since: "0.16.0"
+  @spec delete_token_by_data_and_type(token_data(), token_type()) ::
+          query_count()
+  def delete_token_by_data_and_type(data, type)
+      when is_binary(data) and is_binary(type) do
+    Token
+    |> Token.query(%{filter: %{where_data_type: {data, type}}})
+    |> Repo.delete_all()
+  end
 
   @doc """
   Fetches an account from the data store by the given `email`.
@@ -99,17 +131,13 @@ defmodule Diacritical.Context.Account do
   ## Examples
 
       iex> checkout_repo()
-      iex> data = :crypto.strong_rand_bytes(32)
-      iex> type = "unknown"
+      iex> %{token: %{built: %{data: data, type: type}}} = c_token(%{})
       iex>
       iex> get_by_token_data_and_type(data, type)
       nil
 
       iex> checkout_repo()
-      iex> %{data: data, type: type} =
-      ...>   Token
-      ...>   |> Token.query(%{limit: 1, order_by: :random})
-      ...>   |> Repo.one()
+      iex> %{token: %{loaded: %{data: data, type: type}}} = c_token(%{})
       iex>
       iex> %DiacriticalSchema.Account{} = get_by_token_data_and_type(data, type)
 
