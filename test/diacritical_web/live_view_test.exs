@@ -4,13 +4,16 @@ defmodule DiacriticalWeb.LiveViewTest do
 
   use DiacriticalCase.Conn, async: true
 
+  alias Diacritical
   alias DiacriticalCase
   alias DiacriticalWeb
 
+  alias Diacritical.Context
   alias DiacriticalWeb.HTML
   alias DiacriticalWeb.LiveView
   alias DiacriticalWeb.Token
 
+  alias Context.Account
   alias HTML.Layout
 
   @typedoc "Represents the context."
@@ -28,6 +31,13 @@ defmodule DiacriticalWeb.LiveViewTest do
 
   @spec c_socket_nonce(context()) :: context_merge()
   defp c_socket_nonce(c) when is_map(c) do
+    data =
+      if token = c[:token][:loaded] do
+        token.data
+      end
+
+    account = data && Account.get_by_token_data_and_type(data, "session")
+
     nonce =
       18
       |> :crypto.strong_rand_bytes()
@@ -51,7 +61,16 @@ defmodule DiacriticalWeb.LiveViewTest do
     %{
       socket: %{
         assigned: %Phoenix.LiveView.Socket{
-          assigns: %{nonce: nonce, tenant: tenant}
+          assigns: %{account: account, nonce: nonce, tenant: tenant}
+        },
+        authenticated: %Phoenix.LiveView.Socket{
+          signed
+          | assigns: %{
+              __changed__: %{account: true, nonce: true, tenant: true},
+              account: account,
+              nonce: nonce,
+              tenant: tenant
+            }
         },
         halted: %Phoenix.LiveView.Socket{
           unsigned
@@ -61,7 +80,8 @@ defmodule DiacriticalWeb.LiveViewTest do
         mounted: %Phoenix.LiveView.Socket{
           signed
           | assigns: %{
-              __changed__: %{nonce: true, tenant: true},
+              __changed__: %{account: true, nonce: true, tenant: true},
+              account: nil,
               nonce: nonce,
               tenant: tenant
             }
@@ -85,7 +105,18 @@ defmodule DiacriticalWeb.LiveViewTest do
   describe "on_mount/4" do
     import LiveView, only: [on_mount: 4]
 
-    setup ~W[c_name_default c_param c_session c_socket_nonce]a
+    setup [
+      :checkout_repo,
+      :c_token_loaded,
+      :c_name_default,
+      :c_param,
+      :c_session,
+      :c_socket_nonce
+    ]
+
+    setup %{session: session, token: %{loaded: %{data: data}}} do
+      %{session: Map.merge(session, %{token: %{"token" => data}})}
+    end
 
     test "FunctionClauseError (&1)", %{
       name: %{invalid: name},
@@ -149,10 +180,19 @@ defmodule DiacriticalWeb.LiveViewTest do
       assert on_mount(name, param, session, socket) == {:cont, socket!}
     end
 
+    test "authenticated", %{
+      name: %{valid: name},
+      param: %{valid: param},
+      session: %{token: session},
+      socket: %{authenticated: socket!, signed: socket}
+    } do
+      assert on_mount(name, param, session, socket) == {:cont, socket!}
+    end
+
     test "assigned", %{
       name: %{valid: name},
       param: %{valid: param},
-      session: %{valid: session},
+      session: %{token: session},
       socket: %{assigned: socket}
     } do
       assert on_mount(name, param, session, socket) == {:cont, socket}
