@@ -418,6 +418,63 @@ defmodule DiacriticalSchema.AccountTest do
     end
   end
 
+  describe "changeset/3" do
+    import Account, only: [changeset: 3]
+
+    setup ~W[checkout_repo c_struct c_password c_param_account]a
+    setup do: %{opt: %{empty: [], invalid: %{}, virtual?: [virtual?: true]}}
+
+    test "FunctionClauseError (&1)", %{
+      opt: %{empty: opt},
+      param: %{atom: param},
+      struct: %{invalid: struct}
+    } do
+      assert_raise FunctionClauseError, fn -> changeset(struct, param, opt) end
+    end
+
+    test "FunctionClauseError (&2)", %{
+      opt: %{empty: opt},
+      param: %{invalid: param},
+      struct: %{valid: struct}
+    } do
+      assert_raise FunctionClauseError, fn -> changeset(struct, param, opt) end
+    end
+
+    test "FunctionClauseError (&3)", %{
+      opt: %{invalid: opt},
+      param: %{atom: param},
+      struct: %{valid: struct}
+    } do
+      assert_raise FunctionClauseError, fn -> changeset(struct, param, opt) end
+    end
+
+    test "failure", %{
+      opt: %{empty: opt},
+      param: %{err: param},
+      struct: %{valid: struct}
+    } do
+      refute changeset(struct, param, opt).valid?
+    end
+
+    test "empty", %{
+      opt: %{empty: opt},
+      param: %{atom: param, string: param!},
+      struct: %{valid: struct}
+    } do
+      assert changeset(struct, param, opt).valid?
+      assert changeset(struct, param!, opt).valid?
+    end
+
+    test "virtual?", %{
+      opt: %{virtual?: opt},
+      param: %{atom: param, string: param!},
+      struct: %{valid: struct}
+    } do
+      assert changeset(struct, param, opt).valid?
+      assert changeset(struct, param!, opt).valid?
+    end
+  end
+
   describe "query/2 when is_atom(queryable)" do
     import Account, only: [query: 2]
 
