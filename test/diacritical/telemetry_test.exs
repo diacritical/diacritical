@@ -38,4 +38,12 @@ defmodule Diacritical.TelemetryTest do
       assert start_link(init_arg) == err
     end
   end
+
+  describe "metrics/0" do
+    import Telemetry, only: [metrics: 0]
+
+    test "success" do
+      assert [%{measurement: _measurement} | _metric] = metrics()
+    end
+  end
 end

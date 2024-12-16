@@ -9,7 +9,8 @@ defmodule Diacritical do
       Ecto.Adapters.Postgres,
       Ecto.Adapters.SQL,
       Ecto.Migrator,
-      Swoosh
+      Swoosh,
+      Telemetry.Metrics
     ],
     exports: [{Context, []}, Repo, Supervisor]
 

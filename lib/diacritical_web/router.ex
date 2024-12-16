@@ -10,6 +10,7 @@ defmodule DiacriticalWeb.Router do
   alias DiacriticalWeb
 
   alias Diacritical.Context
+  alias Diacritical.Telemetry
   alias DiacriticalWeb.Controller
   alias DiacriticalWeb.HTML
   alias DiacriticalWeb.LiveView
@@ -58,7 +59,7 @@ defmodule DiacriticalWeb.Router do
   @spec content_security_policy(nonce()) :: header_value()
   defp content_security_policy(nonce) when is_binary(nonce) do
     "base-uri 'self'; connect-src 'self'; default-src 'none'; " <>
-      "font-src 'self'; form-action 'self'; frame-ancestors 'self'; " <>
+      "font-src 'self' data:; form-action 'self'; frame-ancestors 'self'; " <>
       "frame-src 'self'; img-src 'nonce-#{nonce}' 'self' data:; " <>
       "script-src 'nonce-#{nonce}' 'strict-dynamic' 'unsafe-inline' 'self'; " <>
       "style-src 'nonce-#{nonce}' 'self'; upgrade-insecure-requests"
@@ -170,6 +171,18 @@ defmodule DiacriticalWeb.Router do
     pipe_through :plaintext
 
     get "/hello", Controller.Page, :greet
+  end
+
+  if Application.compile_env(:diacritical, :env)[:dev] do
+    import Phoenix.LiveDashboard.Router
+
+    scope "/dev" do
+      pipe_through :browser
+
+      live_dashboard "/dashboard",
+        csp_nonce_assign_key: :nonce,
+        metrics: Telemetry
+    end
   end
 
   scope "/" do
