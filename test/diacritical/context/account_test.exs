@@ -29,11 +29,7 @@ defmodule Diacritical.Context.AccountTest do
     %{
       token: %{
         built: %Token{data: :crypto.strong_rand_bytes(32), type: type},
-        invalid: %{data: ~C"", type: ~c"#{type}"},
-        loaded:
-          Token
-          |> Token.query(%{limit: 1, order_by: :random})
-          |> Repo.one()
+        invalid: %{data: ~C"", type: ~c"#{type}"}
       }
     }
   end
@@ -53,7 +49,7 @@ defmodule Diacritical.Context.AccountTest do
   describe "delete_token_by_data_and_type/2" do
     import Account, only: [delete_token_by_data_and_type: 2]
 
-    setup [:checkout_repo, :c_token]
+    setup ~W[checkout_repo c_token c_token_loaded]a
     setup do: %{conf: %{missing: {0, nil}, found: {1, nil}}}
 
     test "FunctionClauseError (&1)", %{
@@ -158,7 +154,7 @@ defmodule Diacritical.Context.AccountTest do
   describe "get_by_token_data_and_type/2" do
     import Account, only: [get_by_token_data_and_type: 2]
 
-    setup ~W[checkout_repo c_token c_account]a
+    setup ~W[checkout_repo c_token c_token_loaded c_account]a
 
     test "FunctionClauseError (&1)", %{
       token: %{invalid: %{data: data}, loaded: %{type: type}}

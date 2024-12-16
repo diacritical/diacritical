@@ -11,7 +11,7 @@ defmodule Diacritical do
       Ecto.Migrator,
       Swoosh
     ],
-    exports: [Supervisor]
+    exports: [{Context, []}, Repo, Supervisor]
 
   @typedoc "Represents the greeting."
   @typedoc since: "0.1.0"

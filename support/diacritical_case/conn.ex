@@ -154,9 +154,11 @@ defmodule DiacriticalCase.Conn do
   using do
     quote do
       import unquote(__MODULE__)
+      import DiacriticalCase.Repo
       import DiacriticalCase.View
       import Phoenix.ConnTest
       import Phoenix.LiveViewTest
+      import Plug.Conn, except: [assign: 3]
 
       @endpoint DiacriticalWeb.Endpoint
     end

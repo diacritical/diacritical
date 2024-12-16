@@ -93,7 +93,7 @@ defmodule DiacriticalWeb.Controller.PageTest do
         conn: %{
           c
           | invalid: %{private: %{phoenix_action: action}},
-            valid: Plug.Conn.put_private(conn, :phoenix_action, action)
+            valid: put_private(conn, :phoenix_action, action)
         }
       }
     end
