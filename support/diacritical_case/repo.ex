@@ -49,6 +49,32 @@ defmodule DiacriticalCase.Repo do
 
   ## Example
 
+      iex> c = %{password: %{correct: "", incorrect: ""}}
+      iex>
+      iex> %{param: _param} = c_param_account(c)
+
+  """
+  @doc since: "0.16.0"
+  @spec c_param_account(context()) :: context_merge()
+  def c_param_account(%{password: %{correct: password, incorrect: password!}})
+      when is_binary(password) and is_binary(password!) do
+    email = "jdoe@example.com"
+
+    %{
+      param: %{
+        atom: %{email: email, password: password},
+        err: %{email: "jdoeexample.com", password: password!},
+        invalid: [],
+        string: %{"email" => email, "password" => password}
+      }
+    }
+  end
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
       iex> %{param: _param} = c_param_token()
 
   """

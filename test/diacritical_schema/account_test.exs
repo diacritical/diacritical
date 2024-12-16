@@ -69,21 +69,6 @@ defmodule DiacriticalSchema.AccountTest do
     }
   end
 
-  @spec c_param_account(context()) :: context_merge()
-  defp c_param_account(%{password: %{correct: password, incorrect: password!}})
-       when is_binary(password) and is_binary(password!) do
-    email = "jdoe@example.com"
-
-    %{
-      param: %{
-        atom: %{email: email, password: password},
-        err: %{email: "jdoeexample.com", password: password!},
-        invalid: [],
-        string: %{"email" => email, "password" => password}
-      }
-    }
-  end
-
   @spec c_arg(context()) :: context_merge()
   defp c_arg(c) when is_map(c) do
     search = "%jdoe%"
