@@ -4,6 +4,7 @@ defmodule DiacriticalCase.ViewTest do
 
   use DiacriticalCase.Template, async: true
 
+  alias Diacritical
   alias DiacriticalCase
 
   alias DiacriticalCase.View
@@ -19,6 +20,18 @@ defmodule DiacriticalCase.ViewTest do
 
     test ":setup_all", %{context: %{valid: context}} do
       assert View.__ex_unit__(:setup_all, context) == context
+    end
+  end
+
+  describe "assert_element/2" do
+    import View, only: [assert_element: 2]
+
+    setup do
+      %{html: "<span>#{Diacritical.greet()}</span>", selector: "span"}
+    end
+
+    test "success", %{html: html, selector: selector} do
+      assert assert_element html, selector
     end
   end
 
@@ -154,19 +167,25 @@ defmodule DiacriticalCase.ViewTest do
     end
   end
 
-  describe "c_resp_body_to_html/1" do
-    import View, only: [c_resp_body_to_html: 1]
+  describe "c_selector_span/0" do
+    import View, only: [c_selector_span: 0]
 
-    setup do
-      %{context: %{invalid: %{resp_body: ~C""}, valid: %{resp_body: ""}}}
+    test "success" do
+      assert %{selector: _selector} = c_selector_span()
     end
+  end
+
+  describe "c_selector_span/1" do
+    import View, only: [c_selector_span: 1]
+
+    setup :c_context
 
     test "FunctionClauseError", %{context: %{invalid: context}} do
-      assert_raise FunctionClauseError, fn -> c_resp_body_to_html(context) end
+      assert_raise FunctionClauseError, fn -> c_selector_span(context) end
     end
 
     test "success", %{context: %{valid: context}} do
-      assert %{resp_body: _resp_body} = c_resp_body_to_html(context)
+      assert %{selector: _selector} = c_selector_span(context)
     end
   end
 end

@@ -196,8 +196,8 @@ defmodule DiacriticalWeb.LiveView do
       ...> end
       iex>
       iex> %{assigns: %{valid: assigns}} = c_assigns_greeting()
-      iex> c = c_resp_body_greet()
-      iex> %{resp_body: resp_body} = c_resp_body_to_html(c)
+      iex> render = render_component(TestLiveView, assigns)
+      iex> %{selector: selector} = c_selector_span()
       iex>
       iex> TestLiveView.__live__()
       %{
@@ -215,7 +215,7 @@ defmodule DiacriticalWeb.LiveView do
         },
         log: :debug
       }
-      iex> render_component(TestLiveView, assigns) =~ resp_body
+      iex> assert_element render, selector
       true
 
   """

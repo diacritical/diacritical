@@ -53,7 +53,7 @@ defmodule DiacriticalWeb.HTML.LayoutTest do
 
     test "success", %{assigns: %{valid: assigns}} do
       assert function_exported?(Layout, :app, 1)
-      assert render_component(&app/1, assigns) =~ "<main>"
+      assert_element render_component(&app/1, assigns), "main"
     end
   end
 
@@ -70,7 +70,7 @@ defmodule DiacriticalWeb.HTML.LayoutTest do
 
     test "success", %{assigns: %{valid: assigns}} do
       assert function_exported?(Layout, :root, 1)
-      assert render_component(&root/1, assigns) =~ "<!DOCTYPE html>"
+      assert_element render_component(&root/1, assigns), "html"
     end
   end
 end

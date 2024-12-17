@@ -7,6 +7,16 @@ defmodule DiacriticalCase.View do
   alias Diacritical
   alias DiacriticalCase
 
+  require Floki
+
+  @typedoc "Represents the html."
+  @typedoc since: "0.20.0"
+  @type html() :: binary() | Floki.html_tree()
+
+  @typedoc "Represents the selector."
+  @typedoc since: "0.20.0"
+  @type selector() :: Floki.html_node() | Floki.css_selector()
+
   @typedoc "Represents the context."
   @typedoc since: "0.5.0"
   @type context() :: DiacriticalCase.context()
@@ -14,6 +24,31 @@ defmodule DiacriticalCase.View do
   @typedoc "Represents the context merge value."
   @typedoc since: "0.5.0"
   @type context_merge() :: DiacriticalCase.context_merge()
+
+  @doc """
+  Asserts that the given `element` is inside the given `html` tree or string.
+
+  ## Example
+
+      iex> html = "<span>Hello, world!</span>"
+      iex> element = "span"
+      iex>
+      iex> assert_element html, element
+      true
+
+  """
+  @doc since: "0.20.0"
+  @spec assert_element(html(), selector()) :: boolean()
+  def assert_element(html, selector) when is_binary(html) do
+    with {:ok, document} <- Floki.parse_document(html) do
+      assert_element(document, selector)
+    end
+  end
+
+  def assert_element(html, selector)
+      when is_list(html) or Floki.is_html_node(html) do
+    assert Floki.find(html, selector) != []
+  end
 
   @doc """
   Returns a map of fixtures to be merged into the given `context`.
@@ -108,14 +143,12 @@ defmodule DiacriticalCase.View do
 
   ## Example
 
-      iex> %{resp_body: _resp_body} = c_resp_body_to_html(%{resp_body: ""})
+      iex> %{selector: _selector} = c_selector_span(%{})
 
   """
-  @doc since: "0.6.0"
-  @spec c_resp_body_to_html(context()) :: context_merge()
-  def c_resp_body_to_html(%{resp_body: resp_body}) when is_binary(resp_body) do
-    %{resp_body: "<span>" <> String.trim(resp_body) <> "</span>"}
-  end
+  @doc since: "0.20.0"
+  @spec c_selector_span(context()) :: context_merge()
+  def c_selector_span(c \\ %{}) when is_map(c), do: %{selector: "span"}
 
   using do
     quote do

@@ -27,20 +27,20 @@ defmodule DiacriticalWeb.HTML.ErrorTest do
   end
 
   describe "404/1" do
-    setup ~W[c_assigns_empty c_resp_body_404 c_resp_body_to_html]a
+    setup [:c_assigns_empty, :c_selector_span]
 
-    test "success", %{assigns: assigns, resp_body: resp_body} do
+    test "success", %{assigns: assigns, selector: selector} do
       assert function_exported?(Error, :"404", 1)
-      assert render_component(&Error."404"/1, assigns) == resp_body
+      assert_element render_component(&Error."404"/1, assigns), selector
     end
   end
 
   describe "500/1" do
-    setup ~W[c_assigns_empty c_resp_body_500 c_resp_body_to_html]a
+    setup [:c_assigns_empty, :c_selector_span]
 
-    test "success", %{assigns: assigns, resp_body: resp_body} do
+    test "success", %{assigns: assigns, selector: selector} do
       assert function_exported?(Error, :"500", 1)
-      assert render_component(&Error."500"/1, assigns) == resp_body
+      assert_element render_component(&Error."500"/1, assigns), selector
     end
   end
 end

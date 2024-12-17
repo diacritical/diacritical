@@ -10,6 +10,7 @@ defmodule DiacriticalCase do
       Ecto,
       Ecto.Adapters.SQL,
       ExUnit,
+      Floki,
       Phoenix,
       Plug
     ]

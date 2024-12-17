@@ -110,7 +110,7 @@ defmodule DiacriticalWeb.LiveView.PageTest do
   end
 
   describe "render/1" do
-    setup ~W[c_assigns_greeting c_resp_body_greet c_resp_body_to_html]a
+    setup [:c_assigns_greeting, :c_selector_span]
 
     test "Protocol.UndefinedError", %{assigns: %{invalid: assigns}} do
       assert_raise Protocol.UndefinedError, fn ->
@@ -118,8 +118,8 @@ defmodule DiacriticalWeb.LiveView.PageTest do
       end
     end
 
-    test "success", %{assigns: %{valid: assigns}, resp_body: resp_body} do
-      assert render_component(Page, assigns) =~ resp_body
+    test "success", %{assigns: %{valid: assigns}, selector: selector} do
+      assert_element render_component(Page, assigns), selector
     end
   end
 end

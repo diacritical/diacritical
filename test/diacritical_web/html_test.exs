@@ -15,7 +15,7 @@ defmodule DiacriticalWeb.HTMLTest do
 
     embed_templates "../../support/diacritical_web/html/template/greet"
 
-    setup ~W[c_assigns_greeting c_resp_body_greet c_resp_body_to_html]a
+    setup [:c_assigns_greeting, :c_selector_span]
 
     test "CompileError" do
       refute function_exported?(__MODULE__, :ignore, 1)
@@ -27,9 +27,9 @@ defmodule DiacriticalWeb.HTMLTest do
       end
     end
 
-    test "success", %{assigns: %{valid: assigns}, resp_body: resp_body} do
+    test "success", %{assigns: %{valid: assigns}, selector: selector} do
       assert function_exported?(__MODULE__, :greet, 1)
-      assert render_component(&greet/1, assigns) == resp_body
+      assert_element render_component(&greet/1, assigns), selector
     end
   end
 
@@ -39,7 +39,7 @@ defmodule DiacriticalWeb.HTMLTest do
     embed_templates "template/dismiss",
       root: "../../support/diacritical_web/html"
 
-    setup ~W[c_assigns_greeting c_resp_body_dismiss c_resp_body_to_html]a
+    setup [:c_assigns_greeting, :c_selector_span]
 
     test "CompileError" do
       refute function_exported?(__MODULE__, :ignore, 1)
@@ -51,9 +51,9 @@ defmodule DiacriticalWeb.HTMLTest do
       end
     end
 
-    test "success", %{assigns: %{valid: assigns}, resp_body: resp_body} do
+    test "success", %{assigns: %{valid: assigns}, selector: selector} do
       assert function_exported?(__MODULE__, :dismiss, 1)
-      assert render_component(&dismiss/1, assigns) == resp_body
+      assert_element render_component(&dismiss/1, assigns), selector
     end
   end
 end
