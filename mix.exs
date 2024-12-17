@@ -177,7 +177,7 @@ defmodule DiacriticalApp.MixProject do
       releases: [diacritical: [overlays: ["rel/overlay"]]],
       source_url: "https://github.com/diacritical/diacritical",
       start_permanent: env == :prod,
-      version: "0.18.0"
+      version: "0.19.0"
     ]
   end
 end
