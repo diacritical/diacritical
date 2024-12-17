@@ -222,6 +222,8 @@ defmodule DiacriticalWeb.LiveView do
   @doc since: "0.8.0"
   defmacro __using__(opt) when is_list(opt) do
     quote do
+      use Gettext, backend: Diacritical.Gettext
+
       use Phoenix.LiveView,
           Keyword.merge([layout: {Layout, :app}], unquote(opt))
 

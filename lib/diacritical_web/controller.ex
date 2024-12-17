@@ -45,6 +45,8 @@ defmodule DiacriticalWeb.Controller do
   @doc since: "0.5.0"
   defmacro __using__(opt) when is_list(opt) do
     quote do
+      use Gettext, backend: Diacritical.Gettext
+
       use Phoenix.Controller,
           Keyword.merge([put_default_views: false], unquote(opt))
 

@@ -7,9 +7,9 @@
     <meta name="csrf-token" content={get_csrf_token()} />
     <meta
       name="description"
-      content={assigns[:page_description] || "Here be dragons."}
+      content={assigns[:page_description] || gettext("Here be dragons.")}
     />
-    <.live_title>{assigns[:page_title] || "Diacritical"}</.live_title>
+    <.live_title>{assigns[:page_title] || gettext("Diacritical")}</.live_title>
     <link
       nonce={assigns[:nonce]}
       href={~p"/asset/vendor/inter/inter.css"}

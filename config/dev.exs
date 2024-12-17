@@ -23,6 +23,7 @@ config :diacritical, Endpoint,
     ],
     patterns: [
       ~r/lib\/diacritical_web\/(?:controller|html|txt)\/.*(?:ex)$/,
+      ~r/priv\/diacritical\/gettext\/.*(?:po|pot)$/,
       ~r/priv\/diacritical_web\/static\/.*(?:css|ico|js|svg|txt|woff2)$/
     ]
   ],
