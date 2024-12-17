@@ -14,12 +14,14 @@
       nonce={assigns[:nonce]}
       href={~p"/asset/vendor/inter/inter.css"}
       rel="stylesheet"
+      integrity={static_integrity(Endpoint, "/asset/vendor/inter/inter.css")}
       phx-track-static
     />
     <link
       nonce={assigns[:nonce]}
       href={~p"/asset/css/app.css"}
       rel="stylesheet"
+      integrity={static_integrity(Endpoint, "/asset/css/app.css")}
       phx-track-static
     />
   </head>
@@ -29,6 +31,7 @@
       nonce={assigns[:nonce]}
       src={~p"/asset/js/app.js"}
       defer
+      integrity={static_integrity(Endpoint, "/asset/js/app.js")}
       phx-track-static
     >
     </script>
