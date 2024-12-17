@@ -336,6 +336,16 @@
     "hexpm",
     "fc5324ce209125d1e2fa0fcd2634601c52a787aff1cd33ee833664a5af4ea2b6"
   },
+  floki: {
+    :hex,
+    :floki,
+    "0.37.0",
+    "b83e0280bbc6372f2a403b2848013650b16640cd2470aea6701f0632223d719e",
+    [:mix],
+    [],
+    "hexpm",
+    "516a0c15a69f78c47dc8e0b9b3724b29608aa6619379f91b1ffa47109b5d0dd3"
+  },
   gettext: {
     :hex,
     :gettext,
