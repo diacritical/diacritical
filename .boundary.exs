@@ -24,6 +24,7 @@
     DiacriticalSchema.Account,
     DiacriticalSchema.Account.Token,
     DiacriticalSchema.Changeset,
+    DiacriticalSchema.Option,
     DiacriticalSchema.TestSchema
   ],
   DiacriticalWeb: [

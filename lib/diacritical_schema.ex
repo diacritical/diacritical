@@ -43,14 +43,17 @@ defmodule DiacriticalSchema do
     :confirmed_at,
     :data,
     :deleted_at,
+    :description,
     :email,
     :id,
     :inserted_at,
+    :key,
     :parent_id,
     :password_digest,
     :sent_to,
     :type,
     :updated_at,
+    :value,
     :x
   ]
 
