@@ -153,6 +153,7 @@ defmodule DiacriticalCase.View do
   using do
     quote do
       import unquote(__MODULE__)
+      import Phoenix.Component, only: [sigil_H: 2]
       import Phoenix.LiveViewTest
     end
   end
