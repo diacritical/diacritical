@@ -95,6 +95,20 @@ defmodule DiacriticalSchema.ChangesetTest do
     }
   end
 
+  @spec c_changeset_slug(context()) :: context_merge()
+  defp c_changeset_slug(c) when is_map(c) do
+    data = {%{slug: nil}, %{slug: :string}}
+    slug = "example"
+
+    %{
+      changeset: %{
+        invalid: %{},
+        slugified: Ecto.Changeset.change(data, %{slug: slug}),
+        unslugified: Ecto.Changeset.change(data, %{slug: "-#{slug}"})
+      }
+    }
+  end
+
   doctest Changeset, import: true
 
   describe "put_digest/1" do
@@ -370,6 +384,56 @@ defmodule DiacriticalSchema.ChangesetTest do
       key: %{valid: key}
     } do
       assert validate_password(changeset, key).valid?
+    end
+  end
+
+  describe "validate_slug/1" do
+    import Changeset, only: [validate_slug: 1]
+
+    setup :c_changeset_slug
+
+    test "FunctionClauseError", %{changeset: %{invalid: changeset}} do
+      assert_raise FunctionClauseError, fn -> validate_slug(changeset) end
+    end
+
+    test "failure", %{changeset: %{unslugified: changeset}} do
+      refute validate_slug(changeset).valid?
+    end
+
+    test "success", %{changeset: %{slugified: changeset}} do
+      assert validate_slug(changeset).valid?
+    end
+  end
+
+  describe "validate_slug/2" do
+    import Changeset, only: [validate_slug: 2]
+
+    setup :c_changeset_slug
+    setup do: %{key: %{invalid: "slug", valid: :slug}}
+
+    test "FunctionClauseError (&1)", %{
+      changeset: %{invalid: changeset},
+      key: %{valid: key}
+    } do
+      assert_raise FunctionClauseError, fn -> validate_slug(changeset, key) end
+    end
+
+    test "FunctionClauseError (&2)", %{
+      changeset: %{slugified: changeset},
+      key: %{invalid: key}
+    } do
+      assert_raise FunctionClauseError, fn -> validate_slug(changeset, key) end
+    end
+
+    test "failure", %{
+      changeset: %{unslugified: changeset},
+      key: %{valid: key}
+    } do
+      refute validate_slug(changeset, key).valid?
+    end
+
+    test "success", %{changeset: %{slugified: changeset}, key: %{valid: key}} do
+      assert validate_slug(changeset, key).valid?
     end
   end
 end
