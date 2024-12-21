@@ -322,7 +322,7 @@ defmodule DiacriticalSchema.AccountTest do
   describe "changeset/1" do
     import Account, only: [changeset: 1]
 
-    setup ~W[checkout_repo c_password c_param_account]a
+    setup [:checkout_repo, :c_param_account]
 
     test "FunctionClauseError", %{param: %{invalid: param}} do
       assert_raise FunctionClauseError, fn -> changeset(param) end
@@ -344,7 +344,7 @@ defmodule DiacriticalSchema.AccountTest do
   describe "changeset/2 when is_struct(data, Account)" do
     import Account, only: [changeset: 2]
 
-    setup ~W[checkout_repo c_struct c_password c_param_account]a
+    setup ~W[checkout_repo c_struct c_param_account]a
 
     test "FunctionClauseError (&1)", %{
       param: %{atom: param},
@@ -376,7 +376,7 @@ defmodule DiacriticalSchema.AccountTest do
   describe "changeset/2 when is_struct(data, Ecto.Changeset)" do
     import Account, only: [changeset: 2]
 
-    setup ~W[checkout_repo c_struct c_password c_param_account]a
+    setup ~W[checkout_repo c_struct c_param_account]a
 
     setup %{struct: %{invalid: struct, valid: struct!}} do
       %{
@@ -421,7 +421,7 @@ defmodule DiacriticalSchema.AccountTest do
   describe "changeset/3" do
     import Account, only: [changeset: 3]
 
-    setup ~W[checkout_repo c_struct c_password c_param_account]a
+    setup ~W[checkout_repo c_struct c_param_account]a
     setup do: %{opt: %{empty: [], invalid: %{}, virtual?: [virtual?: true]}}
 
     test "FunctionClauseError (&1)", %{
@@ -596,7 +596,7 @@ defmodule DiacriticalSchema.AccountTest do
   describe "valid_password?/2" do
     import Account, only: [valid_password?: 2]
 
-    setup :c_password
+    setup :c_data_password
 
     setup %{password: %{correct: password}} do
       password_digest = Argon2.hash_pwd_salt(password)

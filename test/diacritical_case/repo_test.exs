@@ -47,17 +47,10 @@ defmodule DiacriticalCase.RepoTest do
   describe "c_account/1" do
     import Repo, only: [c_account: 1]
 
-    setup do
-      %{
-        context: %{
-          invalid: %{password: %{correct: ~C""}},
-          valid: %{password: %{correct: ""}}
-        }
-      }
-    end
+    setup :c_context
 
-    test "ArgumentError", %{context: %{invalid: context}} do
-      assert_raise ArgumentError, fn -> c_account(context) end
+    test "FunctionClauseError", %{context: %{invalid: context}} do
+      assert_raise FunctionClauseError, fn -> c_account(context) end
     end
 
     test "success", %{context: %{valid: context}} do
@@ -65,17 +58,84 @@ defmodule DiacriticalCase.RepoTest do
     end
   end
 
+  describe "c_data_email/0" do
+    import Repo, only: [c_data_email: 0]
+
+    test "success" do
+      assert %{email: _email} = c_data_email()
+    end
+  end
+
+  describe "c_data_email/1" do
+    import Repo, only: [c_data_email: 1]
+
+    setup :c_context
+
+    test "FunctionClauseError", %{context: %{invalid: context}} do
+      assert_raise FunctionClauseError, fn -> c_data_email(context) end
+    end
+
+    test "success", %{context: %{valid: context}} do
+      assert %{email: _email} = c_data_email(context)
+    end
+  end
+
+  describe "c_data_password/0" do
+    import Repo, only: [c_data_password: 0]
+
+    test "success" do
+      assert %{password: _password} = c_data_password()
+    end
+  end
+
+  describe "c_data_password/1" do
+    import Repo, only: [c_data_password: 1]
+
+    setup :c_context
+
+    test "FunctionClauseError", %{context: %{invalid: context}} do
+      assert_raise FunctionClauseError, fn -> c_data_password(context) end
+    end
+
+    test "success", %{context: %{valid: context}} do
+      assert %{password: _password} = c_data_password(context)
+    end
+  end
+
+  describe "c_data_slug/0" do
+    import Repo, only: [c_data_slug: 0]
+
+    test "success" do
+      assert %{slug: _slug} = c_data_slug()
+    end
+  end
+
+  describe "c_data_slug/1" do
+    import Repo, only: [c_data_slug: 1]
+
+    setup :c_context
+
+    test "FunctionClauseError", %{context: %{invalid: context}} do
+      assert_raise FunctionClauseError, fn -> c_data_slug(context) end
+    end
+
+    test "success", %{context: %{valid: context}} do
+      assert %{slug: _slug} = c_data_slug(context)
+    end
+  end
+
+  describe "c_param_account/0" do
+    import Repo, only: [c_param_account: 0]
+
+    test "success" do
+      assert %{param: _param} = c_param_account()
+    end
+  end
+
   describe "c_param_account/1" do
     import Repo, only: [c_param_account: 1]
 
-    setup do
-      %{
-        context: %{
-          invalid: %{password: %{correct: ~C"", incorrect: ~C""}},
-          valid: %{password: %{correct: "", incorrect: ""}}
-        }
-      }
-    end
+    setup :c_context
 
     test "FunctionClauseError", %{context: %{invalid: context}} do
       assert_raise FunctionClauseError, fn -> c_param_account(context) end
@@ -105,28 +165,6 @@ defmodule DiacriticalCase.RepoTest do
 
     test "success", %{context: %{valid: context}} do
       assert %{param: _param} = c_param_token(context)
-    end
-  end
-
-  describe "c_password/0" do
-    import Repo, only: [c_password: 0]
-
-    test "success" do
-      assert %{password: _password} = c_password()
-    end
-  end
-
-  describe "c_password/1" do
-    import Repo, only: [c_password: 1]
-
-    setup :c_context
-
-    test "FunctionClauseError", %{context: %{invalid: context}} do
-      assert_raise FunctionClauseError, fn -> c_password(context) end
-    end
-
-    test "success", %{context: %{valid: context}} do
-      assert %{password: _password} = c_password(context)
     end
   end
 

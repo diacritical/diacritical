@@ -42,12 +42,12 @@ defmodule DiacriticalSchema.OptionTest do
 
   @spec c_param_option(context()) :: context_merge()
   defp c_param_option(c) when is_map(c) do
-    slug = "example"
+    %{slug: %{slugified: slug, unslugified: slug!}} = c_data_slug()
 
     %{
       param: %{
         atom: %{key: slug},
-        err: %{key: "-#{slug}"},
+        err: %{key: slug!},
         invalid: [],
         string: %{"key" => slug}
       }

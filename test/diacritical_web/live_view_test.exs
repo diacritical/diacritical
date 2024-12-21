@@ -114,8 +114,8 @@ defmodule DiacriticalWeb.LiveViewTest do
       :c_socket_nonce
     ]
 
-    setup %{session: session, token: %{loaded: %{data: data}}} do
-      %{session: Map.merge(session, %{token: %{"token" => data}})}
+    setup %{session: session, token: %{loaded: token}} do
+      %{session: Map.merge(session, %{token: %{"token" => token.data}})}
     end
 
     test "FunctionClauseError (&1)", %{

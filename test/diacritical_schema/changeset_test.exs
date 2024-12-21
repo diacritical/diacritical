@@ -18,8 +18,9 @@ defmodule DiacriticalSchema.ChangesetTest do
   @type context_merge() :: DiacriticalCase.context_merge()
 
   @spec c_changeset_digest(context()) :: context_merge()
-  defp c_changeset_digest(%{password: %{correct: password}})
-       when is_binary(password) do
+  defp c_changeset_digest(c) when is_map(c) do
+    %{password: %{correct: password}} = c_data_password()
+
     changeset =
       Ecto.Changeset.change(
         {
@@ -64,22 +65,21 @@ defmodule DiacriticalSchema.ChangesetTest do
   @spec c_changeset_email(context()) :: context_merge()
   defp c_changeset_email(c) when is_map(c) do
     data = {%{email: nil}, %{email: :string}}
+    %{email: %{addressed: email, unaddressed: email!}} = c_data_email()
 
     %{
       changeset: %{
-        addressed: Ecto.Changeset.change(data, %{email: "jdoe@example.com"}),
+        addressed: Ecto.Changeset.change(data, %{email: email}),
         invalid: %{},
-        unaddressed: Ecto.Changeset.change(data, %{email: "jdoeexample.com"})
+        unaddressed: Ecto.Changeset.change(data, %{email: email!})
       }
     }
   end
 
   @spec c_changeset_password(context()) :: context_merge()
-  defp c_changeset_password(%{
-         password: %{correct: password, incorrect: password!}
-       })
-       when is_binary(password) and is_binary(password!) do
+  defp c_changeset_password(c) when is_map(c) do
     data = {%{password: nil}, %{password: :string}}
+    %{password: %{correct: password, incorrect: password!}} = c_data_password()
 
     %{
       changeset: %{
@@ -98,13 +98,13 @@ defmodule DiacriticalSchema.ChangesetTest do
   @spec c_changeset_slug(context()) :: context_merge()
   defp c_changeset_slug(c) when is_map(c) do
     data = {%{slug: nil}, %{slug: :string}}
-    slug = "example"
+    %{slug: %{slugified: slug, unslugified: slug!}} = c_data_slug()
 
     %{
       changeset: %{
         invalid: %{},
         slugified: Ecto.Changeset.change(data, %{slug: slug}),
-        unslugified: Ecto.Changeset.change(data, %{slug: "-#{slug}"})
+        unslugified: Ecto.Changeset.change(data, %{slug: slug!})
       }
     }
   end
@@ -114,7 +114,7 @@ defmodule DiacriticalSchema.ChangesetTest do
   describe "put_digest/1" do
     import Changeset, only: [put_digest: 1]
 
-    setup [:c_password, :c_changeset_digest]
+    setup :c_changeset_digest
 
     test "FunctionClauseError", %{changeset: %{invalid: changeset}} do
       assert_raise FunctionClauseError, fn -> put_digest(changeset) end
@@ -133,7 +133,7 @@ defmodule DiacriticalSchema.ChangesetTest do
   describe "put_digest/2" do
     import Changeset, only: [put_digest: 2]
 
-    setup ~W[c_password c_changeset_digest c_key_password]a
+    setup [:c_changeset_digest, :c_key_password]
 
     test "FunctionClauseError (&1)", %{
       changeset: %{invalid: changeset},
@@ -168,7 +168,7 @@ defmodule DiacriticalSchema.ChangesetTest do
   describe "put_digest/3" do
     import Changeset, only: [put_digest: 3]
 
-    setup ~W[c_password c_changeset_digest c_key_password]a
+    setup [:c_changeset_digest, :c_key_password]
 
     setup do
       %{digest_key: %{invalid: "password_digest", valid: :password_digest}}
@@ -329,7 +329,7 @@ defmodule DiacriticalSchema.ChangesetTest do
   describe "validate_password/1" do
     import Changeset, only: [validate_password: 1]
 
-    setup [:c_password, :c_changeset_password]
+    setup :c_changeset_password
 
     test "FunctionClauseError", %{changeset: %{invalid: changeset}} do
       assert_raise FunctionClauseError, fn -> validate_password(changeset) end
@@ -351,7 +351,7 @@ defmodule DiacriticalSchema.ChangesetTest do
   describe "validate_password/2" do
     import Changeset, only: [validate_password: 2]
 
-    setup ~W[c_password c_changeset_password c_key_password]a
+    setup [:c_changeset_password, :c_key_password]
 
     test "FunctionClauseError (&1)", %{
       changeset: %{invalid: changeset},

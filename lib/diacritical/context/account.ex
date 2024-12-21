@@ -57,15 +57,15 @@ defmodule Diacritical.Context.Account do
   ## Examples
 
       iex> checkout_repo()
-      iex> %{token: %{built: %{data: data, type: type}}} = c_token(%{})
+      iex> %{token: %{built: token}} = c_token(%{})
       iex>
-      iex> delete_token_by_data_and_type(data, type)
+      iex> delete_token_by_data_and_type(token.data, token.type)
       {0, nil}
 
       iex> checkout_repo()
-      iex> %{token: %{loaded: %{data: data, type: type}}} = c_token_loaded()
+      iex> %{token: %{loaded: token}} = c_token_loaded()
       iex>
-      iex> delete_token_by_data_and_type(data, type)
+      iex> delete_token_by_data_and_type(token.data, token.type)
       {1, nil}
 
   """
@@ -109,14 +109,14 @@ defmodule Diacritical.Context.Account do
   ## Examples
 
       iex> checkout_repo()
-      iex> %{password: %{incorrect: password}} = c_password()
+      iex> %{password: %{incorrect: password}} = c_data_password()
       iex> %{account: %{loaded: account}} = c_account_loaded(%{})
       iex>
       iex> get_by_email_and_password(account.email, password)
       nil
 
       iex> checkout_repo()
-      iex> %{password: %{correct: password}} = c_password()
+      iex> %{password: %{correct: password}} = c_data_password()
       iex> %{account: %{loaded: account}} = c_account_loaded(%{})
       iex>
       iex> get_by_email_and_password(account.email, password)
@@ -140,15 +140,16 @@ defmodule Diacritical.Context.Account do
   ## Examples
 
       iex> checkout_repo()
-      iex> %{token: %{built: %{data: data, type: type}}} = c_token(%{})
+      iex> %{token: %{built: token}} = c_token(%{})
       iex>
-      iex> get_by_token_data_and_type(data, type)
+      iex> get_by_token_data_and_type(token.data, token.type)
       nil
 
       iex> checkout_repo()
-      iex> %{token: %{loaded: %{data: data, type: type}}} = c_token_loaded()
+      iex> %{token: %{loaded: token}} = c_token_loaded()
       iex>
-      iex> %DiacriticalSchema.Account{} = get_by_token_data_and_type(data, type)
+      iex> %DiacriticalSchema.Account{} =
+      ...>   get_by_token_data_and_type(token.data, token.type)
 
   """
   @doc since: "0.16.0"
@@ -169,14 +170,12 @@ defmodule Diacritical.Context.Account do
   ## Examples
 
       iex> checkout_repo()
-      iex> c = c_password()
-      iex> %{param: %{err: param}} = c_param_account(c)
+      iex> %{param: %{err: param}} = c_param_account()
       iex>
       iex> {:error, %Ecto.Changeset{}} = insert(param)
 
       iex> checkout_repo()
-      iex> c = c_password()
-      iex> %{param: %{atom: param}} = c_param_account(c)
+      iex> %{param: %{atom: param}} = c_param_account()
       iex>
       iex> {:ok, %DiacriticalSchema.Account{}} = insert(param)
 

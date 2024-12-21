@@ -156,14 +156,15 @@ defmodule Diacritical.RepoTest do
   end
 
   @spec c_clauses(context()) :: context_merge()
-  defp c_clauses(%{struct: %{loaded: %{id: id}}}) when is_binary(id) do
-    %{clauses: [id: id]}
+  defp c_clauses(%{struct: %{loaded: struct}})
+       when is_struct(struct, TestSchema) do
+    %{clauses: [id: struct.id]}
   end
 
   @spec c_query_where(context()) :: context_merge()
-  defp c_query_where(%{schema: schema, struct: %{loaded: %{id: id}}})
-       when is_atom(schema) and is_binary(id) do
-    %{query: %{where: from(s in schema, where: s.id == ^id)}}
+  defp c_query_where(%{schema: schema, struct: %{loaded: struct}})
+       when is_atom(schema) and is_struct(struct, TestSchema) do
+    %{query: %{where: from(s in schema, where: s.id == ^struct.id)}}
   end
 
   @spec c_field(context()) :: context_merge()
@@ -857,8 +858,8 @@ defmodule Diacritical.RepoTest do
 
     setup ~W[checkout_repo c_schema c_source c_struct_loaded]a
 
-    test "success", %{schema: schema, struct: %{loaded: %{id: id} = struct}} do
-      assert get(schema, id) == struct
+    test "success", %{schema: schema, struct: %{loaded: struct}} do
+      assert get(schema, struct.id) == struct
     end
   end
 
@@ -868,8 +869,8 @@ defmodule Diacritical.RepoTest do
 
     setup ~W[checkout_repo c_schema c_source c_struct_loaded]a
 
-    test "success", %{schema: schema, struct: %{loaded: %{id: id} = struct}} do
-      assert get(schema, id, []) == struct
+    test "success", %{schema: schema, struct: %{loaded: struct}} do
+      assert get(schema, struct.id, []) == struct
     end
   end
 
@@ -879,8 +880,8 @@ defmodule Diacritical.RepoTest do
 
     setup ~W[checkout_repo c_schema c_source c_struct_loaded]a
 
-    test "success", %{schema: schema, struct: %{loaded: %{id: id} = struct}} do
-      assert get!(schema, id) == struct
+    test "success", %{schema: schema, struct: %{loaded: struct}} do
+      assert get!(schema, struct.id) == struct
     end
   end
 
@@ -890,8 +891,8 @@ defmodule Diacritical.RepoTest do
 
     setup ~W[checkout_repo c_schema c_source c_struct_loaded]a
 
-    test "success", %{schema: schema, struct: %{loaded: %{id: id} = struct}} do
-      assert get!(schema, id, []) == struct
+    test "success", %{schema: schema, struct: %{loaded: struct}} do
+      assert get!(schema, struct.id, []) == struct
     end
   end
 

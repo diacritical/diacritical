@@ -131,10 +131,10 @@ defmodule DiacriticalWeb.LiveView do
       {:cont, socket!}
 
       iex> checkout_repo()
-      iex> %{token: %{loaded: %{data: data}}} = c = c_token_loaded()
+      iex> %{token: %{loaded: token}} = c = c_token_loaded()
       iex> %{name: %{valid: name}} = c_name_default(%{})
       iex> %{param: %{valid: param}} = c_param()
-      iex> session = %{"token" => data}
+      iex> session = %{"token" => token.data}
       iex> %{socket: %{authenticated: socket!, signed: socket}} =
       ...>   c_socket_nonce(c)
       iex>
@@ -142,10 +142,10 @@ defmodule DiacriticalWeb.LiveView do
       {:cont, socket!}
 
       iex> checkout_repo()
-      iex> %{token: %{loaded: %{data: data}}} = c = c_token_loaded()
+      iex> %{token: %{loaded: token}} = c = c_token_loaded()
       iex> %{name: %{valid: name}} = c_name_default(%{})
       iex> %{param: %{valid: param}} = c_param()
-      iex> session = %{"token" => data}
+      iex> session = %{"token" => token.data}
       iex> %{socket: %{assigned: socket}} = c_socket_nonce(c)
       iex>
       iex> on_mount(name, param, session, socket)

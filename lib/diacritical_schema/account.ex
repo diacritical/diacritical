@@ -166,14 +166,12 @@ defmodule DiacriticalSchema.Account do
   ## Examples
 
       iex> checkout_repo()
-      iex> c = c_password()
-      iex> %{param: %{err: param}} = c_param_account(c)
+      iex> %{param: %{err: param}} = c_param_account()
       iex>
       iex> %Ecto.Changeset{valid?: false} = changeset(param)
 
       iex> checkout_repo()
-      iex> c = c_password()
-      iex> %{param: %{atom: param}} = c_param_account(c)
+      iex> %{param: %{atom: param}} = c_param_account()
       iex>
       iex> %Ecto.Changeset{valid?: true} = changeset(param)
 
@@ -257,14 +255,14 @@ defmodule DiacriticalSchema.Account do
 
   ## Examples
 
-      iex> %{password: %{incorrect: password}} = c = c_password()
-      iex> %{account: %{built: schema}} = c_account(c)
+      iex> %{password: %{incorrect: password}} = c_data_password()
+      iex> %{account: %{built: schema}} = c_account()
       iex>
       iex> valid_password?(schema, password)
       false
 
-      iex> %{password: %{correct: password}} = c = c_password()
-      iex> %{account: %{built: schema}} = c_account(c)
+      iex> %{password: %{correct: password}} = c_data_password()
+      iex> %{account: %{built: schema}} = c_account()
       iex>
       iex> valid_password?(schema, password)
       true

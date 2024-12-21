@@ -121,7 +121,7 @@ defmodule DiacriticalWeb.RouterTest do
       :c_opt
     ]
 
-    setup %{conn: conn = %{valid: valid}, token: %{loaded: %{data: data}}} do
+    setup %{conn: conn = %{valid: valid}, token: %{loaded: token}} do
       key = "__Host-token"
 
       %{
@@ -131,9 +131,9 @@ defmodule DiacriticalWeb.RouterTest do
             %{
               cookie:
                 valid
-                |> put_resp_cookie(key, data, sign: true)
+                |> put_resp_cookie(key, token.data, sign: true)
                 |> then(&put_req_cookie(&1, key, &1.resp_cookies[key].value)),
-              token: put_session(valid, "token", data)
+              token: put_session(valid, "token", token.data)
             }
           )
       }
@@ -146,22 +146,22 @@ defmodule DiacriticalWeb.RouterTest do
     test "token", %{
       conn: %{token: conn},
       opt: opt,
-      token: %{loaded: %{data: data}}
+      token: %{loaded: token}
     } do
       conn! = browser(conn, opt)
       assert conn!.private.phoenix_format == "html"
-      assert get_session(conn!, "token") == data
+      assert get_session(conn!, "token") == token.data
       assert %Account{} = conn!.assigns.account
     end
 
     test "cookie", %{
       conn: %{cookie: conn},
       opt: opt,
-      token: %{loaded: %{data: data}}
+      token: %{loaded: token}
     } do
       conn! = browser(conn, opt)
       assert conn!.private.phoenix_format == "html"
-      assert get_session(conn!, "token") == data
+      assert get_session(conn!, "token") == token.data
       assert %Account{} = conn!.assigns.account
     end
 
