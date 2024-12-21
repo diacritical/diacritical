@@ -1,5 +1,5 @@
 ARG DEBIAN="bookworm-20241202-slim"
-ARG ELIXIR="1.17.3"
+ARG ELIXIR="1.18.0"
 ARG OTP="27.2"
 
 ARG APP="debian:${DEBIAN}"

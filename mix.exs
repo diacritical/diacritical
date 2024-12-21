@@ -170,7 +170,7 @@ defmodule DiacriticalApp.MixProject do
       deps_path: "dep",
       dialyzer: [ignore_warnings: ".dialyzer.exs", plt_add_apps: [:ex_unit]],
       docs: [groups_for_modules: groups_for_modules(env)],
-      elixir: "~> 1.17",
+      elixir: "~> 1.18",
       elixirc_options: [warnings_as_errors: true],
       elixirc_paths: elixirc_paths(env),
       homepage_url: "https://diacritical.net",
