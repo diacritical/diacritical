@@ -147,12 +147,12 @@
   earmark_parser: {
     :hex,
     :earmark_parser,
-    "1.4.41",
-    "ab34711c9dc6212dda44fcd20ecb87ac3f3fce6f0ca2f28d4a00e4154f8cd599",
+    "1.4.42",
+    "f23d856f41919f17cd06a493923a722d87a2d684f143a1e663c04a2b93100682",
     [:mix],
     [],
     "hexpm",
-    "a81a04c7e34b6617c2792e291b5a2e57ab316365c2644ddc553bb9ed863ebefa"
+    "6915b6ca369b5f7346636a2f41c6a6d78b5af419d61a611079189233358b8b8b"
   },
   ecto: {
     :hex,
@@ -361,12 +361,12 @@
   hpax: {
     :hex,
     :hpax,
-    "1.0.1",
-    "c857057f89e8bd71d97d9042e009df2a42705d6d690d54eca84c8b29af0787b0",
+    "1.0.2",
+    "762df951b0c399ff67cc57c3995ec3cf46d696e41f0bba17da0518d94acd4aac",
     [:mix],
     [],
     "hexpm",
-    "4e2d5a4f76ae1e3048f35ae7adb1641c36265510a2d4638157fbcb53dda38445"
+    "2f09b4c1074e0abd846747329eaa26d535be0eb3d189fa69d812bfb8bfefd32f"
   },
   jason: {
     :hex,
