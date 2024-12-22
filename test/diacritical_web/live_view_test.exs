@@ -13,6 +13,7 @@ defmodule DiacriticalWeb.LiveViewTest do
   alias DiacriticalWeb.LiveView
 
   alias Context.Account
+  alias Context.Option
   alias HTML.Layout
 
   @typedoc "Represents the context."
@@ -128,6 +129,19 @@ defmodule DiacriticalWeb.LiveViewTest do
       end
 
     %{socket: Map.put(socket, :nonce, assign(socket.valid, :nonce, nonce))}
+  end
+
+  @spec c_name_option(context()) :: context_merge()
+  defp c_name_option(c) when is_map(c) do
+    name = c[:name] || c_name()[:name]
+    %{name: Map.put(name, :option, :option)}
+  end
+
+  @spec c_socket_option(context()) :: context_merge()
+  defp c_socket_option(c) when is_map(c) do
+    socket = c[:socket] || c_socket()[:socket]
+    option = Map.new(Option.all(), &{&1.key, &1.value})
+    %{socket: Map.put(socket, :option, assign(socket.valid, :option, option))}
   end
 
   @spec c_name_require_account(context()) :: context_merge()
@@ -252,6 +266,21 @@ defmodule DiacriticalWeb.LiveViewTest do
       param: %{valid: param},
       session: %{nonce: session},
       socket: %{nonce: socket!, valid: socket}
+    } do
+      assert on_mount(name, param, session, socket) == {:cont, socket!}
+    end
+  end
+
+  describe "on_mount/4 when :option = name" do
+    import LiveView, only: [on_mount: 4]
+
+    setup ~W[checkout_repo c_name_option c_param c_session c_socket_option]a
+
+    test "success", %{
+      name: %{option: name},
+      param: %{valid: param},
+      session: %{valid: session},
+      socket: %{option: socket!, valid: socket}
     } do
       assert on_mount(name, param, session, socket) == {:cont, socket!}
     end

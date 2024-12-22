@@ -18,6 +18,7 @@ defmodule DiacriticalWeb.LiveView do
   alias DiacriticalWeb.HTML
 
   alias Context.Account
+  alias Context.Option
   alias HTML.Layout
 
   @typedoc "Represents the session."
@@ -31,6 +32,10 @@ defmodule DiacriticalWeb.LiveView do
   @typedoc "Represents the potential nonce."
   @typedoc since: "0.8.0"
   @type maybe_nonce() :: nil | DiacriticalWeb.nonce()
+
+  @typedoc "Represents the potential option."
+  @typedoc since: "0.23.0"
+  @type maybe_option() :: %{String.t() => String.t()}
 
   @typedoc "Represents the potential tenant."
   @typedoc since: "0.23.0"
@@ -90,6 +95,11 @@ defmodule DiacriticalWeb.LiveView do
     session["nonce"]
   end
 
+  @spec maybe_get_option() :: maybe_option()
+  defp maybe_get_option() do
+    Map.new(Option.all(), &{&1.key, &1.value})
+  end
+
   @spec maybe_get_tenant(session()) :: maybe_tenant()
   defp maybe_get_tenant(session) when is_map(session) do
     session["tenant"]
@@ -113,6 +123,15 @@ defmodule DiacriticalWeb.LiveView do
       iex> %{param: %{valid: param}} = c_param()
       iex> %{session: %{nonce: session}} = c = c_session_nonce(%{})
       iex> %{socket: %{nonce: socket!, valid: socket}} = c_socket_nonce(c)
+      iex>
+      iex> on_mount(name, param, session, socket)
+      {:cont, socket!}
+
+      iex> checkout_repo()
+      iex> %{name: %{option: name}} = c_name_option(%{})
+      iex> %{param: %{valid: param}} = c_param()
+      iex> %{session: %{valid: session}} = c_session(%{})
+      iex> %{socket: %{option: socket!, valid: socket}} = c_socket_option(%{})
       iex>
       iex> on_mount(name, param, session, socket)
       {:cont, socket!}
@@ -152,6 +171,12 @@ defmodule DiacriticalWeb.LiveView do
     end
   end
 
+  def on_mount(:option, param, session, socket)
+      when is_map(param) and is_map(session) and
+             is_struct(socket, Phoenix.LiveView.Socket) do
+    {:cont, assign_new(socket, :option, fn -> maybe_get_option() end)}
+  end
+
   def on_mount(:require_account, param, session, socket)
       when is_map(param) and is_map(session) and
              is_struct(socket, Phoenix.LiveView.Socket) do
@@ -174,8 +199,9 @@ defmodule DiacriticalWeb.LiveView do
       when is_atom(name) and is_map(param) and is_map(session) and
              is_struct(socket, Phoenix.LiveView.Socket) do
     with {:cont, socket} <- on_mount(:nonce, param, session, socket),
-         {:cont, socket} <- on_mount(:tenant, param, session, socket) do
-      on_mount(:account, param, session, socket)
+         {:cont, socket} <- on_mount(:tenant, param, session, socket),
+         {:cont, socket} <- on_mount(:account, param, session, socket) do
+      on_mount(:option, param, session, socket)
     end
   end
 
