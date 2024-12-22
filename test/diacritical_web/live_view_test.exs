@@ -48,9 +48,24 @@ defmodule DiacriticalWeb.LiveViewTest do
     %{session: Map.put(session, :token, %{"token" => data})}
   end
 
+  @spec c_socket_redirected() :: context_merge()
+  @spec c_socket_redirected(context()) :: context_merge()
+  defp c_socket_redirected(c \\ %{}) when is_map(c) do
+    socket = c[:socket] || c_socket()[:socket]
+
+    redirected =
+      %{socket.valid | redirected: {:redirect, %{to: "/hello", status: 302}}}
+
+    %{socket: Map.put(socket, :redirected, redirected)}
+  end
+
   @spec c_socket_account(context()) :: context_merge()
   defp c_socket_account(c) when is_map(c) do
-    socket = c[:socket] || c_socket()[:socket]
+    socket =
+      case c[:socket][:redirected] do
+        nil -> c_socket_redirected()[:socket]
+        _socket -> c[:socket]
+      end
 
     data =
       with nil <- c[:session][:token],
@@ -95,17 +110,6 @@ defmodule DiacriticalWeb.LiveViewTest do
     %{session: Map.put(session, :nonce, %{"nonce" => nonce})}
   end
 
-  @spec c_socket_redirected() :: context_merge()
-  @spec c_socket_redirected(context()) :: context_merge()
-  defp c_socket_redirected(c \\ %{}) when is_map(c) do
-    socket = c[:socket] || c_socket()[:socket]
-
-    redirected =
-      %{socket.valid | redirected: {:redirect, %{to: "/hello", status: 302}}}
-
-    %{socket: Map.put(socket, :redirected, redirected)}
-  end
-
   @spec c_socket_nonce(context()) :: context_merge()
   defp c_socket_nonce(c) when is_map(c) do
     socket =
@@ -124,6 +128,12 @@ defmodule DiacriticalWeb.LiveViewTest do
       end
 
     %{socket: Map.put(socket, :nonce, assign(socket.valid, :nonce, nonce))}
+  end
+
+  @spec c_name_require_account(context()) :: context_merge()
+  defp c_name_require_account(c) when is_map(c) do
+    name = c[:name] || c_name()[:name]
+    %{name: Map.put(name, :require_account, :require_account)}
   end
 
   @spec c_tenant() :: context_merge()
@@ -244,6 +254,36 @@ defmodule DiacriticalWeb.LiveViewTest do
       socket: %{nonce: socket!, valid: socket}
     } do
       assert on_mount(name, param, session, socket) == {:cont, socket!}
+    end
+  end
+
+  describe "on_mount/4 when :require_account = name" do
+    import LiveView, only: [on_mount: 4]
+
+    setup [
+      :checkout_repo,
+      :c_name_require_account,
+      :c_param,
+      :c_session,
+      :c_socket_account
+    ]
+
+    test "failure", %{
+      name: %{require_account: name},
+      param: %{valid: param},
+      session: %{valid: session},
+      socket: %{redirected: socket!, valid: socket}
+    } do
+      assert on_mount(name, param, session, socket) == {:halt, socket!}
+    end
+
+    test "success", %{
+      name: %{require_account: name},
+      param: %{valid: param},
+      session: %{valid: session},
+      socket: %{account: socket}
+    } do
+      assert on_mount(name, param, session, socket) == {:cont, socket}
     end
   end
 

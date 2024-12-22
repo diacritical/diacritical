@@ -117,6 +117,15 @@ defmodule DiacriticalWeb.LiveView do
       iex> on_mount(name, param, session, socket)
       {:cont, socket!}
 
+      iex> checkout_repo()
+      iex> %{name: %{require_account: name}} = c_name_require_account(%{})
+      iex> %{param: %{valid: param}} = c_param()
+      iex> %{session: %{valid: session}} = c_session(%{})
+      iex> %{socket: %{account: socket}} = c_socket_account(%{})
+      iex>
+      iex> on_mount(name, param, session, socket)
+      {:cont, socket}
+
       iex> %{name: %{tenant: name}} = c_name_tenant(%{})
       iex> %{param: %{valid: param}} = c_param()
       iex> %{session: %{tenant: session}} = c = c_session_tenant(%{})
@@ -140,6 +149,15 @@ defmodule DiacriticalWeb.LiveView do
     case maybe_get_nonce(session) do
       nil -> {:halt, redirect(socket, to: ~p"/hello")}
       nonce -> {:cont, assign_new(socket, :nonce, fn -> nonce end)}
+    end
+  end
+
+  def on_mount(:require_account, param, session, socket)
+      when is_map(param) and is_map(session) and
+             is_struct(socket, Phoenix.LiveView.Socket) do
+    case socket.assigns[:account] do
+      nil -> {:halt, redirect(socket, to: ~p"/hello")}
+      _account -> {:cont, socket}
     end
   end
 
