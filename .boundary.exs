@@ -3,6 +3,7 @@
     Diacritical,
     Diacritical.Context,
     Diacritical.Context.Account,
+    Diacritical.Context.Option,
     Diacritical.Gettext,
     Diacritical.Mailer,
     Diacritical.Repo,
