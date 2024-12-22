@@ -4,7 +4,6 @@ defmodule DiacriticalWeb.LiveView.PageTest do
 
   use DiacriticalCase.Conn, async: true
 
-  alias DiacriticalCase
   alias DiacriticalWeb
 
   alias DiacriticalWeb.HTML
@@ -12,19 +11,6 @@ defmodule DiacriticalWeb.LiveView.PageTest do
 
   alias HTML.Layout
   alias LiveView.Page
-
-  @typedoc "Represents the context."
-  @typedoc since: "0.8.0"
-  @type context() :: DiacriticalCase.context()
-
-  @typedoc "Represents the context merge value."
-  @typedoc since: "0.8.0"
-  @type context_merge() :: DiacriticalCase.context_merge()
-
-  @spec c_socket(context()) :: context_merge()
-  defp c_socket(c) when is_map(c) do
-    %{socket: %{invalid: %{}, valid: %Phoenix.LiveView.Socket{}}}
-  end
 
   doctest Page, import: true
 

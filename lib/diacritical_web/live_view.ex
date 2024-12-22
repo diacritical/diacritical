@@ -7,7 +7,6 @@ defmodule DiacriticalWeb.LiveView do
     router: :"Elixir.DiacriticalWeb.Router",
     statics: DiacriticalWeb.static_path()
 
-  import DiacriticalWeb.Token, only: [verify: 1]
   import Phoenix.Component, only: [assign_new: 3]
   import Phoenix.LiveView
 
@@ -21,21 +20,21 @@ defmodule DiacriticalWeb.LiveView do
   alias Context.Account
   alias HTML.Layout
 
-  @typedoc "Represents the socket."
+  @typedoc "Represents the session."
   @typedoc since: "0.8.0"
-  @type socket() :: Phoenix.LiveView.Socket.t()
+  @type session() :: map()
+
+  @typedoc "Represents the potential account."
+  @typedoc since: "0.17.0"
+  @type maybe_account() :: Account.maybe_account()
 
   @typedoc "Represents the potential nonce."
   @typedoc since: "0.8.0"
   @type maybe_nonce() :: nil | DiacriticalWeb.nonce()
 
-  @typedoc "Represents the potential host."
-  @typedoc since: "0.11.0"
-  @type maybe_host() :: nil | DiacriticalWeb.host()
-
-  @typedoc "Represents the potential account."
-  @typedoc since: "0.17.0"
-  @type maybe_account() :: Account.maybe_account()
+  @typedoc "Represents the potential tenant."
+  @typedoc since: "0.23.0"
+  @type maybe_tenant() :: nil | DiacriticalWeb.tenant()
 
   @typedoc "Represents the session name."
   @typedoc since: "0.8.0"
@@ -45,9 +44,9 @@ defmodule DiacriticalWeb.LiveView do
   @typedoc since: "0.8.0"
   @type param() :: Phoenix.LiveView.unsigned_params()
 
-  @typedoc "Represents the session."
+  @typedoc "Represents the socket."
   @typedoc since: "0.8.0"
-  @type session() :: map()
+  @type socket() :: Phoenix.LiveView.Socket.t()
 
   @typedoc "Represents the status."
   @typedoc since: "0.8.0"
@@ -79,32 +78,21 @@ defmodule DiacriticalWeb.LiveView do
   @typedoc since: "0.8.0"
   @type render() :: DiacriticalWeb.render()
 
-  @spec maybe_get_nonce(socket()) :: maybe_nonce()
-  defp maybe_get_nonce(socket)
-       when is_struct(socket, Phoenix.LiveView.Socket) do
-    if connected?(socket) do
-      maybe_token = get_connect_params(socket)["_csp_token"]
-
-      case verify(maybe_token) do
-        {:error, _error} -> nil
-        {:ok, nonce} -> nonce
-      end
-    end
-  end
-
-  @spec maybe_get_host(socket()) :: maybe_host()
-  defp maybe_get_host(socket)
-       when is_struct(socket, Phoenix.LiveView.Socket) do
-    if connected?(socket) do
-      get_connect_params(socket)["_host"]
-    end
-  end
-
   @spec maybe_get_account(session()) :: maybe_account()
   defp maybe_get_account(session) when is_map(session) do
     if token = session["token"] do
       Account.get_by_token_data_and_type(token, "session")
     end
+  end
+
+  @spec maybe_get_nonce(session()) :: maybe_nonce()
+  defp maybe_get_nonce(session) when is_map(session) do
+    session["nonce"]
+  end
+
+  @spec maybe_get_tenant(session()) :: maybe_tenant()
+  defp maybe_get_tenant(session) when is_map(session) do
+    session["tenant"]
   end
 
   @doc """
@@ -113,63 +101,63 @@ defmodule DiacriticalWeb.LiveView do
   ## Examples
 
       iex> checkout_repo()
-      iex> %{name: %{valid: name}} = c_name_default(%{})
+      iex> %{name: %{account: name}} = c_name_account(%{})
       iex> %{param: %{valid: param}} = c_param()
-      iex> %{session: %{valid: session}} = c_session()
-      iex> %{socket: %{halted: socket!, unsigned: socket}} = c_socket_nonce(%{})
-      iex>
-      iex> on_mount(name, param, session, socket)
-      {:halt, socket!}
-
-      iex> checkout_repo()
-      iex> %{name: %{valid: name}} = c_name_default(%{})
-      iex> %{param: %{valid: param}} = c_param()
-      iex> %{session: %{valid: session}} = c_session()
-      iex> %{socket: %{mounted: socket!, signed: socket}} = c_socket_nonce(%{})
+      iex> %{session: %{token: session}} = c = c_session_token(%{})
+      iex> %{socket: %{account: socket!, valid: socket}} = c_socket_account(c)
       iex>
       iex> on_mount(name, param, session, socket)
       {:cont, socket!}
 
-      iex> checkout_repo()
-      iex> %{token: %{loaded: token}} = c = c_token_loaded()
-      iex> %{name: %{valid: name}} = c_name_default(%{})
+      iex> %{name: %{nonce: name}} = c_name_nonce(%{})
       iex> %{param: %{valid: param}} = c_param()
-      iex> session = %{"token" => token.data}
-      iex> %{socket: %{authenticated: socket!, signed: socket}} =
-      ...>   c_socket_nonce(c)
+      iex> %{session: %{nonce: session}} = c = c_session_nonce(%{})
+      iex> %{socket: %{nonce: socket!, valid: socket}} = c_socket_nonce(c)
       iex>
       iex> on_mount(name, param, session, socket)
       {:cont, socket!}
 
-      iex> checkout_repo()
-      iex> %{token: %{loaded: token}} = c = c_token_loaded()
-      iex> %{name: %{valid: name}} = c_name_default(%{})
+      iex> %{name: %{tenant: name}} = c_name_tenant(%{})
       iex> %{param: %{valid: param}} = c_param()
-      iex> session = %{"token" => token.data}
-      iex> %{socket: %{assigned: socket}} = c_socket_nonce(c)
+      iex> %{session: %{tenant: session}} = c = c_session_tenant(%{})
+      iex> %{socket: %{tenant: socket!, valid: socket}} = c_socket_tenant(c)
       iex>
       iex> on_mount(name, param, session, socket)
-      {:cont, socket}
+      {:cont, socket!}
 
   """
   @doc since: "0.8.0"
   @spec on_mount(name(), param(), session(), socket()) :: hook()
+  def on_mount(:account, param, session, socket)
+      when is_map(param) and is_map(session) and
+             is_struct(socket, Phoenix.LiveView.Socket) do
+    {:cont, assign_new(socket, :account, fn -> maybe_get_account(session) end)}
+  end
+
+  def on_mount(:nonce, param, session, socket)
+      when is_map(param) and is_map(session) and
+             is_struct(socket, Phoenix.LiveView.Socket) do
+    case maybe_get_nonce(session) do
+      nil -> {:halt, redirect(socket, to: ~p"/hello")}
+      nonce -> {:cont, assign_new(socket, :nonce, fn -> nonce end)}
+    end
+  end
+
+  def on_mount(:tenant, param, session, socket)
+      when is_map(param) and is_map(session) and
+             is_struct(socket, Phoenix.LiveView.Socket) do
+    case maybe_get_tenant(session) do
+      nil -> {:halt, redirect(socket, to: ~p"/hello")}
+      tenant -> {:cont, assign_new(socket, :tenant, fn -> tenant end)}
+    end
+  end
+
   def on_mount(name, param, session, socket)
       when is_atom(name) and is_map(param) and is_map(session) and
              is_struct(socket, Phoenix.LiveView.Socket) do
-    maybe_nonce = maybe_get_nonce(socket)
-    maybe_host = maybe_get_host(socket)
-
-    if connected?(socket) && !(maybe_nonce || maybe_host) do
-      {:halt, redirect(socket, to: ~p"/hello")}
-    else
-      {
-        :cont,
-        socket
-        |> assign_new(:nonce, fn -> maybe_nonce end)
-        |> assign_new(:tenant, fn -> DiacriticalWeb.to_tenant(maybe_host) end)
-        |> assign_new(:account, fn -> maybe_get_account(session) end)
-      }
+    with {:cont, socket} <- on_mount(:nonce, param, session, socket),
+         {:cont, socket} <- on_mount(:tenant, param, session, socket) do
+      on_mount(:account, param, session, socket)
     end
   end
 

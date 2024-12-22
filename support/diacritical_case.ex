@@ -12,6 +12,7 @@ defmodule DiacriticalCase do
       ExUnit,
       Floki,
       Phoenix,
+      Phoenix.LiveView,
       Plug
     ]
 

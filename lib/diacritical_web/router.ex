@@ -49,10 +49,14 @@ defmodule DiacriticalWeb.Router do
   @dialyzer {:no_unused, put_nonce: 2}
   @spec put_nonce(conn(), opt()) :: conn()
   defp put_nonce(conn, _opt) when is_struct(conn, Plug.Conn) do
-    18
-    |> :crypto.strong_rand_bytes()
-    |> Base.url_encode64()
-    |> then(&assign(conn, :nonce, &1))
+    nonce =
+      18
+      |> :crypto.strong_rand_bytes()
+      |> Base.url_encode64()
+
+    conn
+    |> put_session("nonce", nonce)
+    |> assign(:nonce, nonce)
   end
 
   @dialyzer {:no_unused, content_security_policy: 1}
@@ -119,9 +123,11 @@ defmodule DiacriticalWeb.Router do
   @dialyzer {:no_unused, put_tenant: 2}
   @spec put_tenant(conn(), opt()) :: conn()
   defp put_tenant(%Plug.Conn{host: host} = conn, _opt) when is_binary(host) do
-    host
-    |> DiacriticalWeb.to_tenant()
-    |> then(&assign(conn, :tenant, &1))
+    tenant = DiacriticalWeb.to_tenant(host)
+
+    conn
+    |> put_session("tenant", tenant)
+    |> assign(:tenant, tenant)
   end
 
   @dialyzer {:no_unused, get_signed_cookie: 2}

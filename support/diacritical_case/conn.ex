@@ -113,6 +113,21 @@ defmodule DiacriticalCase.Conn do
 
   ## Example
 
+      iex> %{socket: _socket} = c_socket()
+
+  """
+  @doc since: "0.23.0"
+  @spec c_socket() :: context_merge()
+  @spec c_socket(context()) :: context_merge()
+  def c_socket(c \\ %{}) when is_map(c) do
+    %{socket: %{invalid: %{}, valid: %Phoenix.LiveView.Socket{}}}
+  end
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
       iex> %{request_path: _request_path} = c_request_path_hello()
 
   """
@@ -156,6 +171,7 @@ defmodule DiacriticalCase.Conn do
       import unquote(__MODULE__)
       import DiacriticalCase.Repo
       import DiacriticalCase.View
+      import Phoenix.Component, only: [assign: 3]
       import Phoenix.ConnTest
       import Phoenix.LiveViewTest
       import Plug.Conn, except: [assign: 3]

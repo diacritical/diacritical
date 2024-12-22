@@ -41,7 +41,7 @@ defmodule DiacriticalWeb.LiveView.Page do
 
       iex> %{param: %{valid: param}} = c_param()
       iex> %{session: %{valid: session}} = c_session()
-      iex> %{socket: %{valid: socket}} = c_socket(%{})
+      iex> %{socket: %{valid: socket}} = c_socket()
       iex>
       iex> {:ok, %Phoenix.LiveView.Socket{}} = mount(param, session, socket)
 

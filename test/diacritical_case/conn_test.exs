@@ -195,6 +195,28 @@ defmodule DiacriticalCase.ConnTest do
     end
   end
 
+  describe "c_socket/0" do
+    import Conn, only: [c_socket: 0]
+
+    test "success" do
+      assert %{socket: _socket} = c_socket()
+    end
+  end
+
+  describe "c_socket/1" do
+    import Conn, only: [c_socket: 1]
+
+    setup :c_context
+
+    test "FunctionClauseError", %{context: %{invalid: context}} do
+      assert_raise FunctionClauseError, fn -> c_socket(context) end
+    end
+
+    test "success", %{context: %{valid: context}} do
+      assert %{socket: _socket} = c_socket(context)
+    end
+  end
+
   describe "c_status_ok/0" do
     import Conn, only: [c_status_ok: 0]
 

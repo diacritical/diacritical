@@ -1,4 +1,4 @@
-#: lib/diacritical_web/html/layout/root.html.heex:12
+#: lib/diacritical_web/html/layout/root.html.heex:11
 #, elixir-autogen, elixir-format
 msgid "Diacritical"
 msgstr ""
@@ -8,7 +8,7 @@ msgstr ""
 msgid "Hello, world!"
 msgstr ""
 
-#: lib/diacritical_web/html/layout/root.html.heex:10
+#: lib/diacritical_web/html/layout/root.html.heex:9
 #, elixir-autogen, elixir-format
 msgid "Here be dragons."
 msgstr ""
