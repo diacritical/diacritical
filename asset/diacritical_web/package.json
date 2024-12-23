@@ -3,6 +3,7 @@
     "prettier": "~3.4"
   },
   "dependencies": {
+    "cavalree": "~0.2",
     "phoenix": "file:../../dep/phoenix",
     "phoenix_html": "file:../../dep/phoenix_html",
     "phoenix_live_view": "file:../../dep/phoenix_live_view"
