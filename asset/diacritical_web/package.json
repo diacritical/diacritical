@@ -7,5 +7,9 @@
     "phoenix_html": "file:../../dep/phoenix_html",
     "phoenix_live_view": "file:../../dep/phoenix_live_view"
   },
+  "scripts": {
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
+  },
   "type": "module"
 }
