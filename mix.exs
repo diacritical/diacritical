@@ -41,7 +41,8 @@ defmodule Diacritical.MixProject do
       compilers: [:boundary | Mix.compilers()],
       deps: [
         {:boundary, "~> 0.10", runtime: false},
-        {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
+        {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+        {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false}
       ],
       deps_path: "dep",
       elixir: "~> 1.18",
