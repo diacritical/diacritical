@@ -31,7 +31,7 @@ defmodule Diacritical.MixProject do
       app: :diacritical,
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
-      version: "0.0.0"
+      version: "0.1.0"
     ]
   end
 end
