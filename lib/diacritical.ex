@@ -2,6 +2,8 @@ defmodule Diacritical do
   @moduledoc "Demonstrates `Kernel` syntax."
   @moduledoc since: "0.1.0"
 
+  use Boundary
+
   @typedoc "Represents the greeting."
   @typedoc since: "0.1.0"
   @type greeting() :: String.t()
