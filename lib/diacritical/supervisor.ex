@@ -34,7 +34,7 @@ defmodule Diacritical.Supervisor do
 
   ## Example
 
-      iex> %{init: %{valid: init}} = c_init(%{})
+      iex> %{init: %{valid: init}} = c_init()
       iex>
       iex> child_spec(init)
       %{
@@ -60,7 +60,7 @@ defmodule Diacritical.Supervisor do
 
   ## Example
 
-      iex> %{init: %{valid: init}} = c_init(%{})
+      iex> %{init: %{valid: init}} = c_init()
       iex>
       iex> init(init)
       {
@@ -92,8 +92,8 @@ defmodule Diacritical.Supervisor do
   ## Example
 
       iex> start_supervisor!(%{})
-      iex> %{init: %{valid: init}} = c_init(%{})
-      iex> %{err: err} = c_err(%{})
+      iex> %{init: %{valid: init}} = c_init()
+      iex> %{err: err} = c_err()
       iex>
       iex> start_link(init)
       err
