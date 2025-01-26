@@ -28,7 +28,16 @@ defmodule Diacritical.MixProject do
   @spec project() :: project()
   def project() do
     [
+      aliases: [
+        "boundary.ex_doc_groups": [
+          "boundary.ex_doc_groups",
+          "cmd sed 1d boundary.exs > .boundary.exs",
+          "cmd rm boundary.exs"
+        ]
+      ],
       app: :diacritical,
+      boundary: [default: [type: :strict]],
+      compilers: [:boundary | Mix.compilers()],
       deps: [{:boundary, "~> 0.10", runtime: false}],
       deps_path: "dep",
       elixir: "~> 1.18",
