@@ -1,1 +1,1 @@
-[Diacritical: [Diacritical]]
+[Diacritical: [Diacritical, Diacritical.Supervisor]]
