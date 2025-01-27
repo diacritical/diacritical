@@ -5,23 +5,8 @@ defmodule Diacritical.SupervisorTest do
   use DiacriticalCase.Supervisor, async: true
 
   alias Diacritical
-  alias DiacriticalCase
 
   alias Diacritical.Supervisor
-
-  @typedoc "Represents the context."
-  @typedoc since: "0.3.0"
-  @type context() :: DiacriticalCase.context()
-
-  @typedoc "Represents the context merge value."
-  @typedoc since: "0.3.0"
-  @type context_merge() :: DiacriticalCase.context_merge()
-
-  @spec start_supervisor!(context()) :: context_merge()
-  defp start_supervisor!(c) when is_map(c) do
-    start_supervised!(Supervisor)
-    :ok
-  end
 
   doctest Supervisor, import: true
 
@@ -71,7 +56,7 @@ defmodule Diacritical.SupervisorTest do
   describe "start_link/1" do
     import Supervisor, only: [start_link: 1]
 
-    setup ~W[start_supervisor! c_init c_err]a
+    setup [:c_init, :c_err]
 
     test "FunctionClauseError", %{init: %{invalid: init}} do
       assert_raise FunctionClauseError, fn -> start_link(init) end
@@ -85,7 +70,7 @@ defmodule Diacritical.SupervisorTest do
   describe "start_link/2" do
     import Supervisor, only: [start_link: 2]
 
-    setup ~W[start_supervisor! c_init c_err]a
+    setup [:c_init, :c_err]
     setup do: %{opt: %{default: [name: Supervisor], empty: [], invalid: %{}}}
 
     test "FunctionClauseError (&1)", %{
