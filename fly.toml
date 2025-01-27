@@ -1,0 +1,13 @@
+app = "diacritical"
+primary_region = "iad"
+
+kill_timeout = 5
+kill_signal = "SIGTERM"
+
+[[services]]
+  processes = ["app"]
+
+  [services.concurrency]
+    hard_limit = 1000
+    soft_limit = 750
+    type = "connections"
