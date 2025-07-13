@@ -2,4 +2,5 @@
 *.ez
 _build/
 cover/
+dep/
 erl_crash.dump

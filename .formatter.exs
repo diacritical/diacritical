@@ -1,1 +1,4 @@
-[inputs: ["{.formatter,mix}.exs", "{lib,test}/**/*.{ex,exs}"], line_length: 80]
+[
+  inputs: [".formatter.exs", "{lib,test}/**/*.{ex,exs}", "mix.{exs,lock}"],
+  line_length: 80
+]
