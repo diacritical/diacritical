@@ -4,6 +4,14 @@ defmodule Diacritical.MixProject do
 
   use Mix.Project
 
+  @typedoc "Represents the environment."
+  @typedoc since: "0.2.0"
+  @type env() :: :dev | :prod | :test | atom()
+
+  @typedoc "Represents the module documentation group."
+  @typedoc since: "0.2.0"
+  @type moduledoc_group() :: nil | Keyword.t([module()])
+
   @typedoc "Represents the project configuration keyword."
   @typedoc since: "0.1.0"
   @type project_keyword() ::
@@ -14,6 +22,15 @@ defmodule Diacritical.MixProject do
   @typedoc "Represents the project configuration."
   @typedoc since: "0.1.0"
   @type project() :: [project_keyword()]
+
+  @spec load_moduledoc_group(env()) :: moduledoc_group()
+  defp load_moduledoc_group(:dev) do
+    ".boundary.exs"
+    |> Code.eval_file()
+    |> elem(0)
+  end
+
+  defp load_moduledoc_group(env) when is_atom(env), do: nil
 
   @doc """
   Returns the project configuration.
@@ -27,6 +44,8 @@ defmodule Diacritical.MixProject do
   @doc since: "0.1.0"
   @spec project() :: project()
   def project() do
+    env = Mix.env()
+
     [
       aliases: [
         "boundary.ex_doc_groups": [
@@ -47,9 +66,13 @@ defmodule Diacritical.MixProject do
       ],
       deps_path: "dep",
       dialyzer: [ignore_warnings: ".dialyzer.exs"],
+      docs: [groups_for_modules: load_moduledoc_group(env)],
       elixir: "~> 1.18",
       elixirc_options: [warnings_as_errors: true],
-      start_permanent: Mix.env() == :prod,
+      homepage_url: "https://diacritical.net",
+      name: "Diacritical",
+      source_url: "https://github.com/diacritical/diacritical",
+      start_permanent: env == :prod,
       version: "0.1.0"
     ]
   end
