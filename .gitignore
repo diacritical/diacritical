@@ -1,6 +1,7 @@
 *.beam
 *.ez
 _build/
+boundary/
 cover/
 dep/
 erl_crash.dump
