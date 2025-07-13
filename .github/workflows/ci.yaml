@@ -31,6 +31,7 @@ jobs:
       - run: mix compile
       - run: mix format --check-formatted
       - run: mix credo --all-priorities
+      - run: mix dialyzer --format github
       - run: mix test
     strategy:
       matrix:
