@@ -30,6 +30,7 @@ jobs:
       - run: mix deps.compile
       - run: mix compile
       - run: mix format --check-formatted
+      - run: mix credo --all-priorities
       - run: mix test
     strategy:
       matrix:

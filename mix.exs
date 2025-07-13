@@ -33,7 +33,8 @@ defmodule Diacritical.MixProject do
           "boundary.ex_doc_groups",
           "cmd sed 1d boundary.exs > .boundary.exs",
           "cmd rm boundary.exs"
-        ]
+        ],
+        credo: "credo --config-name default"
       ],
       app: :diacritical,
       boundary: [default: [type: :strict]],
