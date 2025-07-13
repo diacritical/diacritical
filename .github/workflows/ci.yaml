@@ -1,0 +1,24 @@
+jobs:
+  test:
+    name: Erlang/OTP ${{ matrix.otp-version }} / Elixir ${{ matrix.elixir-version }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: erlef/setup-beam@v1
+        with:
+          elixir-version: ${{ matrix.elixir-version }}
+          otp-version: ${{ matrix.otp-version }}
+      - uses: actions/checkout@v4
+      - run: elixirc diacritical.ex
+      - run: elixir diacritical_test.exs
+    strategy:
+      matrix:
+        elixir-version: ["1.18.4"]
+        os: ["ubuntu-24.04"]
+        otp-version: ["28.0.1"]
+
+name: CI
+
+on:
+  push:
+    tags:
+      - v0
