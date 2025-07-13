@@ -1,5 +1,3 @@
-ExUnit.start()
-
 defmodule DiacriticalTest do
   @moduledoc "Defines an `ExUnit.Case` case."
   @moduledoc since: "0.1.0"
