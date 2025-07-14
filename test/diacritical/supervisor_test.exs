@@ -2,7 +2,7 @@ defmodule Diacritical.SupervisorTest do
   @moduledoc "Defines an `ExUnit.Case` case."
   @moduledoc since: "0.3.0"
 
-  use ExUnit.Case, async: true
+  use DiacriticalCase.Supervisor, async: true
 
   alias Diacritical
   alias DiacriticalCase
@@ -17,18 +17,10 @@ defmodule Diacritical.SupervisorTest do
   @typedoc since: "0.3.0"
   @type context_merge() :: DiacriticalCase.context_merge()
 
-  @spec c_init(context()) :: context_merge()
-  defp c_init(c) when is_map(c), do: %{init: %{invalid: %{}, valid: []}}
-
   @spec start_supervisor!(context()) :: context_merge()
   defp start_supervisor!(c) when is_map(c) do
     start_supervised!(Supervisor)
     :ok
-  end
-
-  @spec c_err(context()) :: context_merge()
-  defp c_err(c) when is_map(c) do
-    %{err: {:error, {:already_started, Process.whereis(Supervisor)}}}
   end
 
   doctest Supervisor, import: true

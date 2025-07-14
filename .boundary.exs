@@ -1,4 +1,4 @@
 [
   Diacritical: [Diacritical, Diacritical.Supervisor],
-  DiacriticalCase: [DiacriticalCase]
+  DiacriticalCase: [DiacriticalCase, DiacriticalCase.Supervisor]
 ]
