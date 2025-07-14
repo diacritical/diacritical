@@ -5,17 +5,17 @@ defmodule Diacritical.SupervisorTest do
   use ExUnit.Case, async: true
 
   alias Diacritical
+  alias DiacriticalCase
 
   alias Diacritical.Supervisor
 
   @typedoc "Represents the context."
   @typedoc since: "0.3.0"
-  @type context() :: map()
+  @type context() :: DiacriticalCase.context()
 
   @typedoc "Represents the context merge value."
   @typedoc since: "0.3.0"
-  @type context_merge() ::
-          :ok | {:ok, map() | Keyword.t()} | map() | Keyword.t()
+  @type context_merge() :: DiacriticalCase.context_merge()
 
   @spec c_init(context()) :: context_merge()
   defp c_init(c) when is_map(c), do: %{init: %{invalid: %{}, valid: []}}
