@@ -12,6 +12,10 @@ defmodule Diacritical.MixProject do
   @typedoc since: "0.2.0"
   @type moduledoc_group() :: nil | Keyword.t([module()])
 
+  @typedoc "Represents the compilation path."
+  @typedoc since: "0.2.0"
+  @type elixirc_path() :: [Path.t()]
+
   @typedoc "Represents the project configuration keyword."
   @typedoc since: "0.1.0"
   @type project_keyword() ::
@@ -31,6 +35,11 @@ defmodule Diacritical.MixProject do
   end
 
   defp load_moduledoc_group(env) when is_atom(env), do: nil
+
+  @spec get_elixirc_path(env()) :: elixirc_path()
+  defp get_elixirc_path(:dev), do: get_elixirc_path(:test)
+  defp get_elixirc_path(:test), do: ["support" | get_elixirc_path(:prod)]
+  defp get_elixirc_path(env) when is_atom(env), do: ["lib"]
 
   @doc """
   Returns the project configuration.
@@ -69,6 +78,7 @@ defmodule Diacritical.MixProject do
       docs: [groups_for_modules: load_moduledoc_group(env)],
       elixir: "~> 1.18",
       elixirc_options: [warnings_as_errors: true],
+      elixirc_paths: get_elixirc_path(env),
       homepage_url: "https://diacritical.net",
       name: "Diacritical",
       source_url: "https://github.com/diacritical/diacritical",
