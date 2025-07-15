@@ -47,6 +47,16 @@
     "hexpm",
     "b0fb08bb8107c750db5c0b324fa2df5ceaa0f9307690ee3c1f6ba5b9eb5d35c3"
   },
+  dns_cluster: {
+    :hex,
+    :dns_cluster,
+    "0.2.0",
+    "aa8eb46e3bd0326bd67b84790c561733b25c5ba2fe3c7e36f28e88f384ebcb33",
+    [:mix],
+    [],
+    "hexpm",
+    "ba6f1893411c69c01b9e8e8f772062535a4cf70f3f35bcc964a324078d8c8240"
+  },
   earmark_parser: {
     :hex,
     :earmark_parser,

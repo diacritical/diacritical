@@ -100,6 +100,7 @@ defmodule DiacriticalApp.MixProject do
         {:boundary, "~> 0.10", runtime: false},
         {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
         {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
+        {:dns_cluster, "~> 0.2"},
         {:ex_doc, "~> 0.38", only: :dev, runtime: false}
       ],
       deps_path: "dep",
