@@ -93,6 +93,8 @@ defmodule DiacriticalApp do
   @doc since: "0.3.0"
   @spec start(start_type(), init()) :: on_start()
   def start(start_type, init) when is_atom(start_type) and is_list(init) do
+    query = Application.get_env(get_app(), :dns_cluster_query) || :ignore
+    init = [{:children, [{DNSCluster, query: query}]} | init]
     Supervisor.start_link(init)
   end
 
