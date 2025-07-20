@@ -3,7 +3,7 @@ defmodule DiacriticalApp do
   @moduledoc since: "0.3.0"
 
   use Application
-  use Boundary, deps: [Diacritical]
+  use Boundary, deps: [Bandit, Diacritical]
 
   alias Diacritical
 
@@ -94,7 +94,18 @@ defmodule DiacriticalApp do
   @spec start(start_type(), init()) :: on_start()
   def start(start_type, init) when is_atom(start_type) and is_list(init) do
     query = Application.get_env(get_app(), :dns_cluster_query) || :ignore
-    init = [{:children, [{DNSCluster, query: query}]} | init]
+
+    init = [
+      {
+        :children,
+        [
+          {DNSCluster, query: query},
+          {Bandit, plug: :"Elixir.DiacriticalWeb.Endpoint"}
+        ]
+      }
+      | init
+    ]
+
     Supervisor.start_link(init)
   end
 
