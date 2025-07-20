@@ -7,3 +7,4 @@ config :logger, :console,
   metadata: [:request_id]
 
 config :logger, level: :info
+config :phoenix, :json_library, JSON
