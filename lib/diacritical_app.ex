@@ -3,11 +3,13 @@ defmodule DiacriticalApp do
   @moduledoc since: "0.3.0"
 
   use Application
-  use Boundary, deps: [Bandit, Diacritical]
+  use Boundary, deps: [Diacritical, DiacriticalWeb]
 
   alias Diacritical
+  alias DiacriticalWeb
 
   alias Diacritical.Supervisor
+  alias DiacriticalWeb.Endpoint
 
   @typedoc "Represents the application."
   @typedoc since: "0.3.0"
@@ -74,6 +76,7 @@ defmodule DiacriticalApp do
   @spec config_change(config(), config(), config_removed()) :: on_change()
   def config_change(changed, new, removed)
       when is_list(changed) and is_list(new) and is_list(removed) do
+    Endpoint.config_change(changed, removed)
     :ok
   end
 
@@ -100,7 +103,8 @@ defmodule DiacriticalApp do
         :children,
         [
           {DNSCluster, query: query},
-          {Bandit, plug: :"Elixir.DiacriticalWeb.Endpoint"}
+          {Phoenix.PubSub, name: :"Elixir.Diacritical.PubSub"},
+          Endpoint
         ]
       }
       | init

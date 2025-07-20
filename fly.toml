@@ -23,6 +23,11 @@ kill_signal = "SIGTERM"
     restart_limit = 0
     timeout = "2s"
 
+    [services.http_checks.headers]
+      X-Forwarded-Host = "example.com"
+      X-Forwarded-Port = "4001"
+      X-Forwarded-Proto = "https"
+
 [[services.ports]]
   force_https = true
   handlers = ["http"]
