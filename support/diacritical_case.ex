@@ -2,7 +2,7 @@ defmodule DiacriticalCase do
   @moduledoc "Defines commonalities for `ExUnit.CaseTemplate` case templates."
   @moduledoc since: "0.3.0"
 
-  use Boundary, deps: [ExUnit]
+  use Boundary, deps: [Diacritical, ExUnit]
 
   @typedoc "Represents the option."
   @typedoc since: "0.3.0"

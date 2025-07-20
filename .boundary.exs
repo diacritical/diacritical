@@ -4,7 +4,8 @@
   DiacriticalCase: [
     DiacriticalCase,
     DiacriticalCase.Supervisor,
-    DiacriticalCase.Template
+    DiacriticalCase.Template,
+    DiacriticalCase.View
   ],
   DiacriticalWeb: [DiacriticalWeb, DiacriticalWeb.Endpoint]
 ]

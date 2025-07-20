@@ -2,7 +2,7 @@ defmodule DiacriticalWeb.EndpointTest do
   @moduledoc "Defines an `ExUnit.Case` case."
   @moduledoc since: "0.4.0"
 
-  use ExUnit.Case, async: true
+  use DiacriticalCase.View, async: true
 
   import Phoenix.ConnTest
 
@@ -104,11 +104,6 @@ defmodule DiacriticalWeb.EndpointTest do
 
   @spec c_status(context()) :: context_merge()
   defp c_status(c) when is_map(c), do: %{status: 200}
-
-  @spec c_resp_body(context()) :: context_merge()
-  defp c_resp_body(c) when is_map(c) do
-    %{resp_body: "#{Diacritical.greet()}\n"}
-  end
 
   doctest Endpoint, import: true
 
