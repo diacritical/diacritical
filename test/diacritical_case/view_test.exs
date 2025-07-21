@@ -22,6 +22,28 @@ defmodule DiacriticalCase.ViewTest do
     end
   end
 
+  describe "c_assigns/0" do
+    import View, only: [c_assigns: 0]
+
+    test "success" do
+      assert %{assigns: _assigns} = c_assigns()
+    end
+  end
+
+  describe "c_assigns/1" do
+    import View, only: [c_assigns: 1]
+
+    setup :c_context
+
+    test "FunctionClauseError", %{context: %{invalid: context}} do
+      assert_raise FunctionClauseError, fn -> c_assigns(context) end
+    end
+
+    test "success", %{context: %{valid: context}} do
+      assert %{assigns: _assigns} = c_assigns(context)
+    end
+  end
+
   describe "c_resp_body/0" do
     import View, only: [c_resp_body: 0]
 

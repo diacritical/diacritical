@@ -20,6 +20,21 @@ defmodule DiacriticalCase.View do
 
   ## Example
 
+      iex> %{assigns: _assigns} = c_assigns()
+
+  """
+  @doc since: "0.5.0"
+  @spec c_assigns() :: context_merge()
+  @spec c_assigns(context()) :: context_merge()
+  def c_assigns(c \\ %{}) when is_map(c) do
+    %{assigns: %{invalid: {}, valid: %{greeting: Diacritical.greet()}}}
+  end
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
       iex> %{resp_body: _resp_body} = c_resp_body()
 
   """

@@ -4,24 +4,9 @@ defmodule DiacriticalWeb.TXTTest do
 
   use DiacriticalCase.View, async: true
 
-  alias Diacritical
-  alias DiacriticalCase
   alias DiacriticalWeb
 
   alias DiacriticalWeb.TXT
-
-  @typedoc "Represents the context."
-  @typedoc since: "0.5.0"
-  @type context() :: DiacriticalCase.context()
-
-  @typedoc "Represents the context merge value."
-  @typedoc since: "0.5.0"
-  @type context_merge() :: DiacriticalCase.context_merge()
-
-  @spec c_assigns(context()) :: context_merge()
-  defp c_assigns(c) when is_map(c) do
-    %{assigns: %{invalid: {}, valid: %{greeting: Diacritical.greet()}}}
-  end
 
   doctest TXT
 
