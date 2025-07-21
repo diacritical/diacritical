@@ -3,6 +3,7 @@
   DiacriticalApp: [DiacriticalApp],
   DiacriticalCase: [
     DiacriticalCase,
+    DiacriticalCase.Conn,
     DiacriticalCase.Supervisor,
     DiacriticalCase.Template,
     DiacriticalCase.View

@@ -2,9 +2,7 @@ defmodule DiacriticalWeb.EndpointTest do
   @moduledoc "Defines an `ExUnit.Case` case."
   @moduledoc since: "0.4.0"
 
-  use DiacriticalCase.View, async: true
-
-  import Phoenix.ConnTest
+  use DiacriticalCase.Conn, async: true
 
   alias Diacritical
   alias DiacriticalCase
@@ -91,16 +89,6 @@ defmodule DiacriticalWeb.EndpointTest do
 
   @spec c_opt(context()) :: context_merge()
   defp c_opt(c) when is_map(c), do: %{opt: []}
-
-  @spec c_conn(context()) :: context_merge()
-  defp c_conn(c) when is_map(c) do
-    %{
-      conn: %{
-        invalid: %{},
-        valid: build_conn(:get, c[:uri][:string] || c[:request_path])
-      }
-    }
-  end
 
   @spec c_status(context()) :: context_merge()
   defp c_status(c) when is_map(c), do: %{status: 200}
