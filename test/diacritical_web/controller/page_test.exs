@@ -105,6 +105,14 @@ defmodule DiacriticalWeb.Controller.PageTest do
     end
   end
 
+  describe "__phoenix_verify_routes__/1" do
+    import Page, only: [__phoenix_verify_routes__: 1]
+
+    test "success" do
+      assert __phoenix_verify_routes__(Page) == :ok
+    end
+  end
+
   describe "greet/2" do
     import Page, only: [greet: 2]
 

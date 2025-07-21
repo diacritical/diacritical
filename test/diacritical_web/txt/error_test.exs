@@ -29,6 +29,14 @@ defmodule DiacriticalWeb.TXT.ErrorTest do
     end
   end
 
+  describe "__phoenix_verify_routes__/1" do
+    import Error, only: [__phoenix_verify_routes__: 1]
+
+    test "success" do
+      assert __phoenix_verify_routes__(Error) == :ok
+    end
+  end
+
   describe "404/1" do
     setup :c_assigns_empty
 

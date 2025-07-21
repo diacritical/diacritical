@@ -55,6 +55,10 @@ defmodule DiacriticalWeb.TXT do
   @doc since: "0.5.0"
   defmacro __using__(opt) when is_list(opt) do
     quote do
+      use Phoenix.VerifiedRoutes,
+        endpoint: :"Elixir.DiacriticalWeb.Endpoint",
+        router: :"Elixir.DiacriticalWeb.Router"
+
       import unquote(__MODULE__)
     end
   end

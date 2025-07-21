@@ -44,6 +44,10 @@ defmodule DiacriticalWeb.Controller do
       use Phoenix.Controller,
           Keyword.merge([put_default_views: false], unquote(opt))
 
+      use Phoenix.VerifiedRoutes,
+        endpoint: :"Elixir.DiacriticalWeb.Endpoint",
+        router: :"Elixir.DiacriticalWeb.Router"
+
       plug :put_new_view, unquote(opt)[:view]
     end
   end

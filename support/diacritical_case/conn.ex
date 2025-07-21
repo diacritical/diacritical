@@ -73,6 +73,20 @@ defmodule DiacriticalCase.Conn do
 
   ## Example
 
+      iex> %{conn: _conn} = c_conn_script_name(%{conn: %{invalid: %{}}})
+
+  """
+  @doc since: "0.5.0"
+  @spec c_conn_script_name(context()) :: context_merge()
+  def c_conn_script_name(%{conn: %{invalid: conn} = c}) when is_map(conn) do
+    %{conn: %{c | invalid: Map.merge(conn, %{script_name: nil})}}
+  end
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
       iex> %{opt: _opt} = c_opt()
 
   """

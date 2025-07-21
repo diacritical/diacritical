@@ -91,6 +91,22 @@ defmodule DiacriticalCase.ConnTest do
     end
   end
 
+  describe "c_conn_script_name/1" do
+    import Conn, only: [c_conn_script_name: 1]
+
+    setup do
+      %{context: %{invalid: %{conn: %{}}, valid: %{conn: %{invalid: %{}}}}}
+    end
+
+    test "FunctionClauseError", %{context: %{invalid: context}} do
+      assert_raise FunctionClauseError, fn -> c_conn_script_name(context) end
+    end
+
+    test "success", %{context: %{valid: context}} do
+      assert %{conn: _conn} = c_conn_script_name(context)
+    end
+  end
+
   describe "c_opt/0" do
     import Conn, only: [c_opt: 0]
 

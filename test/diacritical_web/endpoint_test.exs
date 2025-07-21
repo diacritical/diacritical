@@ -387,19 +387,14 @@ defmodule DiacriticalWeb.EndpointTest do
       :c_request_path,
       :c_uri,
       :c_conn,
+      :c_conn_script_name,
       :c_opt,
       :c_status,
       :c_resp_body
     ]
 
     setup %{conn: %{invalid: invalid} = conn} do
-      %{
-        conn: %{
-          conn
-          | invalid:
-              Map.merge(invalid, %{script_name: nil, secret_key_base: nil})
-        }
-      }
+      %{conn: %{conn | invalid: Map.merge(invalid, %{secret_key_base: nil})}}
     end
 
     test "FunctionClauseError", %{conn: %{invalid: conn}, opt: opt} do
