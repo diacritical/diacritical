@@ -49,9 +49,6 @@ defmodule DiacriticalWeb.EndpointTest do
     %{uri: %{string: URI.to_string(struct), struct: struct}}
   end
 
-  @spec c_request_path(context()) :: context_merge()
-  defp c_request_path(c) when is_map(c), do: %{request_path: "/hello"}
-
   @spec c_path(context()) :: context_merge()
   defp c_path(%{config: [{key, [path: path]}], request_path: request_path})
        when is_atom(key) and is_binary(path) and is_binary(request_path) do
@@ -86,12 +83,6 @@ defmodule DiacriticalWeb.EndpointTest do
   defp c_err(c) when is_map(c) do
     %{err: {:error, {:already_started, Process.whereis(Endpoint)}}}
   end
-
-  @spec c_opt(context()) :: context_merge()
-  defp c_opt(c) when is_map(c), do: %{opt: []}
-
-  @spec c_status(context()) :: context_merge()
-  defp c_status(c) when is_map(c), do: %{status: 200}
 
   doctest Endpoint, import: true
 

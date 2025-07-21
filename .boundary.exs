@@ -11,6 +11,7 @@
   DiacriticalWeb: [
     DiacriticalWeb,
     DiacriticalWeb.Controller,
+    DiacriticalWeb.Controller.Page,
     DiacriticalWeb.Endpoint,
     DiacriticalWeb.TXT,
     DiacriticalWeb.TXT.Page

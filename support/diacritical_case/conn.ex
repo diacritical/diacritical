@@ -19,6 +19,21 @@ defmodule DiacriticalCase.Conn do
 
   ## Example
 
+      iex> %{action: _action} = c_action()
+
+  """
+  @doc since: "0.5.0"
+  @spec c_action() :: context_merge()
+  @spec c_action(context()) :: context_merge()
+  def c_action(c \\ %{}) when is_map(c) do
+    %{action: %{invalid: "greet", valid: :greet}}
+  end
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
       iex> %{conn: _conn} = c_conn()
 
   """
@@ -37,6 +52,60 @@ defmodule DiacriticalCase.Conn do
       }
     }
   end
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
+      iex> %{conn: _conn} = c_conn_format(%{conn: %{valid: %Plug.Conn{}}})
+
+  """
+  @doc since: "0.5.0"
+  @spec c_conn_format(context()) :: context_merge()
+  def c_conn_format(%{conn: %{valid: conn} = c})
+      when is_struct(conn, Plug.Conn) do
+    %{conn: %{c | valid: Phoenix.Controller.put_format(conn, "txt")}}
+  end
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
+      iex> %{opt: _opt} = c_opt()
+
+  """
+  @doc since: "0.5.0"
+  @spec c_opt() :: context_merge()
+  @spec c_opt(context()) :: context_merge()
+  def c_opt(c \\ %{}) when is_map(c), do: %{opt: []}
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
+      iex> %{request_path: _request_path} = c_request_path()
+
+  """
+  @doc since: "0.5.0"
+  @spec c_request_path() :: context_merge()
+  @spec c_request_path(context()) :: context_merge()
+  def c_request_path(c \\ %{}) when is_map(c), do: %{request_path: "/hello"}
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
+      iex> %{status: _status} = c_status()
+
+  """
+  @doc since: "0.5.0"
+  @spec c_status() :: context_merge()
+  @spec c_status(context()) :: context_merge()
+  def c_status(c \\ %{}) when is_map(c), do: %{status: 200}
 
   using do
     quote do
