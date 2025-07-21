@@ -3,6 +3,7 @@ import Config, only: [config: 2, config: 3]
 alias DiacriticalWeb
 
 alias DiacriticalWeb.Endpoint
+alias DiacriticalWeb.TXT
 
 config :diacritical, Endpoint,
   adapter: Bandit.PhoenixAdapter,
@@ -23,7 +24,7 @@ config :diacritical, Endpoint,
     port: 4_001
   ],
   pubsub_server: :"Elixir.Diacritical.PubSub",
-  render_errors: nil,
+  render_errors: [formats: [txt: TXT.Error]],
   secret_key_base:
     "TMK8Q5EFfQlxa6k4bt02uplsaTf0gDLu0O8B3F8HukfaPXqBIgoXZVURXIbAMKLn",
   server: true,
