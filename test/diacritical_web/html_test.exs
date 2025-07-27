@@ -4,23 +4,9 @@ defmodule DiacriticalWeb.HTMLTest do
 
   use DiacriticalCase.View, async: true
 
-  alias DiacriticalCase
   alias DiacriticalWeb
 
   alias DiacriticalWeb.HTML
-
-  @typedoc "Represents the context."
-  @typedoc since: "0.6.0"
-  @type context() :: DiacriticalCase.context()
-
-  @typedoc "Represents the context merge value."
-  @typedoc since: "0.6.0"
-  @type context_merge() :: DiacriticalCase.context_merge()
-
-  @spec c_resp_body_to_html(context()) :: context_merge()
-  defp c_resp_body_to_html(%{resp_body: resp_body}) when is_binary(resp_body) do
-    %{resp_body: {:safe, ["<span>", String.trim(resp_body), "</span>\n"]}}
-  end
 
   doctest HTML
 

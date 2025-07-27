@@ -87,4 +87,20 @@ defmodule DiacriticalCase.ViewTest do
       assert %{resp_body: _resp_body} = c_resp_body_greeting(context)
     end
   end
+
+  describe "c_resp_body_to_html/1" do
+    import View, only: [c_resp_body_to_html: 1]
+
+    setup do
+      %{context: %{invalid: %{resp_body: ~C""}, valid: %{resp_body: ""}}}
+    end
+
+    test "FunctionClauseError", %{context: %{invalid: context}} do
+      assert_raise FunctionClauseError, fn -> c_resp_body_to_html(context) end
+    end
+
+    test "success", %{context: %{valid: context}} do
+      assert %{resp_body: _resp_body} = c_resp_body_to_html(context)
+    end
+  end
 end

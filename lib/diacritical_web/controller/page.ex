@@ -2,7 +2,8 @@ defmodule DiacriticalWeb.Controller.Page do
   @moduledoc "Defines a `Phoenix.Controller` controller."
   @moduledoc since: "0.5.0"
 
-  use DiacriticalWeb.Controller, view: [txt: DiacriticalWeb.TXT.Page]
+  use DiacriticalWeb.Controller,
+    view: [html: DiacriticalWeb.HTML.Page, txt: DiacriticalWeb.TXT.Page]
 
   alias Diacritical
   alias DiacriticalWeb
