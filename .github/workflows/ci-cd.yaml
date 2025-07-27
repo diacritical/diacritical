@@ -47,7 +47,7 @@ jobs:
       matrix:
         elixir-version: ["1.18.4"]
         os: ["ubuntu-24.04"]
-        otp-version: ["28.0.1"]
+        otp-version: ["28.0.2"]
 
 name: CI/CD
 
