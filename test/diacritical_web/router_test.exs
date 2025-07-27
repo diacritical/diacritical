@@ -93,7 +93,7 @@ defmodule DiacriticalWeb.RouterTest do
       :c_conn_script_name,
       :c_opt,
       :c_status,
-      :c_resp_body
+      :c_resp_body_greeting
     ]
 
     test "FunctionClauseError", %{conn: %{invalid: conn}, opt: opt} do

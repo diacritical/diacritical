@@ -28,7 +28,7 @@ defmodule DiacriticalWeb.Controller.Page do
       iex> %{conn: %{valid: conn}} = c_conn_view(c!)
       iex> %{opt: opt} = c_opt()
       iex> %{status: status} = c_status()
-      iex> %{resp_body: resp_body} = c_resp_body()
+      iex> %{resp_body: resp_body} = c_resp_body_greeting()
       iex>
       iex> text_response(greet(conn, opt), status)
       resp_body

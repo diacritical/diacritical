@@ -1,21 +1,35 @@
-defmodule DiacriticalWeb.TXTTest do
+defmodule DiacriticalWeb.HTMLTest do
   @moduledoc "Defines an `ExUnit.Case` case."
-  @moduledoc since: "0.5.0"
+  @moduledoc since: "0.6.0"
 
   use DiacriticalCase.View, async: true
 
+  alias DiacriticalCase
   alias DiacriticalWeb
 
-  alias DiacriticalWeb.TXT
+  alias DiacriticalWeb.HTML
 
-  doctest TXT
+  @typedoc "Represents the context."
+  @typedoc since: "0.6.0"
+  @type context() :: DiacriticalCase.context()
+
+  @typedoc "Represents the context merge value."
+  @typedoc since: "0.6.0"
+  @type context_merge() :: DiacriticalCase.context_merge()
+
+  @spec c_resp_body_to_html(context()) :: context_merge()
+  defp c_resp_body_to_html(%{resp_body: resp_body}) when is_binary(resp_body) do
+    %{resp_body: {:safe, ["<span>", String.trim(resp_body), "</span>\n"]}}
+  end
+
+  doctest HTML
 
   describe "embed_templates/1" do
-    import TXT, only: [embed_templates: 1]
+    import HTML, only: [embed_templates: 1]
 
-    embed_templates "../../support/diacritical_web/txt/template/greet"
+    embed_templates "../../support/diacritical_web/html/template/greet"
 
-    setup [:c_assigns, :c_resp_body_greeting]
+    setup ~W[c_assigns c_resp_body_greeting c_resp_body_to_html]a
 
     test "CompileError" do
       refute function_exported?(__MODULE__, :ignore, 1)
@@ -32,12 +46,12 @@ defmodule DiacriticalWeb.TXTTest do
   end
 
   describe "embed_templates/2" do
-    import TXT, only: [embed_templates: 2]
+    import HTML, only: [embed_templates: 2]
 
     embed_templates "template/dismiss",
-      root: "../../support/diacritical_web/txt"
+      root: "../../support/diacritical_web/html"
 
-    setup [:c_assigns, :c_resp_body_dismissal]
+    setup ~W[c_assigns c_resp_body_dismissal c_resp_body_to_html]a
 
     test "CompileError" do
       refute function_exported?(__MODULE__, :ignore, 1)

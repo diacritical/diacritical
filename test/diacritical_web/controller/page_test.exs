@@ -41,7 +41,14 @@ defmodule DiacriticalWeb.Controller.PageTest do
   describe "call/2" do
     import Page, only: [call: 2]
 
-    setup ~W[c_request_path c_conn c_conn_format c_action c_status c_resp_body]a
+    setup [
+      :c_request_path,
+      :c_conn,
+      :c_conn_format,
+      :c_action,
+      :c_status,
+      :c_resp_body_greeting
+    ]
 
     test "FunctionClauseError (&1)", %{
       action: %{valid: action},
@@ -78,7 +85,7 @@ defmodule DiacriticalWeb.Controller.PageTest do
       :c_conn_view,
       :c_opt,
       :c_status,
-      :c_resp_body
+      :c_resp_body_greeting
     ]
 
     setup %{action: %{valid: action}, conn: %{valid: conn} = c} do
@@ -123,7 +130,7 @@ defmodule DiacriticalWeb.Controller.PageTest do
       :c_conn_view,
       :c_opt,
       :c_status,
-      :c_resp_body
+      :c_resp_body_greeting
     ]
 
     test "FunctionClauseError", %{conn: %{invalid: conn}, opt: opt} do

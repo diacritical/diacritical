@@ -44,25 +44,47 @@ defmodule DiacriticalCase.ViewTest do
     end
   end
 
-  describe "c_resp_body/0" do
-    import View, only: [c_resp_body: 0]
+  describe "c_resp_body_dismissal/0" do
+    import View, only: [c_resp_body_dismissal: 0]
 
     test "success" do
-      assert %{resp_body: _resp_body} = c_resp_body()
+      assert %{resp_body: _resp_body} = c_resp_body_dismissal()
     end
   end
 
-  describe "c_resp_body/1" do
-    import View, only: [c_resp_body: 1]
+  describe "c_resp_body_dismissal/1" do
+    import View, only: [c_resp_body_dismissal: 1]
 
     setup :c_context
 
     test "FunctionClauseError", %{context: %{invalid: context}} do
-      assert_raise FunctionClauseError, fn -> c_resp_body(context) end
+      assert_raise FunctionClauseError, fn -> c_resp_body_dismissal(context) end
     end
 
     test "success", %{context: %{valid: context}} do
-      assert %{resp_body: _resp_body} = c_resp_body(context)
+      assert %{resp_body: _resp_body} = c_resp_body_dismissal(context)
+    end
+  end
+
+  describe "c_resp_body_greeting/0" do
+    import View, only: [c_resp_body_greeting: 0]
+
+    test "success" do
+      assert %{resp_body: _resp_body} = c_resp_body_greeting()
+    end
+  end
+
+  describe "c_resp_body_greeting/1" do
+    import View, only: [c_resp_body_greeting: 1]
+
+    setup :c_context
+
+    test "FunctionClauseError", %{context: %{invalid: context}} do
+      assert_raise FunctionClauseError, fn -> c_resp_body_greeting(context) end
+    end
+
+    test "success", %{context: %{valid: context}} do
+      assert %{resp_body: _resp_body} = c_resp_body_greeting(context)
     end
   end
 end

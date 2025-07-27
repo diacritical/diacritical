@@ -390,7 +390,7 @@ defmodule DiacriticalWeb.EndpointTest do
       :c_conn_script_name,
       :c_opt,
       :c_status,
-      :c_resp_body
+      :c_resp_body_greeting
     ]
 
     setup %{conn: %{invalid: invalid} = conn} do
@@ -436,7 +436,7 @@ defmodule DiacriticalWeb.EndpointTest do
   describe "greet/2" do
     import Endpoint, only: [greet: 2]
 
-    setup ~W[c_request_path c_conn c_opt c_status c_resp_body]a
+    setup ~W[c_request_path c_conn c_opt c_status c_resp_body_greeting]a
 
     test "FunctionClauseError", %{conn: %{invalid: conn}, opt: opt} do
       assert_raise FunctionClauseError, fn -> greet(conn, opt) end

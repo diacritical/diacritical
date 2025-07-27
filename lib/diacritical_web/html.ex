@@ -1,6 +1,6 @@
-defmodule DiacriticalWeb.TXT do
+defmodule DiacriticalWeb.HTML do
   @moduledoc "Defines commonalities for `Phoenix.Template` templates."
-  @moduledoc since: "0.5.0"
+  @moduledoc since: "0.6.0"
 
   @doc """
   Compiles a function for each template in the given `pattern`.
@@ -11,7 +11,7 @@ defmodule DiacriticalWeb.TXT do
       will, by default, be the module’s current directory, `__DIR__`.
 
   """
-  @doc since: "0.5.0"
+  @doc since: "0.6.0"
   defmacro embed_templates(pattern, opt \\ [])
            when is_binary(pattern) and is_list(opt) do
     quote do
@@ -20,13 +20,13 @@ defmodule DiacriticalWeb.TXT do
       derive_template = fn pattern ->
         pattern
         |> Path.basename()
-        |> Path.rootname(".txt.eex")
+        |> Path.rootname(".html.eex")
       end
 
       Phoenix.Template.compile_all(
         derive_template,
         Path.expand(unquote(opt)[:root] || __DIR__, __DIR__),
-        "#{unquote(pattern)}.txt"
+        "#{unquote(pattern)}.html"
       )
     end
   end
@@ -37,14 +37,15 @@ defmodule DiacriticalWeb.TXT do
   ## Example
 
       iex> defmodule TestTemplate do
-      ...>   use DiacriticalWeb.TXT
+      ...>   use DiacriticalWeb.HTML
       ...>
       ...>   embed_templates "template/*",
-      ...>     root: "../../support/diacritical_web/txt"
+      ...>     root: "../../support/diacritical_web/html"
       ...> end
       iex>
       iex> %{assigns: %{valid: assigns}} = c_assigns()
-      iex> %{resp_body: resp_body} = c_resp_body_greeting()
+      iex> c = c_resp_body_greeting()
+      iex> %{resp_body: resp_body} = c_resp_body_to_html(c)
       iex>
       iex> function_exported?(TestTemplate, :greet, 1)
       true
@@ -52,7 +53,7 @@ defmodule DiacriticalWeb.TXT do
       resp_body
 
   """
-  @doc since: "0.5.0"
+  @doc since: "0.6.0"
   defmacro __using__(opt) when is_list(opt) do
     quote do
       use Phoenix.VerifiedRoutes,
@@ -60,6 +61,7 @@ defmodule DiacriticalWeb.TXT do
         router: :"Elixir.DiacriticalWeb.Router"
 
       import unquote(__MODULE__)
+      import Phoenix.HTML
     end
   end
 end
