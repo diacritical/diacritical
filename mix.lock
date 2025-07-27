@@ -291,6 +291,16 @@
     "hexpm",
     "336dce4f86cba56fed312a7d280bf2282c720abb6074bdb1b61ec8095bdd0bc9"
   },
+  phoenix_html: {
+    :hex,
+    :phoenix_html,
+    "4.2.1",
+    "35279e2a39140068fc03f8874408d58eef734e488fc142153f055c5454fd1c08",
+    [:mix],
+    [],
+    "hexpm",
+    "cff108100ae2715dd959ae8f2a8cef8e20b593f8dfd031c9cba92702cf23e053"
+  },
   phoenix_pubsub: {
     :hex,
     :phoenix_pubsub,
