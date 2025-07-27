@@ -15,7 +15,7 @@ defmodule DiacriticalWeb.HTMLTest do
 
     embed_templates "../../support/diacritical_web/html/template/greet"
 
-    setup ~W[c_assigns c_resp_body_greeting c_resp_body_to_html]a
+    setup ~W[c_assigns_greeting c_resp_body_greeting c_resp_body_to_html]a
 
     test "CompileError" do
       refute function_exported?(__MODULE__, :ignore, 1)

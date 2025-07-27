@@ -15,7 +15,7 @@ defmodule DiacriticalWeb.TXTTest do
 
     embed_templates "../../support/diacritical_web/txt/template/greet"
 
-    setup [:c_assigns, :c_resp_body_greeting]
+    setup [:c_assigns_greeting, :c_resp_body_greeting]
 
     test "CompileError" do
       refute function_exported?(__MODULE__, :ignore, 1)

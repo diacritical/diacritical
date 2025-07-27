@@ -29,7 +29,7 @@ defmodule DiacriticalWeb.HTML.PageTest do
   describe "greet/1" do
     import Page, only: [greet: 1]
 
-    setup ~W[c_assigns c_resp_body_greeting c_resp_body_to_html]a
+    setup ~W[c_assigns_greeting c_resp_body_greeting c_resp_body_to_html]a
 
     test "FunctionClauseError", %{assigns: %{invalid: assigns}} do
       assert_raise FunctionClauseError, fn -> greet(assigns) end

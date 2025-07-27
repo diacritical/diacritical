@@ -43,7 +43,7 @@ defmodule DiacriticalWeb.HTML do
       ...>     root: "../../support/diacritical_web/html"
       ...> end
       iex>
-      iex> %{assigns: %{valid: assigns}} = c_assigns()
+      iex> %{assigns: %{valid: assigns}} = c_assigns_greeting()
       iex> c = c_resp_body_greeting()
       iex> %{resp_body: resp_body} = c_resp_body_to_html(c)
       iex>

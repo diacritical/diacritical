@@ -1,14 +1,14 @@
-defmodule DiacriticalWeb.TXT.ErrorTest do
+defmodule DiacriticalWeb.HTML.ErrorTest do
   @moduledoc "Defines an `ExUnit.Case` case."
-  @moduledoc since: "0.5.0"
+  @moduledoc since: "0.6.0"
 
   use DiacriticalCase.View, async: true
 
   alias DiacriticalWeb
 
-  alias DiacriticalWeb.TXT
+  alias DiacriticalWeb.HTML
 
-  alias TXT.Error
+  alias HTML.Error
 
   describe "__mix_recompile__?/0" do
     import Error, only: [__mix_recompile__?: 0]
@@ -27,18 +27,18 @@ defmodule DiacriticalWeb.TXT.ErrorTest do
   end
 
   describe "404/1" do
-    setup [:c_assigns, :c_resp_body_404]
+    setup ~W[c_assigns c_resp_body_404 c_resp_body_to_html]a
 
-    test "success", %{assigns: assigns, resp_body: resp_body} do
+    test "success", %{assigns: %{valid: assigns}, resp_body: resp_body} do
       assert function_exported?(Error, :"404", 1)
       assert Error."404"(assigns) == resp_body
     end
   end
 
   describe "500/1" do
-    setup [:c_assigns, :c_resp_body_500]
+    setup ~W[c_assigns c_resp_body_500 c_resp_body_to_html]a
 
-    test "success", %{assigns: assigns, resp_body: resp_body} do
+    test "success", %{assigns: %{valid: assigns}, resp_body: resp_body} do
       assert function_exported?(Error, :"500", 1)
       assert Error."500"(assigns) == resp_body
     end

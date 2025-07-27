@@ -43,7 +43,7 @@ defmodule DiacriticalWeb.TXT do
       ...>     root: "../../support/diacritical_web/txt"
       ...> end
       iex>
-      iex> %{assigns: %{valid: assigns}} = c_assigns()
+      iex> %{assigns: %{valid: assigns}} = c_assigns_greeting()
       iex> %{resp_body: resp_body} = c_resp_body_greeting()
       iex>
       iex> function_exported?(TestTemplate, :greet, 1)

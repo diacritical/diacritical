@@ -44,6 +44,72 @@ defmodule DiacriticalCase.ViewTest do
     end
   end
 
+  describe "c_assigns_greeting/0" do
+    import View, only: [c_assigns_greeting: 0]
+
+    test "success" do
+      assert %{assigns: _assigns} = c_assigns_greeting()
+    end
+  end
+
+  describe "c_assigns_greeting/1" do
+    import View, only: [c_assigns_greeting: 1]
+
+    setup :c_context
+
+    test "FunctionClauseError", %{context: %{invalid: context}} do
+      assert_raise FunctionClauseError, fn -> c_assigns_greeting(context) end
+    end
+
+    test "success", %{context: %{valid: context}} do
+      assert %{assigns: _assigns} = c_assigns_greeting(context)
+    end
+  end
+
+  describe "c_resp_body_404/0" do
+    import View, only: [c_resp_body_404: 0]
+
+    test "success" do
+      assert %{resp_body: _resp_body} = c_resp_body_404()
+    end
+  end
+
+  describe "c_resp_body_404/1" do
+    import View, only: [c_resp_body_404: 1]
+
+    setup :c_context
+
+    test "FunctionClauseError", %{context: %{invalid: context}} do
+      assert_raise FunctionClauseError, fn -> c_resp_body_404(context) end
+    end
+
+    test "success", %{context: %{valid: context}} do
+      assert %{resp_body: _resp_body} = c_resp_body_404(context)
+    end
+  end
+
+  describe "c_resp_body_500/0" do
+    import View, only: [c_resp_body_500: 0]
+
+    test "success" do
+      assert %{resp_body: _resp_body} = c_resp_body_500()
+    end
+  end
+
+  describe "c_resp_body_500/1" do
+    import View, only: [c_resp_body_500: 1]
+
+    setup :c_context
+
+    test "FunctionClauseError", %{context: %{invalid: context}} do
+      assert_raise FunctionClauseError, fn -> c_resp_body_500(context) end
+    end
+
+    test "success", %{context: %{valid: context}} do
+      assert %{resp_body: _resp_body} = c_resp_body_500(context)
+    end
+  end
+
   describe "c_resp_body_dismissal/0" do
     import View, only: [c_resp_body_dismissal: 0]
 
