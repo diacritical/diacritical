@@ -4,6 +4,10 @@ defmodule DiacriticalWeb.Controller do
 
   alias DiacriticalWeb
 
+  alias DiacriticalWeb.HTML
+
+  alias HTML.Layout
+
   @typedoc "Represents the connection."
   @typedoc since: "0.5.0"
   @type conn() :: DiacriticalWeb.conn()
@@ -48,6 +52,7 @@ defmodule DiacriticalWeb.Controller do
         endpoint: :"Elixir.DiacriticalWeb.Endpoint",
         router: :"Elixir.DiacriticalWeb.Router"
 
+      plug :put_layout, html: {Layout, :main}
       plug :put_new_view, unquote(opt)[:view]
     end
   end
