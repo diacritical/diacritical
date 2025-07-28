@@ -41,16 +41,16 @@ defmodule DiacriticalWeb.TXT do
       iex> defmodule TestTemplate do
       ...>   use DiacriticalWeb.TXT
       ...>
-      ...>   embed_templates "template/*",
+      ...>   embed_templates "template/dismiss",
       ...>     root: "../../support/diacritical_web/txt"
       ...> end
       iex>
-      iex> %{assigns: %{valid: assigns}} = c_assigns_greeting()
-      iex> %{resp_body: resp_body} = c_resp_body_greeting()
+      iex> %{assigns: %{valid: assigns}} = c_assigns()
+      iex> %{resp_body: resp_body} = c_resp_body_dismissal()
       iex>
-      iex> function_exported?(TestTemplate, :greet, 1)
+      iex> function_exported?(TestTemplate, :dismiss, 1)
       true
-      iex> TestTemplate.greet(assigns)
+      iex> TestTemplate.dismiss(assigns)
       resp_body
 
   """
