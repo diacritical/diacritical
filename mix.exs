@@ -39,6 +39,8 @@ defmodule DiacriticalApp.MixProject do
   @typedoc since: "0.1.0"
   @type project() :: [project_keyword()]
 
+  @static_path "priv/diacritical_web/static/"
+
   @spec load_moduledoc_group(env()) :: moduledoc_group()
   defp load_moduledoc_group(:dev) do
     ".boundary.exs"
@@ -91,7 +93,9 @@ defmodule DiacriticalApp.MixProject do
           "cmd sed 1d boundary.exs > .boundary.exs",
           "cmd rm boundary.exs"
         ],
-        credo: "credo --config-name default"
+        credo: "credo --config-name default",
+        "phx.digest": "phx.digest #{@static_path}",
+        "phx.digest.clean": "phx.digest.clean --output #{@static_path}"
       ],
       app: :diacritical,
       boundary: [default: [type: :strict]],

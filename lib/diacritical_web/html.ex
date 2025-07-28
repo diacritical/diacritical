@@ -2,6 +2,8 @@ defmodule DiacriticalWeb.HTML do
   @moduledoc "Defines commonalities for `Phoenix.Template` templates."
   @moduledoc since: "0.6.0"
 
+  alias DiacriticalWeb
+
   @doc """
   Compiles a function for each template in the given `pattern`.
 
@@ -58,7 +60,8 @@ defmodule DiacriticalWeb.HTML do
     quote do
       use Phoenix.VerifiedRoutes,
         endpoint: :"Elixir.DiacriticalWeb.Endpoint",
-        router: :"Elixir.DiacriticalWeb.Router"
+        router: :"Elixir.DiacriticalWeb.Router",
+        statics: DiacriticalWeb.get_static_path()
 
       import unquote(__MODULE__)
       import Phoenix.HTML

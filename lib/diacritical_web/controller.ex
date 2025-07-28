@@ -50,7 +50,8 @@ defmodule DiacriticalWeb.Controller do
 
       use Phoenix.VerifiedRoutes,
         endpoint: :"Elixir.DiacriticalWeb.Endpoint",
-        router: :"Elixir.DiacriticalWeb.Router"
+        router: :"Elixir.DiacriticalWeb.Router",
+        statics: DiacriticalWeb.get_static_path()
 
       plug :put_layout, html: {Layout, :main}
       plug :put_new_view, unquote(opt)[:view]

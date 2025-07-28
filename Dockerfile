@@ -23,6 +23,7 @@ COPY . .
 
 RUN mix deps.get --only ${MIX_ENV}
 RUN mix deps.compile
+RUN mix phx.digest
 RUN mix compile
 RUN mix release
 

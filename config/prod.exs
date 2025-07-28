@@ -8,6 +8,7 @@ alias DiacriticalWeb.TXT
 
 config :diacritical, Endpoint,
   adapter: Bandit.PhoenixAdapter,
+  cache_static_manifest: "priv/diacritical_web/static/cache_manifest.json",
   force_ssl: [
     expires: 63_072_000,
     host: nil,

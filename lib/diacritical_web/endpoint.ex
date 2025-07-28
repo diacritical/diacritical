@@ -42,5 +42,10 @@ defmodule DiacriticalWeb.Endpoint do
     |> Page.call(:greet)
   end
 
+  plug Plug.Static,
+    at: "/",
+    from: {:diacritical, "priv/diacritical_web/static"},
+    only: DiacriticalWeb.get_static_path()
+
   plug Router
 end
