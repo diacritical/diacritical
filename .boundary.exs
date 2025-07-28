@@ -20,6 +20,7 @@
     DiacriticalWeb.Router,
     DiacriticalWeb.TXT,
     DiacriticalWeb.TXT.Error,
-    DiacriticalWeb.TXT.Page
+    DiacriticalWeb.TXT.Page,
+    DiacriticalWeb.Token
   ]
 ]
