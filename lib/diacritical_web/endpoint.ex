@@ -42,6 +42,20 @@ defmodule DiacriticalWeb.Endpoint do
     |> Page.call(:greet)
   end
 
+  plug Plug.Parsers,
+    json_decoder: Phoenix.json_library(),
+    parsers: [:urlencoded, :multipart, :json],
+    pass: ["*/*"]
+
+  plug Plug.MethodOverride
+  plug Plug.Head
+
+  plug Plug.Session,
+    key: "__Host-session",
+    same_site: "Strict",
+    signing_salt: "hLtZdarlXhfqk4yT",
+    store: :cookie
+
   plug Plug.Static,
     at: "/",
     from: {:diacritical, "priv/diacritical_web/static"},

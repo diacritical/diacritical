@@ -4,12 +4,42 @@ defmodule DiacriticalWeb.RouterTest do
 
   use DiacriticalCase.Conn, async: true
 
+  alias DiacriticalCase
   alias DiacriticalWeb
 
   alias DiacriticalWeb.Controller
   alias DiacriticalWeb.Router
 
   alias Controller.Page
+
+  @typedoc "Represents the context."
+  @typedoc since: "0.6.0"
+  @type context() :: DiacriticalCase.context()
+
+  @typedoc "Represents the context merge value."
+  @typedoc since: "0.6.0"
+  @type context_merge() :: DiacriticalCase.context_merge()
+
+  @spec c_conn_format_html(context()) :: context_merge()
+  defp c_conn_format_html(%{conn: %{valid: conn} = c})
+       when is_struct(conn, Plug.Conn) do
+    %{conn: %{c | valid: Phoenix.Controller.put_format(conn, "html")}}
+  end
+
+  @spec c_conn_session(context()) :: context_merge()
+  defp c_conn_session(%{conn: %{valid: conn} = c})
+       when is_struct(conn, Plug.Conn) do
+    %{
+      conn: %{
+        c
+        | valid:
+            [key: "_key", signing_salt: "", store: :cookie]
+            |> Plug.Session.init()
+            |> then(&Plug.Session.call(conn, &1))
+            |> Plug.Conn.fetch_session()
+      }
+    }
+  end
 
   describe "__routes__/0" do
     import Router, only: [__routes__: 0]
@@ -71,6 +101,20 @@ defmodule DiacriticalWeb.RouterTest do
 
     test "success", %{conn: %{valid: conn}, opt: opt} do
       assert plaintext(conn, opt) == conn
+    end
+  end
+
+  describe "browser/2" do
+    import Router, only: [browser: 2]
+
+    setup ~W[c_request_path c_conn c_conn_format_html c_conn_session c_opt]a
+
+    test "Plug.Conn.WrapperError", %{conn: %{invalid: conn}, opt: opt} do
+      assert_raise Plug.Conn.WrapperError, fn -> browser(conn, opt) end
+    end
+
+    test "success", %{conn: %{valid: conn}, opt: opt} do
+      assert %Plug.Conn{private: %{phoenix_format: "html"}} = browser(conn, opt)
     end
   end
 
