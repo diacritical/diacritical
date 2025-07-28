@@ -88,6 +88,9 @@ defmodule DiacriticalApp.MixProject do
 
     [
       aliases: [
+        "asset.build": "esbuild diacritical_web",
+        "asset.deploy": ["esbuild diacritical_web --minify", "phx.digest"],
+        "asset.setup": "esbuild.install --if-missing",
         "boundary.ex_doc_groups": [
           "boundary.ex_doc_groups",
           "cmd sed 1d boundary.exs > .boundary.exs",

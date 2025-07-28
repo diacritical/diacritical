@@ -18,7 +18,14 @@ config :diacritical, Endpoint,
       ~r/priv\/diacritical_web\/static\/.*(?:css|ico|js|svg|txt)$/
     ]
   ],
-  url: [host: "localhost", path: "/", port: 4_005, scheme: "https"]
+  url: [host: "localhost", path: "/", port: 4_005, scheme: "https"],
+  watchers: [
+    esbuild: {
+      Esbuild,
+      :install_and_run,
+      [:diacritical_web, ["--sourcemap=inline", "--watch"]]
+    }
+  ]
 
 config :diacritical, env: [dev: true]
 config :logger, level: :debug

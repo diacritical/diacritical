@@ -38,6 +38,20 @@ config :diacritical, Endpoint,
 
 config :diacritical, env: [prod: true]
 
+config :esbuild,
+  diacritical_web: [
+    args: [
+      "index.css",
+      "index.js",
+      "--bundle",
+      "--target=chrome109,edge109,firefox109,safari16.3",
+      "--outdir=../../priv/diacritical_web/static/asset"
+    ],
+    cd: Path.expand("../asset/diacritical_web", __DIR__),
+    env: %{"NODE_PATH" => Path.expand("../dep", __DIR__)}
+  ],
+  version: "0.24.0"
+
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
