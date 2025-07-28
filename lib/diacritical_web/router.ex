@@ -68,6 +68,16 @@ defmodule DiacriticalWeb.Router do
       "web-share=(self), window-management=(self), xr-spatial-tracking=(self)"
   end
 
+  @dialyzer {:no_unused, get_cross_origin_embedder_policy: 0}
+  @spec get_cross_origin_embedder_policy() :: header_value()
+  defp get_cross_origin_embedder_policy() do
+    if DiacriticalWeb.Endpoint.config(:code_reloader) do
+      "unsafe-none"
+    else
+      "require-corp"
+    end
+  end
+
   @dialyzer {:no_unused, put_secure_headers: 2}
   @spec put_secure_headers(conn(), opt()) :: conn()
   defp put_secure_headers(%Plug.Conn{assigns: %{nonce: nonce}} = conn, _opt)
@@ -76,7 +86,7 @@ defmodule DiacriticalWeb.Router do
       conn,
       %{
         "content-security-policy" => get_content_security_policy(nonce),
-        "cross-origin-embedder-policy" => "require-corp",
+        "cross-origin-embedder-policy" => get_cross_origin_embedder_policy(),
         "cross-origin-opener-policy" => "same-origin",
         "cross-origin-resource-policy" => "same-origin",
         "permissions-policy" => get_permissions_policy(),

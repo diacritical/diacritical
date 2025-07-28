@@ -47,6 +47,12 @@ defmodule DiacriticalWeb.Endpoint do
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"]
 
+  if code_reloading? do
+    socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
+    plug Phoenix.CodeReloader
+    plug Phoenix.LiveReloader
+  end
+
   plug Plug.MethodOverride
   plug Plug.Head
 
