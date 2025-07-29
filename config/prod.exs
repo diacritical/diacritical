@@ -43,6 +43,8 @@ config :esbuild,
     args: [
       "index.css",
       "index.js",
+      "vendor/inter/index.css",
+      "--loader:.woff2=file",
       "--bundle",
       "--target=chrome109,edge109,firefox109,safari16.3",
       "--outdir=../../priv/diacritical_web/static/asset"

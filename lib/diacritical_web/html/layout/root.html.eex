@@ -12,6 +12,11 @@
     <title><%= assigns[:page_title] || "Diacritical" %></title>
     <link
       nonce="<%= assigns[:nonce] %>"
+      href="<%= ~p"/asset/vendor/inter/index.css" %>"
+      rel="stylesheet"
+    />
+    <link
+      nonce="<%= assigns[:nonce] %>"
       href="<%= ~p"/asset/index.css" %>"
       rel="stylesheet"
     />
