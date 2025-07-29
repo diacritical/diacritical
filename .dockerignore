@@ -1,6 +1,7 @@
 *.beam
 *.ez
 _build/
+asset/*_web/node_modules/
 boundary/
 cover/
 dep/

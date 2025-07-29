@@ -39,6 +39,7 @@ defmodule DiacriticalApp.MixProject do
   @typedoc since: "0.1.0"
   @type project() :: [project_keyword()]
 
+  @asset_path "asset/diacritical_web/"
   @static_path "priv/diacritical_web/static/"
 
   @spec load_moduledoc_group(env()) :: moduledoc_group()
@@ -90,13 +91,15 @@ defmodule DiacriticalApp.MixProject do
       aliases: [
         "asset.build": "esbuild diacritical_web",
         "asset.deploy": ["esbuild diacritical_web --minify", "phx.digest"],
-        "asset.setup": "esbuild.install --if-missing",
+        "asset.setup": ["npm.install", "esbuild.install --if-missing"],
         "boundary.ex_doc_groups": [
           "boundary.ex_doc_groups",
           "cmd sed 1d boundary.exs > .boundary.exs",
           "cmd rm boundary.exs"
         ],
         credo: "credo --config-name default",
+        "npm.install": "cmd --cd #{@asset_path} npm install",
+        "npm.update": "cmd --cd #{@asset_path} npm update",
         "phx.digest": "phx.digest #{@static_path}",
         "phx.digest.clean": "phx.digest.clean --output #{@static_path}"
       ],

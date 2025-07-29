@@ -12,13 +12,16 @@ jobs:
   test:
     env:
       MIX_ENV: test
-    name: Erlang/OTP ${{ matrix.otp-version }} / Elixir ${{ matrix.elixir-version }}
+    name: Erlang/OTP ${{ matrix.otp-version }} / Elixir ${{ matrix.elixir-version }} / Node.js ${{ matrix.node-version }}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: erlef/setup-beam@v1
         with:
           elixir-version: ${{ matrix.elixir-version }}
           otp-version: ${{ matrix.otp-version }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
       - uses: actions/checkout@v4
       - env:
           cache-name: mix deps.get
@@ -36,6 +39,14 @@ jobs:
           key: "${{ matrix.os }}:${{ env.cache-name }}:${{ hashFiles('mix.exs', 'mix.lock') }}"
           path: _build
           restore-keys: "${{ matrix.os }}:${{ env.cache-name }}:"
+      - env:
+          cache-name: mix npm.install
+        name: Run actions/cache@v4 [${{ env.cache-name }}]
+        uses: actions/cache@v4
+        with:
+          key: "${{ matrix.os }}:${{ env.cache-name }}:${{ hashFiles('asset/**/package.json', 'asset/**/package-lock.json') }}"
+          path: asset/**/node_modules
+          restore-keys: "${{ matrix.os }}:${{ env.cache-name }}:"
       - run: mix deps.get
       - run: mix deps.compile
       - run: mix compile
@@ -48,6 +59,7 @@ jobs:
     strategy:
       matrix:
         elixir-version: ["1.18.4"]
+        node-version: ["24.4.1"]
         os: ["ubuntu-24.04"]
         otp-version: ["28.0.2"]
 

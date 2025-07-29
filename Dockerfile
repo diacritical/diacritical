@@ -8,7 +8,7 @@ ARG BUILD="hexpm/elixir:${ELIXIR}-erlang-${OTP}-debian-${DEBIAN}"
 FROM ${BUILD} as build
 
 RUN apt-get update -y
-RUN apt-get install -y build-essential git
+RUN apt-get install -y build-essential git npm
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
 

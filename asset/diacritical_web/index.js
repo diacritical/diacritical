@@ -1,1 +1,3 @@
-export const diacritical = {};
+import "phoenix_html";
+
+export default {};
