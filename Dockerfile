@@ -2,10 +2,10 @@ ARG DEBIAN="bookworm-20250721-slim"
 ARG ELIXIR="1.18.4"
 ARG OTP="28.0.2"
 
-ARG APP="debian:${DEBIAN}"
-ARG BUILD="hexpm/elixir:${ELIXIR}-erlang-${OTP}-debian-${DEBIAN}"
+ARG APP="docker.io/library/debian:${DEBIAN}"
+ARG BUILD="docker.io/hexpm/elixir:${ELIXIR}-erlang-${OTP}-debian-${DEBIAN}"
 
-FROM ${BUILD} as build
+FROM ${BUILD} AS build
 
 RUN apt-get update -y
 RUN apt-get install -y build-essential git npm
@@ -23,9 +23,9 @@ COPY . .
 
 RUN mix deps.get --only ${MIX_ENV}
 RUN mix deps.compile
+RUN mix compile
 RUN mix asset.setup
 RUN mix asset.deploy
-RUN mix compile
 RUN mix release
 
 FROM ${APP}
