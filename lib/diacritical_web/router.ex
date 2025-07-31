@@ -19,7 +19,7 @@ defmodule DiacriticalWeb.Router do
 
   @typedoc "Represents the nonce."
   @typedoc since: "0.6.0"
-  @type nonce() :: binary()
+  @type nonce() :: DiacriticalWeb.nonce()
 
   @typedoc "Represents the HTTP header value."
   @typedoc since: "0.6.0"
