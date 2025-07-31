@@ -4,10 +4,13 @@ defmodule DiacriticalWeb.Router do
 
   use Phoenix.Router, helpers: false
 
+  import Phoenix.LiveView.Router
+
   alias DiacriticalWeb
 
   alias DiacriticalWeb.Controller
   alias DiacriticalWeb.HTML
+  alias DiacriticalWeb.LiveView
 
   @typedoc "Represents the connection."
   @typedoc since: "0.6.0"
@@ -28,10 +31,14 @@ defmodule DiacriticalWeb.Router do
   @dialyzer {:no_unused, put_nonce: 2}
   @spec put_nonce(conn(), opt()) :: conn()
   defp put_nonce(conn, _opt) when is_struct(conn, Plug.Conn) do
-    18
-    |> :crypto.strong_rand_bytes()
-    |> Base.url_encode64()
-    |> then(&assign(conn, :nonce, &1))
+    nonce =
+      18
+      |> :crypto.strong_rand_bytes()
+      |> Base.url_encode64()
+
+    conn
+    |> put_session("nonce", nonce)
+    |> assign(:nonce, nonce)
   end
 
   @dialyzer {:no_unused, get_content_security_policy: 1}
@@ -117,6 +124,6 @@ defmodule DiacriticalWeb.Router do
   scope "/" do
     pipe_through :browser
 
-    get "/", Controller.Page, :greet
+    live "/", LiveView.Page
   end
 end

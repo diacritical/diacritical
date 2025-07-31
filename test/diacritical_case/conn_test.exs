@@ -129,6 +129,28 @@ defmodule DiacriticalCase.ConnTest do
     end
   end
 
+  describe "c_param/0" do
+    import Conn, only: [c_param: 0]
+
+    test "success" do
+      assert %{param: _param} = c_param()
+    end
+  end
+
+  describe "c_param/1" do
+    import Conn, only: [c_param: 1]
+
+    setup :c_context
+
+    test "FunctionClauseError", %{context: %{invalid: context}} do
+      assert_raise FunctionClauseError, fn -> c_param(context) end
+    end
+
+    test "success", %{context: %{valid: context}} do
+      assert %{param: _param} = c_param(context)
+    end
+  end
+
   describe "c_request_path/0" do
     import Conn, only: [c_request_path: 0]
 
@@ -148,6 +170,50 @@ defmodule DiacriticalCase.ConnTest do
 
     test "success", %{context: %{valid: context}} do
       assert %{request_path: _request_path} = c_request_path(context)
+    end
+  end
+
+  describe "c_session/0" do
+    import Conn, only: [c_session: 0]
+
+    test "success" do
+      assert %{session: _session} = c_session()
+    end
+  end
+
+  describe "c_session/1" do
+    import Conn, only: [c_session: 1]
+
+    setup :c_context
+
+    test "FunctionClauseError", %{context: %{invalid: context}} do
+      assert_raise FunctionClauseError, fn -> c_session(context) end
+    end
+
+    test "success", %{context: %{valid: context}} do
+      assert %{session: _session} = c_session(context)
+    end
+  end
+
+  describe "c_socket/0" do
+    import Conn, only: [c_socket: 0]
+
+    test "success" do
+      assert %{socket: _socket} = c_socket()
+    end
+  end
+
+  describe "c_socket/1" do
+    import Conn, only: [c_socket: 1]
+
+    setup :c_context
+
+    test "FunctionClauseError", %{context: %{invalid: context}} do
+      assert_raise FunctionClauseError, fn -> c_socket(context) end
+    end
+
+    test "success", %{context: %{valid: context}} do
+      assert %{socket: _socket} = c_socket(context)
     end
   end
 

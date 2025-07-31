@@ -25,36 +25,21 @@ defmodule DiacriticalWeb.LiveViewTest do
     %{name: %{invalid: "default", valid: :default}}
   end
 
-  @spec c_param(context()) :: context_merge()
-  defp c_param(c) when is_map(c), do: %{param: %{invalid: [], valid: %{}}}
+  @spec c_socket_nonce(context()) :: context_merge()
+  defp c_socket_nonce(c) when is_map(c) do
+    socket = c[:socket] || c_socket()[:socket]
 
-  @spec c_session(context()) :: context_merge()
-  defp c_session(c) when is_map(c) do
-    nonce =
-      18
-      |> :crypto.strong_rand_bytes()
-      |> Base.url_encode64()
-
-    %{session: %{invalid: [], nonce: %{"nonce" => nonce}, valid: %{}}}
-  end
-
-  @spec c_socket(context()) :: context_merge()
-  defp c_socket(c) when is_map(c) do
     %{"nonce" => nonce} =
-      c[:session][:nonce] || c_session(%{})[:session][:nonce]
+      c[:session][:nonce] || c_session()[:session][:nonce]
 
-    socket = %Phoenix.LiveView.Socket{}
+    redirected =
+      %{socket.valid | redirected: {:redirect, %{to: "/hello", status: 302}}}
 
     %{
-      socket: %{
-        invalid: %{},
-        nonce: assign(socket, :nonce, nonce),
-        redirected: %{
-          socket
-          | redirected: {:redirect, %{to: "/hello", status: 302}}
-        },
-        valid: socket
-      }
+      socket:
+        socket
+        |> Map.put(:nonce, assign(socket.valid, :nonce, nonce))
+        |> Map.put(:redirected, redirected)
     }
   end
 
@@ -71,7 +56,7 @@ defmodule DiacriticalWeb.LiveViewTest do
   describe "on_mount/4" do
     import LiveView, only: [on_mount: 4]
 
-    setup ~W[c_name c_param c_session c_socket]a
+    setup ~W[c_name c_param c_session c_socket_nonce]a
 
     test "FunctionClauseError (&1)", %{
       name: %{invalid: name},

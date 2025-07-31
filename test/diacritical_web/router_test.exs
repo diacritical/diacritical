@@ -7,10 +7,10 @@ defmodule DiacriticalWeb.RouterTest do
   alias DiacriticalCase
   alias DiacriticalWeb
 
-  alias DiacriticalWeb.Controller
+  alias DiacriticalWeb.LiveView
   alias DiacriticalWeb.Router
 
-  alias Controller.Page
+  alias LiveView.Page
 
   @typedoc "Represents the context."
   @typedoc since: "0.6.0"
@@ -53,7 +53,7 @@ defmodule DiacriticalWeb.RouterTest do
     import Router, only: [__checks__: 0]
 
     test "success" do
-      assert __checks__() == (&Page.init/1)
+      assert __checks__() == (&Page.__live__/0)
     end
   end
 

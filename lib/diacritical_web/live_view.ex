@@ -55,9 +55,9 @@ defmodule DiacriticalWeb.LiveView do
   ## Example
 
       iex> %{name: %{valid: name}} = c_name(%{})
-      iex> %{param: %{valid: param}} = c_param(%{})
-      iex> %{session: %{nonce: session}} = c = c_session(%{})
-      iex> %{socket: %{nonce: socket!, valid: socket}} = c_socket(c)
+      iex> %{param: %{valid: param}} = c_param()
+      iex> %{session: %{nonce: session}} = c = c_session()
+      iex> %{socket: %{nonce: socket!, valid: socket}} = c_socket_nonce(c)
       iex>
       iex> on_mount(name, param, session, socket)
       {:cont, socket!}

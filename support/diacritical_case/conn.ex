@@ -100,6 +100,19 @@ defmodule DiacriticalCase.Conn do
 
   ## Example
 
+      iex> %{param: _param} = c_param()
+
+  """
+  @doc since: "0.5.0"
+  @spec c_param() :: context_merge()
+  @spec c_param(context()) :: context_merge()
+  def c_param(c \\ %{}) when is_map(c), do: %{param: %{invalid: [], valid: %{}}}
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
       iex> %{request_path: _request_path} = c_request_path()
 
   """
@@ -107,6 +120,41 @@ defmodule DiacriticalCase.Conn do
   @spec c_request_path() :: context_merge()
   @spec c_request_path(context()) :: context_merge()
   def c_request_path(c \\ %{}) when is_map(c), do: %{request_path: "/hello"}
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
+      iex> %{session: _session} = c_session()
+
+  """
+  @doc since: "0.5.0"
+  @spec c_session() :: context_merge()
+  @spec c_session(context()) :: context_merge()
+  def c_session(c \\ %{}) when is_map(c) do
+    nonce =
+      18
+      |> :crypto.strong_rand_bytes()
+      |> Base.url_encode64()
+
+    %{session: %{invalid: [], nonce: %{"nonce" => nonce}, valid: %{}}}
+  end
+
+  @doc """
+  Returns a map of fixtures to be merged into the given `context`.
+
+  ## Example
+
+      iex> %{socket: _socket} = c_socket()
+
+  """
+  @doc since: "0.5.0"
+  @spec c_socket() :: context_merge()
+  @spec c_socket(context()) :: context_merge()
+  def c_socket(c \\ %{}) when is_map(c) do
+    %{socket: %{invalid: %{}, valid: %Phoenix.LiveView.Socket{}}}
+  end
 
   @doc """
   Returns a map of fixtures to be merged into the given `context`.

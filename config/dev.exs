@@ -13,6 +13,7 @@ config :diacritical, Endpoint,
   http: [port: 4_004],
   https: [port: 4_005],
   live_reload: [
+    notify: [live_view: [~r/lib\/diacritical_web\/live_view\/.*(?:ex)$/]],
     patterns: [
       ~r/lib\/diacritical_web\/(?:controller|html|txt)\/.*(?:ex)$/,
       ~r/priv\/diacritical_web\/static\/.*(?:css|ico|js|svg|txt|woff2)$/
