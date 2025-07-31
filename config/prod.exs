@@ -25,6 +25,7 @@ config :diacritical, Endpoint,
     otp_app: :diacritical,
     port: 4_001
   ],
+  live_view: [signing_salt: "TgjX1D53n3OkyetA"],
   pubsub_server: :"Elixir.Diacritical.PubSub",
   render_errors: [
     formats: [html: HTML.Error, txt: TXT.Error],
@@ -33,6 +34,12 @@ config :diacritical, Endpoint,
   ],
   secret_key_base:
     "TMK8Q5EFfQlxa6k4bt02uplsaTf0gDLu0O8B3F8HukfaPXqBIgoXZVURXIbAMKLn",
+  session: [
+    key: "__Host-session",
+    same_site: "Strict",
+    signing_salt: "hLtZdarlXhfqk4yT",
+    store: :cookie
+  ],
   server: true,
   url: [host: nil, path: "/", port: 443, scheme: "https"]
 
@@ -44,15 +51,18 @@ config :esbuild,
       "index.css",
       "index.js",
       "vendor/inter/index.css",
-      "--loader:.woff2=file",
       "--bundle",
-      "--target=chrome109,edge109,firefox109,safari16.3",
-      "--outdir=../../priv/diacritical_web/static/asset"
+      "--loader:.woff2=file",
+      "--outdir=../../priv/diacritical_web/static/asset",
+      "--alias:@=.",
+      "--target=chrome109,edge109,firefox109,safari16.3"
     ],
     cd: Path.expand("../asset/diacritical_web", __DIR__),
-    env: %{"NODE_PATH" => Path.expand("../dep", __DIR__)}
+    env: %{
+      "NODE_PATH" => [Path.expand("../dep", __DIR__), Mix.Project.build_path()]
+    }
   ],
-  version: "0.24.0"
+  version: "0.25.8"
 
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

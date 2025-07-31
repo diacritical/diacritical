@@ -31,7 +31,7 @@ defmodule DiacriticalWeb.HTML.ErrorTest do
 
     test "success", %{assigns: %{valid: assigns}, resp_body: resp_body} do
       assert function_exported?(Error, :"404", 1)
-      assert Error."404"(assigns) == resp_body
+      assert render_component(&Error."404"/1, assigns) == resp_body
     end
   end
 
@@ -40,7 +40,7 @@ defmodule DiacriticalWeb.HTML.ErrorTest do
 
     test "success", %{assigns: %{valid: assigns}, resp_body: resp_body} do
       assert function_exported?(Error, :"500", 1)
-      assert Error."500"(assigns) == resp_body
+      assert render_component(&Error."500"/1, assigns) == resp_body
     end
   end
 end

@@ -5,6 +5,7 @@
   "exports": { ".": "./index.js" },
   "dependencies": {
     "phoenix": "file:../../dep/phoenix",
-    "phoenix_html": "file:../../dep/phoenix_html"
+    "phoenix_html": "file:../../dep/phoenix_html",
+    "phoenix_live_view": "file:../../dep/phoenix_live_view"
   }
 }

@@ -21,13 +21,15 @@ defmodule DiacriticalWeb.HTMLTest do
       refute function_exported?(__MODULE__, :ignore, 1)
     end
 
-    test "FunctionClauseError", %{assigns: %{invalid: assigns}} do
-      assert_raise FunctionClauseError, fn -> dismiss(assigns) end
+    test "Protocol.UndefinedError", %{assigns: %{invalid: assigns}} do
+      assert_raise Protocol.UndefinedError, fn ->
+        render_component(&dismiss/1, assigns)
+      end
     end
 
     test "success", %{assigns: %{valid: assigns}, resp_body: resp_body} do
       assert function_exported?(__MODULE__, :dismiss, 1)
-      assert dismiss(assigns) == resp_body
+      assert render_component(&dismiss/1, assigns) == resp_body
     end
   end
 
@@ -43,13 +45,15 @@ defmodule DiacriticalWeb.HTMLTest do
       refute function_exported?(__MODULE__, :ignore, 1)
     end
 
-    test "FunctionClauseError", %{assigns: %{invalid: assigns}} do
-      assert_raise FunctionClauseError, fn -> greet(assigns) end
+    test "Protocol.UndefinedError", %{assigns: %{invalid: assigns}} do
+      assert_raise Protocol.UndefinedError, fn ->
+        render_component(&greet/1, assigns)
+      end
     end
 
     test "success", %{assigns: %{valid: assigns}, resp_body: resp_body} do
       assert function_exported?(__MODULE__, :greet, 1)
-      assert greet(assigns) == resp_body
+      assert render_component(&greet/1, assigns) == resp_body
     end
   end
 end

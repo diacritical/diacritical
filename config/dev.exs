@@ -31,3 +31,7 @@ config :diacritical, env: [dev: true]
 config :logger, level: :debug
 config :os_mon, start_cpu_sup: true, start_disksup: true, start_memsup: true
 config :phoenix, :stacktrace_depth, 32
+
+config :phoenix_live_view,
+  debug_heex_annotations: true,
+  debug_tags_annotations: true

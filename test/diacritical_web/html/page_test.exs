@@ -31,13 +31,15 @@ defmodule DiacriticalWeb.HTML.PageTest do
 
     setup ~W[c_assigns_greeting c_resp_body_greeting c_resp_body_to_html]a
 
-    test "FunctionClauseError", %{assigns: %{invalid: assigns}} do
-      assert_raise FunctionClauseError, fn -> greet(assigns) end
+    test "Protocol.UndefinedError", %{assigns: %{invalid: assigns}} do
+      assert_raise Protocol.UndefinedError, fn ->
+        render_component(&greet/1, assigns)
+      end
     end
 
     test "success", %{assigns: %{valid: assigns}, resp_body: resp_body} do
       assert function_exported?(Page, :greet, 1)
-      assert greet(assigns) == resp_body
+      assert render_component(&greet/1, assigns) == resp_body
     end
   end
 end

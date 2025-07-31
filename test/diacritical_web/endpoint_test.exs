@@ -414,8 +414,30 @@ defmodule DiacriticalWeb.EndpointTest do
   describe "__sockets__/0" do
     import Endpoint, only: [__sockets__: 0]
 
-    test "success" do
-      assert __sockets__() == []
+    setup do
+      %{
+        connect_info: [
+          session: [
+            key: "__Host-session",
+            same_site: "Strict",
+            signing_salt: "hLtZdarlXhfqk4yT",
+            store: :cookie
+          ]
+        ]
+      }
+    end
+
+    test "success", %{connect_info: connect_info} do
+      assert __sockets__() == [
+               {
+                 "/live",
+                 Phoenix.LiveView.Socket,
+                 [
+                   longpoll: [connect_info: connect_info],
+                   websocket: [connect_info: connect_info]
+                 ]
+               }
+             ]
     end
   end
 

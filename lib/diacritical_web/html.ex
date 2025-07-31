@@ -22,7 +22,7 @@ defmodule DiacriticalWeb.HTML do
       derive_template = fn pattern ->
         pattern
         |> Path.basename()
-        |> Path.rootname(".html.eex")
+        |> Path.rootname(".html.heex")
       end
 
       Phoenix.Template.compile_all(
@@ -51,7 +51,7 @@ defmodule DiacriticalWeb.HTML do
       iex>
       iex> function_exported?(TestTemplate, :dismiss, 1)
       true
-      iex> TestTemplate.dismiss(assigns)
+      iex> render_component(&TestTemplate.dismiss/1, assigns)
       resp_body
 
   """
@@ -64,6 +64,7 @@ defmodule DiacriticalWeb.HTML do
         statics: DiacriticalWeb.get_static_path()
 
       import unquote(__MODULE__)
+      import Phoenix.Component, except: [embed_templates: 1, embed_templates: 2]
       import Phoenix.Controller, only: [get_csrf_token: 0]
       import Phoenix.HTML
     end

@@ -105,7 +105,7 @@ defmodule DiacriticalApp.MixProject do
       ],
       app: :diacritical,
       boundary: [default: [type: :strict]],
-      compilers: [:boundary | Mix.compilers()],
+      compilers: [:boundary, :phoenix_live_view | Mix.compilers()],
       deps: [
         {:bandit, "~> 1.7"},
         {:boundary, "~> 0.10", runtime: false},

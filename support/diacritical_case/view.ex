@@ -116,13 +116,13 @@ defmodule DiacriticalCase.View do
   @doc since: "0.6.0"
   @spec c_resp_body_to_html(context()) :: context_merge()
   def c_resp_body_to_html(%{resp_body: resp_body}) when is_binary(resp_body) do
-    %{resp_body: {:safe, ["<span>", String.trim(resp_body), "</span>\n"]}}
+    %{resp_body: "<span>#{String.trim(resp_body)}</span>"}
   end
 
   using do
     quote do
       import unquote(__MODULE__)
-      import Phoenix.HTML, only: [safe_to_string: 1]
+      import Phoenix.LiveViewTest
     end
   end
 end

@@ -19,6 +19,8 @@ defmodule DiacriticalWeb.Endpoint do
   @typedoc since: "0.4.0"
   @type opt() :: DiacriticalWeb.opt()
 
+  @session Application.compile_env(:diacritical, [__MODULE__, :session])
+
   @doc """
   Greets the world (for the given `conn` and `opt`)!
 
@@ -42,6 +44,10 @@ defmodule DiacriticalWeb.Endpoint do
     |> Page.call(:greet)
   end
 
+  socket "/live", Phoenix.LiveView.Socket,
+    longpoll: [connect_info: [session: @session]],
+    websocket: [connect_info: [session: @session]]
+
   plug Plug.Static,
     at: "/",
     from: {:diacritical, "priv/diacritical_web/static"},
@@ -60,12 +66,6 @@ defmodule DiacriticalWeb.Endpoint do
 
   plug Plug.MethodOverride
   plug Plug.Head
-
-  plug Plug.Session,
-    key: "__Host-session",
-    same_site: "Strict",
-    signing_salt: "hLtZdarlXhfqk4yT",
-    store: :cookie
-
+  plug Plug.Session, @session
   plug Router
 end
