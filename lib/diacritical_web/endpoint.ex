@@ -42,16 +42,21 @@ defmodule DiacriticalWeb.Endpoint do
     |> Page.call(:greet)
   end
 
-  plug Plug.Parsers,
-    json_decoder: Phoenix.json_library(),
-    parsers: [:urlencoded, :multipart, :json],
-    pass: ["*/*"]
+  plug Plug.Static,
+    at: "/",
+    from: {:diacritical, "priv/diacritical_web/static"},
+    only: DiacriticalWeb.get_static_path()
 
   if code_reloading? do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.CodeReloader
     plug Phoenix.LiveReloader
   end
+
+  plug Plug.Parsers,
+    json_decoder: Phoenix.json_library(),
+    parsers: [:urlencoded, :multipart, :json],
+    pass: ["*/*"]
 
   plug Plug.MethodOverride
   plug Plug.Head
@@ -61,11 +66,6 @@ defmodule DiacriticalWeb.Endpoint do
     same_site: "Strict",
     signing_salt: "hLtZdarlXhfqk4yT",
     store: :cookie
-
-  plug Plug.Static,
-    at: "/",
-    from: {:diacritical, "priv/diacritical_web/static"},
-    only: DiacriticalWeb.get_static_path()
 
   plug Router
 end
