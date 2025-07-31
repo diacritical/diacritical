@@ -4,8 +4,6 @@ defmodule DiacriticalWeb.HTML do
 
   alias DiacriticalWeb
 
-  alias DiacriticalWeb.Token
-
   @doc """
   Compiles a function for each template in the given `pattern`.
 
@@ -68,7 +66,6 @@ defmodule DiacriticalWeb.HTML do
       import unquote(__MODULE__)
       import Phoenix.Controller, only: [get_csrf_token: 0]
       import Phoenix.HTML
-      import Token, only: [sign: 1]
     end
   end
 end
