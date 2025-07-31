@@ -4,14 +4,6 @@ defmodule DiacriticalCase do
 
   use Boundary, deps: [Diacritical, ExUnit, Phoenix, Plug]
 
-  @typedoc "Represents the option."
-  @typedoc since: "0.3.0"
-  @type opt() :: Keyword.t()
-
-  @typedoc "Represents the abstract syntax tree."
-  @typedoc since: "0.3.0"
-  @type macro() :: Macro.t()
-
   @typedoc "Represents the context."
   @typedoc since: "0.3.0"
   @type context() :: map()
@@ -37,7 +29,6 @@ defmodule DiacriticalCase do
 
   """
   @doc since: "0.3.0"
-  @spec __using__(opt()) :: macro()
   defmacro __using__(opt) when is_list(opt) do
     quote do
       use ExUnit.CaseTemplate, unquote(opt)
