@@ -328,6 +328,50 @@
     "hexpm",
     "b3a1fa036d7eb2f956774eda7a7638cf5123f8f2175aca6d6420a7f95e598e1c"
   },
+  phoenix_live_view: {
+    :hex,
+    :phoenix_live_view,
+    "1.1.0-rc.4",
+    "1e933da296a80c0f57689b25db8711fc47feb452ac5de4b4824e8e64bccae9f9",
+    [:mix],
+    [
+      {
+        :igniter,
+        ">= 0.6.16 and < 1.0.0-0",
+        [hex: :igniter, repo: "hexpm", optional: true]
+      },
+      {:jason, "~> 1.0", hex: :jason, repo: "hexpm", optional: true},
+      {:lazy_html, "~> 0.1.0", hex: :lazy_html, repo: "hexpm", optional: true},
+      {
+        :phoenix,
+        "~> 1.6.15 or ~> 1.7.0 or ~> 1.8.0-rc",
+        [hex: :phoenix, repo: "hexpm", optional: false]
+      },
+      {
+        :phoenix_html,
+        "~> 3.3 or ~> 4.0",
+        [hex: :phoenix_html, repo: "hexpm", optional: false]
+      },
+      {
+        :phoenix_template,
+        "~> 1.0",
+        [hex: :phoenix_template, repo: "hexpm", optional: false]
+      },
+      {
+        :phoenix_view,
+        "~> 2.0",
+        [hex: :phoenix_view, repo: "hexpm", optional: true]
+      },
+      {:plug, "~> 1.15", hex: :plug, repo: "hexpm", optional: false},
+      {
+        :telemetry,
+        "~> 0.4.2 or ~> 1.0",
+        [hex: :telemetry, repo: "hexpm", optional: false]
+      }
+    ],
+    "hexpm",
+    "4747a143c9b494b19f6ac58b919be46ff773066efe4882ee37ba0fd272f673c2"
+  },
   phoenix_pubsub: {
     :hex,
     :phoenix_pubsub,
