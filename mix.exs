@@ -125,6 +125,7 @@ defmodule DiacriticalApp.MixProject do
       elixirc_options: [warnings_as_errors: true],
       elixirc_paths: get_elixirc_path(env),
       homepage_url: "https://diacritical.net",
+      listeners: [Phoenix.CodeReloader],
       name: "Diacritical",
       releases: [diacritical: [overlays: ["rel/overlay"]]],
       source_url: "https://github.com/diacritical/diacritical",

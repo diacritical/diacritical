@@ -46,7 +46,7 @@ defmodule DiacriticalWeb.Controller do
   defmacro __using__(opt) when is_list(opt) do
     quote do
       use Phoenix.Controller,
-          Keyword.merge([put_default_views: false], unquote(opt))
+          Keyword.merge([formats: []], unquote(opt))
 
       use Phoenix.VerifiedRoutes,
         endpoint: :"Elixir.DiacriticalWeb.Endpoint",
