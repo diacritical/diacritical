@@ -112,6 +112,7 @@ defmodule DiacriticalApp.MixProject do
         {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
         {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
         {:dns_cluster, "~> 0.2"},
+        {:ecto, "~> 3.13"},
         {:esbuild, "~> 0.10", runtime: env == :dev},
         {:ex_doc, "~> 0.38", only: :dev, runtime: false},
         {:phoenix, "~> 1.8-rc"},
