@@ -331,8 +331,8 @@
   phoenix_live_view: {
     :hex,
     :phoenix_live_view,
-    "1.1.0-rc.4",
-    "1e933da296a80c0f57689b25db8711fc47feb452ac5de4b4824e8e64bccae9f9",
+    "1.1.2",
+    "af6f090e3dc7d5ff41de10aa1039e0543e8151f99afa44097a832bcb139790d8",
     [:mix],
     [
       {
@@ -370,7 +370,7 @@
       }
     ],
     "hexpm",
-    "4747a143c9b494b19f6ac58b919be46ff773066efe4882ee37ba0fd272f673c2"
+    "54b2e4a31b8689a1604b3a2e0b1d54bb89e9476022c9ebbe585e9dd800674965"
   },
   phoenix_pubsub: {
     :hex,
