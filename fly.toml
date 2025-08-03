@@ -4,6 +4,9 @@ primary_region = "iad"
 kill_signal = "SIGTERM"
 kill_timeout = 5
 
+[deploy]
+  release_command = "/app/bin/migrate"
+
 [[services]]
   processes = ["app"]
   internal_port = 4000
