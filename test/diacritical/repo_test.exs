@@ -2,9 +2,7 @@ defmodule Diacritical.RepoTest do
   @moduledoc "Defines an `ExUnit.Case` case."
   @moduledoc since: "0.10.0"
 
-  use ExUnit.Case, async: true
-
-  import Ecto.Query, only: [from: 2]
+  use DiacriticalCase.Repo, async: true
 
   alias Diacritical
   alias DiacriticalCase
@@ -39,11 +37,6 @@ defmodule Diacritical.RepoTest do
 
   @spec c_schema(context()) :: context_merge()
   defp c_schema(c \\ %{}) when is_map(c), do: %{schema: TestSchema}
-
-  @spec checkout_repo(context()) :: context_merge()
-  defp checkout_repo(c) when is_map(c) do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Repo)
-  end
 
   @spec c_fun_self(context()) :: context_merge()
   defp c_fun_self(c) when is_map(c) do

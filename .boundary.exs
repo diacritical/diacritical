@@ -4,6 +4,7 @@
   DiacriticalCase: [
     DiacriticalCase,
     DiacriticalCase.Conn,
+    DiacriticalCase.Repo,
     DiacriticalCase.Supervisor,
     DiacriticalCase.Template,
     DiacriticalCase.View
