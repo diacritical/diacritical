@@ -9,6 +9,7 @@ defmodule DiacriticalWeb do
       Logger,
       Phoenix,
       Phoenix.Component,
+      Phoenix.Ecto,
       Phoenix.HTML,
       Phoenix.LiveReloader,
       Phoenix.LiveView,
