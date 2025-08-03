@@ -20,6 +20,10 @@ defmodule DiacriticalApp.MixProject do
   @typedoc since: "0.2.0"
   @type env() :: :dev | :prod | :test | atom()
 
+  @typedoc "Represents the command switch."
+  @typedoc since: "0.10.0"
+  @type switch() :: String.t()
+
   @typedoc "Represents the module documentation group."
   @typedoc since: "0.2.0"
   @type moduledoc_group() :: nil | Keyword.t([module()])
@@ -40,21 +44,9 @@ defmodule DiacriticalApp.MixProject do
   @type project() :: [project_keyword()]
 
   @asset_path "asset/diacritical_web/"
+  @repo_path "priv/diacritical/repo/"
+  @migration_path "#{@repo_path}/migration/"
   @static_path "priv/diacritical_web/static/"
-
-  @spec load_moduledoc_group(env()) :: moduledoc_group()
-  defp load_moduledoc_group(:dev) do
-    ".boundary.exs"
-    |> Code.eval_file()
-    |> elem(0)
-  end
-
-  defp load_moduledoc_group(env) when is_atom(env), do: nil
-
-  @spec get_elixirc_path(env()) :: elixirc_path()
-  defp get_elixirc_path(:dev), do: get_elixirc_path(:test)
-  defp get_elixirc_path(:test), do: ["support" | get_elixirc_path(:prod)]
-  defp get_elixirc_path(env) when is_atom(env), do: ["lib"]
 
   @doc """
   Returns the application configuration.
@@ -72,6 +64,33 @@ defmodule DiacriticalApp.MixProject do
       mod: {DiacriticalApp, []}
     ]
   end
+
+  @spec get_migration_switch(env()) :: switch()
+  defp get_migration_switch(:dev = env) do
+    "--migrations-path=#{@migration_path}#{env} #{get_migration_switch(:test)}"
+  end
+
+  defp get_migration_switch(:test = env) do
+    "--migrations-path=#{@migration_path}#{env} #{get_migration_switch(:prod)}"
+  end
+
+  defp get_migration_switch(env) when is_atom(env) do
+    "--migrations-path=#{@migration_path}#{env}"
+  end
+
+  @spec load_moduledoc_group(env()) :: moduledoc_group()
+  defp load_moduledoc_group(:dev) do
+    ".boundary.exs"
+    |> Code.eval_file()
+    |> elem(0)
+  end
+
+  defp load_moduledoc_group(env) when is_atom(env), do: nil
+
+  @spec get_elixirc_path(env()) :: elixirc_path()
+  defp get_elixirc_path(:dev), do: get_elixirc_path(:test)
+  defp get_elixirc_path(:test), do: ["support" | get_elixirc_path(:prod)]
+  defp get_elixirc_path(env) when is_atom(env), do: ["lib"]
 
   @doc """
   Returns the project configuration.
@@ -98,6 +117,21 @@ defmodule DiacriticalApp.MixProject do
           "cmd rm boundary.exs"
         ],
         credo: "credo --config-name default",
+        "ecto.gen.migration":
+          "ecto.gen.migration --migrations-path=#{@migration_path}#{env}",
+        "ecto.load": "ecto.load --dump-path=#{@repo_path}structure.sql",
+        "ecto.migrate": "ecto.migrate #{get_migration_switch(env)}",
+        "ecto.migration": "ecto.migrations",
+        "ecto.migrations": "ecto.migrations #{get_migration_switch(env)}",
+        "ecto.reset": ["ecto.drop", "ecto.setup"],
+        "ecto.rollback": "ecto.rollback #{get_migration_switch(env)}",
+        "ecto.seed": "run #{@repo_path}seed.exs",
+        "ecto.setup": [
+          "ecto.create",
+          "ecto.load --skip-if-loaded",
+          "ecto.migrate",
+          "ecto.seed"
+        ],
         "npm.install": "cmd --cd #{@asset_path} npm install",
         "npm.update": "cmd --cd #{@asset_path} npm update",
         "phx.digest": "phx.digest #{@static_path}",

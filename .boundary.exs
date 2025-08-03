@@ -1,5 +1,5 @@
 [
-  Diacritical: [Diacritical, Diacritical.Supervisor],
+  Diacritical: [Diacritical, Diacritical.Repo, Diacritical.Supervisor],
   DiacriticalApp: [DiacriticalApp],
   DiacriticalCase: [
     DiacriticalCase,

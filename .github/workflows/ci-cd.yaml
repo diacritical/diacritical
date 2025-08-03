@@ -14,6 +14,17 @@ jobs:
       MIX_ENV: test
     name: Erlang/OTP ${{ matrix.otp-version }} / Elixir ${{ matrix.elixir-version }} / Node.js ${{ matrix.node-version }}
     runs-on: ${{ matrix.os }}
+    services:
+      postgres:
+        env:
+          POSTGRES_PASSWORD: postgres
+        image: ${{ matrix.postgres }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-retries 5
+          --health-timeout 5s
+        ports: ["5432:5432"]
     steps:
       - uses: erlef/setup-beam@v1
         with:
@@ -55,6 +66,7 @@ jobs:
       - run: mix dialyzer --format github
       - run: mix asset.setup
       - run: mix asset.build
+      - run: mix ecto.setup
       - run: mix test
     strategy:
       matrix:
@@ -62,6 +74,7 @@ jobs:
         node-version: ["24.4.1"]
         os: ["ubuntu-24.04"]
         otp-version: ["28.0.2"]
+        postgres: ["postgres:17.5"]
 
 name: CI/CD
 

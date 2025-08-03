@@ -1,7 +1,9 @@
 import Config, only: [config: 2, config: 3]
 
+alias Diacritical
 alias DiacriticalWeb
 
+alias Diacritical.Repo
 alias DiacriticalWeb.Endpoint
 alias DiacriticalWeb.HTML
 alias DiacriticalWeb.TXT
@@ -43,7 +45,14 @@ config :diacritical, Endpoint,
   server: true,
   url: [host: nil, path: "/", port: 443, scheme: "https"]
 
-config :diacritical, env: [prod: true]
+config :diacritical, Repo,
+  after_connect: {Postgrex, :query!, ["SET timezone TO UTC", []]},
+  database: "diacritical",
+  migration_source: "schema_migration",
+  priv: "priv/diacritical/repo",
+  socket_options: [:inet6]
+
+config :diacritical, ecto_repos: [Repo], env: [prod: true]
 
 config :esbuild,
   diacritical_web: [
