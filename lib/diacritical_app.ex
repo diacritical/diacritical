@@ -14,7 +14,7 @@ defmodule DiacriticalApp do
 
   @typedoc "Represents the application."
   @typedoc since: "0.3.0"
-  @type app() :: Application.app()
+  @type app() :: Diacritical.app()
 
   @typedoc "Represents the configuration."
   @typedoc since: "0.3.0"
