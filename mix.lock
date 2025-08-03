@@ -374,6 +374,29 @@
     "hexpm",
     "754c8caf0d1332bc691f826d678b192b3f78cfeb01df2f623683e308b363dc41"
   },
+  phoenix_ecto: {
+    :hex,
+    :phoenix_ecto,
+    "4.6.5",
+    "c4ef322acd15a574a8b1a08eff0ee0a85e73096b53ce1403b6563709f15e1cea",
+    [:mix],
+    [
+      {:ecto, "~> 3.5", hex: :ecto, repo: "hexpm", optional: false},
+      {
+        :phoenix_html,
+        "~> 2.14.2 or ~> 3.0 or ~> 4.1",
+        [hex: :phoenix_html, repo: "hexpm", optional: true]
+      },
+      {:plug, "~> 1.9", hex: :plug, repo: "hexpm", optional: false},
+      {
+        :postgrex,
+        "~> 0.16 or ~> 1.0",
+        [hex: :postgrex, repo: "hexpm", optional: true]
+      }
+    ],
+    "hexpm",
+    "26ec3208eef407f31b748cadd044045c6fd485fbff168e35963d2f9dfff28d4b"
+  },
   phoenix_html: {
     :hex,
     :phoenix_html,

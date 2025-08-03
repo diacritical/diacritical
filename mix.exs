@@ -151,6 +151,7 @@ defmodule DiacriticalApp.MixProject do
         {:esbuild, "~> 0.10", runtime: env == :dev},
         {:ex_doc, "~> 0.38", only: :dev, runtime: false},
         {:phoenix, "~> 1.8-rc"},
+        {:phoenix_ecto, "~> 4.6"},
         {:phoenix_html, "~> 4.2"},
         {:phoenix_live_reload, "~> 1.6", runtime: env == :dev},
         {:phoenix_live_view, "~> 1.1"},
